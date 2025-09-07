@@ -1,0 +1,9 @@
+**--- Notes from W01 exercises ---**
+
+What details do we think would be important for setting up Use Cases?
+* What are the users of the system?
+* Communication between different parts of the system. Also local vs. remote communication.
+* How are the qualities (dependability, trustworthiness etc.) guaranteed? Is the workflow 'checked' somewhere?
+* Which components are responsible for coordination, and how do they do it?
+* How does the system handle errors?
+**What about optimization? Is this part of the general workflow? Is it relevant for Use Case? Ask TA about this.

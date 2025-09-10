@@ -1,0 +1,57 @@
+**-- Use cases --**
+
+We use the example presented in the exercises/lectures (See lecture 2 - complex systems page 14 on Itslearning)
+
+Assumptions:
+- We assume that once a production run starts, the product is assembled solely by robots. There are no humans involved in the physical assembly of products.
+- We assume a singly factory has multiple assembly stations (i.e. magnetic transport tracks and production cells), as well as multiple mobile robots (for delivering materials)
+- We assume the system might face the following challenges:
+	* Hardware failure
+	* Deadlocks (i.e. failed coordination in production)
+	* Internet outage
+	* Physical products get stuck, blocking the system
+	* System is hacked
+	* Messages between components are lost (communication fails)
+
+-- Use cases --
+Use Case Name: Abort production run
+Actors: Production Manager, Production Scheduler
+Preconditions: Production is running
+Steps:
+1. Production Manager logs into the production software.
+2. Production Manager selects the ”Manage Production Run” option.
+3. Production Scheduler fetches overview of production
+4. Production Manager selects the ”Stop Production Run” option.
+5. Production Scheduler confirms the abort, and notifies related components
+6. Components abort their current tasks, and return to default state.
+Postconditions: Production run is aborted, and all affected components return to default state.
+
+Use Case Name: Check status of active production run
+Actors: Production Manager,
+Preconditions:
+Steps:
+Postconditions:
+
+Use Case Name: Schedule maintenance
+Actors: Production Manager,
+Preconditions:
+Steps:
+Postconditions:
+
+Use Case Name: Re-Schedule Production Run
+Actors: Production Manager, Production Scheduler
+Preconditions:
+Steps:
+Postconditions:
+
+Use Case Name: Create new production run
+Actors: Production Manager,
+Preconditions:
+Steps:
+Postconditions:
+
+Use Case Name: Execute production run
+Actors: Production Manager, Production Scheduler
+Preconditions:
+Steps:
+Postconditions:

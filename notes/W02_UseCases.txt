@@ -2,6 +2,8 @@
 
 We use the example presented in the exercises/lectures (See lecture 2 - complex systems page 14 on Itslearning)
 
+We will be working with car production. 
+
 Assumptions:
 - We assume that once a production run starts, the product is assembled solely by robots. (we want to isolate the system from human interruption, besides the control panel). There are no humans involved in the physical assembly of products.
 //- We assume a single factory has multiple assembly stations (i.e. magnetic transport tracks and production cells), as well as multiple mobile robots (for delivering materials) (ask teacher)

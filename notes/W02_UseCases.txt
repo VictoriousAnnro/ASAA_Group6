@@ -54,26 +54,56 @@ Postconditions: Components continue running, until the scheduled maintenance dat
 
 QA: same QA as above
 Use Case Name: Schedule software update
+Actors: Production Manager, Production Scheduler
+Preconditions: Production is running
+Steps:
+1. Production Manager logs into the production software.
+2. Production Manager selects the ”Manage Production Run” option.
+3. Production Scheduler fetches overview of production
+4. Production Manager selects the ”Schedule software update” option.
+5. Production Scheduler confirms the date, and notifies related components.
+Postconditions: Components continue running, until the scheduled maintenance date.
 
 QA: "Ease at which system supports change" (and maybe "how easy it is for user to accomplish task")
 Use Case Name: Re-Schedule Production Run
 Actors: Production Manager, Production Scheduler
-Preconditions:
+Preconditions: The production order exists and has been verified, and has already been scheduled in the system
 Steps:
-Postconditions:
+1. Production Manager logs into the production software.
+2. Production Manager selects the ”Manage Production Run” option.
+3. Production Manager selects the ”Re-Schedule Production Run” option.
+4. Production Scheduler fetches the scheduled production runs, available timeslots and resources.
+5. Production Manager moves the scheduled production run to an available timeslot
+6. Production Scheduler confirms the schedule and notifies related components.
+Postconditions: The production run is re-scheduled, and all affected components are notified.
 
-QA: 
+QA: "protect data/information from people without authorization", "system supports change", "how easy is it for user to accomplish task"
 Use Case Name: Create new production run 
-Actors: Production Manager,
-Preconditions:
+Actors: Production Manager, (Production Verifier)
+Preconditions: The production order does not exists in the system
 Steps:
-Postconditions:
+1. Production Manager logs into the production software.
+2. Production Manager selects the ”Create new Production Order” option.
+3. The system displayes the configurable components (such as the drones, robot arms, etc). 
+4. Production Manager configueres each component, to set up the production order, and selects resources
+5. The production verifier verifies the steps and specified resources of the production order
+6. Production Manager confirms the order, which is then saved in the system
+Postconditions: A new production order has been verified and exists in system
 
-Use Case Name: Execute production run
+QA: "Avoid straying into states that lead to damage/death", "easy for user to accomplish task", "operational when needed"
+Use Case Name: Manually execute production run
 Actors: Production Manager, Production Scheduler
-Preconditions: The specified production order exists and is verified & is currently not running
+Preconditions: The specified production order exists and is verified & no production run is currently running
 Steps:
-Postconditions:
+1. Production Manager logs into the production software.
+2. Production Manager selects the ”Manage Production Run” option.
+3. Production Manager selects the ”Run Production Run now” option.
+4. Production Scheduler fetches saved production orders
+5. Production Manager selects the desired Production Order
+6. Production Scheduler checks there are enough resources (raw materials) to fulfill the Production Order.
+7. Production Scheduler verifies that the affected components are available for the required time.
+8. Production Scheduler confirms the run and notifies related components.
+Postconditions: A new production order is running
 
 
 teachers example: We produce this product in three variations - we would like to change these variations. 

@@ -1,0 +1,19 @@
+Exercises 3
+
+1. Identifying Systems and Sub-systems
+
+Examine context (important details):
+- Hardware components need to be available 24/7 
+- Software components need to be available 24/7
+- Some sort of authorization component (example: an engineer may not create production orders, but can schedule maintenance)
+
+
+
+Identify systems & sub-systems: 
+*Evaluate and choose a method for system and subsystem communication.*
+- Internet of things (like drone communication)
+- Production Management System
+- Supply Chain Management System
+- Advanced Robotics and Automation (robot arms, production orders, etc.)
+- Database 
+  - different databases (one for production orders, one for logs, etc.)

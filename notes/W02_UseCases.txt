@@ -3,15 +3,16 @@
 We use the example presented in the exercises/lectures (See lecture 2 - complex systems page 14 on Itslearning)
 
 Assumptions:
-- We assume that once a production run starts, the product is assembled solely by robots. There are no humans involved in the physical assembly of products.
-- We assume a single factory has multiple assembly stations (i.e. magnetic transport tracks and production cells), as well as multiple mobile robots (for delivering materials)
+- We assume that once a production run starts, the product is assembled solely by robots. (we want to isolate the system from human interruption, besides the control panel). There are no humans involved in the physical assembly of products.
+//- We assume a single factory has multiple assembly stations (i.e. magnetic transport tracks and production cells), as well as multiple mobile robots (for delivering materials) (ask teacher)
 - We assume the system might face the following challenges:
 	* Hardware failure
-	* Deadlocks (i.e. failed coordination in production)
-	* Internet outage
+	* Deadlocks (i.e. failed coordination in production - because of logical error in production run instructions)
+	* Internet and/or electricity outage (other external factors)
 	* Physical products get stuck, blocking the system
 	* System is hacked
 	* Messages between components are lost (communication fails)
+	* Failure stemming from software updates disrupting the production run (methods might get deprecated)
 
 -- Use cases --
 Use Case Name: Abort production run
@@ -26,14 +27,14 @@ Steps:
 6. Components abort their current tasks, and return to default state.
 Postconditions: Production run is aborted, and all affected components return to default state.
 
-Use Case Name: Check status of active production run
+/* Use Case Name: Check status of active production run 
 Actors: Production Manager,
 Preconditions: Production is running
 Steps:
 1. Production Manager logs into the production software.
 2. Production Mangager selects "Check status" option.
 3. Production Manager fetches a status on the production and verifies it.
-Postconditions: Production continues running, without interruptions. 
+Postconditions: Production continues running, without interruptions. */
 
 Use Case Name: Schedule maintenance
 Actors: Production Manager, Production Scheduler
@@ -60,6 +61,6 @@ Postconditions:
 
 Use Case Name: Execute production run
 Actors: Production Manager, Production Scheduler
-Preconditions:
+Preconditions: The specified production order exists and is verified & is currently not running
 Steps:
 Postconditions:

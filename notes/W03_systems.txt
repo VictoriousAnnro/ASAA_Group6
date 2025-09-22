@@ -11,6 +11,47 @@ Examine context (important details):
 
 Identify systems & sub-systems: 
 *Evaluate and choose a method for system and subsystem communication.*
+
+--Enterprise Systems--
+ERP (Enterprise Resource Planning)
+Purpose: Manage orders, supply chain, and financials
+Subsystems: Order management, inventory management
+
+PLM (Product Lifecycle Management)
+Purpose: Manage BOMs, and variants
+Subsystems: Version control, change management
+
+--Production Management Systems--
+MES (Manufacturing Execution System)
+Purpose: Coordinate production runs, track Work in Progress
+Subsystems: Scheduling, order management
+
+APS (Advanced Planning & Scheduling)
+Purpose: Optimize production sequences and resource allocation.
+Subsystems: Sequencer, constraint solver, simulation engine.
+
+--Shop-Floor Control Systems--
+Automation & Control Layer
+Purpose: Execute operations via industrial controllers.
+Subsystems: PLCs (Programmable Logic Controllers), SCADA (Supervisory Control and Data Acquisition), HMI (Human-Machine Interfaces).
+
+Robotics & Actuation
+Purpose: Physical assembly, handling, welding, painting.
+Subsystems: Robot controllers, actuators, conveyors.
+
+--Security & Compliance Systems--
+Purpose: Ensure safe and authorized operation of the factory
+Subsystems: Authentication & RBAC, audit logging, network segmentation, intrusion detection
+
+--Integration & Data Systems--
+Middleware
+Purpose: Bridge OT and IT layers.
+Subsystems:
+
+Data Management
+Purpose: Store, process, and analyze data.
+Subsystems: 
+
 - Internet of things (like drone communication)
 - Production Management System
 - Supply Chain Management System

@@ -107,6 +107,18 @@ Steps:
 8. Production Scheduler confirms the run and notifies related components.
 Postconditions: A new production order is running
 
+QA: Security, flexibility?, usability, correctness?
+Use Case Name: Customer places an order
+Actors: Customer, Web Server
+Preconditions: The chosen car can be customized before purchase
+Steps:
+1. Customer accesses company website
+2. Customer choses their preferred car 
+3. Web Server queries the database for the chosen model, and fetches available customization options
+4. Customer chooses their preferred customizations (**should we specify WHAT customizations the customer picks?**)
+5. Customer places the order
+6. Web Server saves the order in the database system
+Postconditions: A new customer order is saved in the database
 
 teachers example: We produce this product in three variations - we would like to change these variations. 
 availability: my system should be available 99.9999% of the time. What system might be affected by this, and how can i create a use case that tests this?

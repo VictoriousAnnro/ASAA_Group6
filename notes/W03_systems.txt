@@ -58,3 +58,25 @@ Subsystems:
 - Advanced Robotics and Automation (robot arms, production orders, etc.)
 - Database 
   - different databases (one for production orders, one for logs, etc.)
+
+--Meeting 22nd September--
+- Data Management System
+  * Data Storage subsystem
+  * Data Security subsystem (to authenticate the user requesting something with the data)**
+
+- Production Management System
+  * Scheduling Subsystem
+  * Monitoring Subsystem (maybe something about the VIN-number assigned to each car. Monitoring machines and/or status of each car)
+  * Customer Reporting (keep track of customers' order, and notify customer when order is ready)
+
+- Web Service System
+  * Web Application subsystem (the website the customer uses)
+
+Questions:
+- Use case, is the current focus correct? We're focusing a lot on production and the production manager as an actor. Only one use case with customer.
+Do they cover the scope we need for this architecture?
+- use case, do we need to specify the modification the customer makes to the product?
+- QAs with ?-marks 
+- Our current identified systems & sub-systems, are they correct? Are we going in the right direction? Are we abstracting/simplifying too much, do we need more detail or not?
+- Do we need more systems & sub-systems, or are our current enough?
+- When is something 'big enough' to be considered a subsystem, rather than just a feature of the system? Fx the security subsystem - should we have that as a subsystem?

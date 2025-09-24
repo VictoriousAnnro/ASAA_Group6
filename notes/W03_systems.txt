@@ -7,79 +7,34 @@ Examine context (important details):
 - Software components need to be available 24/7
 - Some sort of authorization component (example: an engineer may not create production orders, but can schedule maintenance)
 
-
-
 Identify systems & sub-systems: 
 *Evaluate and choose a method for system and subsystem communication.*
 
---Enterprise Systems--
-ERP (Enterprise Resource Planning)
-Purpose: Manage orders, supply chain, and financials
-Subsystems: Order management, inventory management
-
-PLM (Product Lifecycle Management)
-Purpose: Manage BOMs, and variants
-Subsystems: Version control, change management
-
---Production Management Systems--
-MES (Manufacturing Execution System)
-Purpose: Coordinate production runs, track Work in Progress
-Subsystems: Scheduling, order management
-
-APS (Advanced Planning & Scheduling)
-Purpose: Optimize production sequences and resource allocation.
-Subsystems: Sequencer, constraint solver, simulation engine.
-
---Shop-Floor Control Systems--
-Automation & Control Layer
-Purpose: Execute operations via industrial controllers.
-Subsystems: PLCs (Programmable Logic Controllers), SCADA (Supervisory Control and Data Acquisition), HMI (Human-Machine Interfaces).
-
-Robotics & Actuation
-Purpose: Physical assembly, handling, welding, painting.
-Subsystems: Robot controllers, actuators, conveyors.
-
---Security & Compliance Systems--
-Purpose: Ensure safe and authorized operation of the factory
-Subsystems: Authentication & RBAC, audit logging, network segmentation, intrusion detection
-
---Integration & Data Systems--
-Middleware
-Purpose: Bridge OT and IT layers.
-Subsystems:
-
-Data Management
-Purpose: Store, process, and analyze data.
-Subsystems: 
-
-- Internet of things (like drone communication)
-- Production Management System
-- Supply Chain Management System
-- Advanced Robotics and Automation (robot arms, production orders, etc.)
-- Database 
-  - different databases (one for production orders, one for logs, etc.)
-
 --Meeting 22nd September--
+(if it has an impact on architectural idea, then its a good idea to keep, otherwise out of scope)
 - Data Management System
-  * Data Storage subsystem
-  //////* Data Security subsystem (to authenticate the user requesting something with the data)** more like a quality of system.
+  * Data Storage subsystem (System logs, orders, etc.)
 
 - Production Management System
   * Scheduling Subsystem (keep track of which machine does what and when)
     *Drone Subsystem (up to you, depending on how you make it. You decide level of abstraction. You can facilitate the experiment on the level you choose. You can focus on the machines, like 10 subsystems in a machine, or you can do high-level where you see the entire production floor as your system. One group last year did a juice machine, where they just focused on one juice machine. Each system was a part of the machine, like a peeler-system and such)
     * Robotarm Subsystems
   * Monitoring Subsystem (Monitoring each component of the system, so like the drone, and the robot arms. ...maybe something about the VIN-number assigned to each car. Monitoring machines and/or status of each car)
-  ///////* Customer Reporting (keep track of customers' order, and notify customer when order is ready) - if it has an impact on architectural idea, then its a good idea to keep, otherwise out of scope
 
 - Web Service System
   * Web Application subsystem (the website the customer uses) (if not significant for the architecture you want to raise, then just simulate web appl, like a json script)
-(how strict are they abt 3 primary? ask the lecturer. TA says sub-subsystem might be complex enough but not sure)
+(how strict are they abt 3 primary systems? ask the lecturer! TA says sub-subsystem in Production Management System might be complex enough but not sure)
 
 Questions:
 - Use case, is the current focus correct? We're focusing a lot on production and the production manager as an actor. Only one use case with customer.
 Do they cover the scope we need for this architecture?
+Answer: We define the scope. Since we want to focus on the more high-level architecture, its fine that we focus on the manager.
+
 - use case, do we need to specify the modification the customer makes to the product?
-- QAs with ?-marks 
+Answer: We decide. We can just do something basic like color.
+
 - Our current identified systems & sub-systems, are they correct? Are we going in the right direction? Are we abstracting/simplifying too much, do we need more detail or not?
-- Do we need more systems & sub-systems, or are our current enough?
+Answer: We decide! We focusing on high-level architecture. However, if we decide to just simulate the web application, then we should almost definietly make sub-subsystems for the components on the production floor, like the drone and robot arms. 
+
 - When is something 'big enough' to be considered a subsystem, rather than just a feature of the system? Fx the security subsystem - should we have that as a subsystem?
+Answer: We decide. One group focused on one single juice-pressing machine, and then divided different parts of that single machine into systems and subsystems (like the peeler, the component that removed the seeds, the presser, etc.)

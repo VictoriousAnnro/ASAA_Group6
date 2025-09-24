@@ -36,7 +36,7 @@ https://www.geeksforgeeks.org/software-engineering/types-of-software-architectur
 **Before eliciting requirements, you define the scope of your proposed system. Clearly delineate the system's boundaries, identifying its primary functionalities, target users, and interactions with external systems or environments. This definition is a crucial prerequisite for the subsequent requirements engineering phase.
 Refer to slide pp58.**
 
-The scope of the system: The website, Production Manager console and the production floor. See picture XXX 
+The scope of the system: The website, Production Manager console and the production floor. See picture systemDrawing.jpg 
 System's boundaries: (what is going on in each system? which part of each system is important for us?)
 * Manager Console: Scheduling, monitoring, starting/stopping production run, create production order
 * Website: Placing an order, saving it to database

@@ -19,14 +19,47 @@ the customer to chose some customizations for their desired car.
 Modifiability: Since drones and robot arms are separate subsystems, they can easily be modified independently, where - for example - new features can be
 added to the drone, without modifying other parts of the overall system.
 
+**TA message from teacher**
+You are free to defien a high-level abstracxct design of your case, that you can work on. Don't think about implementation details, think overall structure and how they communicate.
+************************
+
 
 2. System Scope definition
 **Before eliciting requirements, you define the scope of your proposed system. Clearly delineate the system's boundaries, identifying its primary functionalities, target users, and interactions with external systems or environments. This definition is a crucial prerequisite for the subsequent requirements engineering phase.
 Refer to slide pp58.**
 
+The scope of the system: The website, Production Manager console and the production floor.
+System's boundaries: (what is going on in each system? which part of each system is important for us?)
+* Manager Console: Scheduling & monitoring
+* Website: Placing an order, saving it to database
+* Database: Storing data, modifying data, deleting data, quering data
+* Production floor: Moving materials/parts, assembling the car
 
+Relevant stakeholders: Customer, Product Manager
 
 3. Requirements Elicitation and Specification
+**Conduct a comprehensive requirements elicitation process for your case study. Formulate a detailed set of requirements, distinguishing between:
+• Functional Requirements: What the system must do.
+• Non-Functional Requirements (Quality Attributes): How the system must be (e.g., usability, reliability, performance, security, etc).
+• Ensure your requirements are specific, measurable, and unambiguous.
+Refer to slide pp57 – pp58.**
+
+Functional Requirements:
+* Customer should be able to order a car through the website
+* Customer should be able to customize the car, before ordering it
+* Product Manager should be able to log in to the Manager Console with a username and password
+* Product Manager should be able to monitor the current status of the production floor
+* Product Manager should be able to see an overview of the scheduled production runs
+* Product Manager should be able to schedule a production run
+* Product Manager should be able to re-schedule a production run
+* Product Manager should be able to abort a currently running production
+* Product Manager should be able to schedule maintenance for the production floor
+* Product Manager should be able to schedule a software update for the system
+* Product Manager should be able to define a new production run to be saved in the system
+* Product Manager should be able to manually start the execution of a production run
+
+Non-Functional Requirements:
+* 
 
 4. Feature Modeling
 

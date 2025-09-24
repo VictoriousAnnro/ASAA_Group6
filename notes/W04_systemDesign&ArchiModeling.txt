@@ -1,0 +1,35 @@
+1. Design Rationale and Justification
+**Articulate the rationale behind your proposed system design. Justify its efficacy by evaluating how it addresses the core problem 
+and meets key quality attributes (e.g., performance, security, modifiability). Delineate the specific architectural patterns, 
+design principles, and components your design incorporates to achieve these goals.
+Refer to lecture slide pp17, pp58.**
+
+Our core problem is that we want to produce cars. We want to be able to do this in an effecient, timely and non-costly manner, with the ability for
+the customer to chose some customizations for their desired car.
+--Ideas for Design Patterns--
+* Mediator (a layer between the manager panel, and the production floor parts like drone and robotarms, etc.) Promotes loose coupling
+* Proxy (a placeholder for the database, so that other parts can interact with the database through the placeholder)
+* Adapter (for handling components with different communication protocols and such)
+
+--Ideas for Architectural Patterns--
+* Client-Server for the web application
+* Master-slave Architecture pattern for manager console and the production floor components
+
+--Key quality attributes--
+Modifiability: Since drones and robot arms are separate subsystems, they can easily be modified independently, where - for example - new features can be
+added to the drone, without modifying other parts of the overall system.
+
+
+2. System Scope definition
+**Before eliciting requirements, you define the scope of your proposed system. Clearly delineate the system's boundaries, identifying its primary functionalities, target users, and interactions with external systems or environments. This definition is a crucial prerequisite for the subsequent requirements engineering phase.
+Refer to slide pp58.**
+
+
+
+3. Requirements Elicitation and Specification
+
+4. Feature Modeling
+
+5. Structural Architecture Modeling
+
+6. Requirements Traceability

@@ -4,33 +4,41 @@ and meets key quality attributes (e.g., performance, security, modifiability). D
 design principles, and components your design incorporates to achieve these goals.
 Refer to lecture slide pp17, pp58.**
 
+Many people were confused about how we can define our rationale for our system design, as we haven't chosen it yet. The TA asked the teacher, who answered; "You are free to define a high-level abstracxct design of your case, that you can work on. Don't think about implementation details, think overall structure and how they communicate."
+
 Our core problem is that we want to produce cars. We want to be able to do this in an effecient, timely and non-costly manner, with the ability for
 the customer to chose some customizations for their desired car.
---Ideas for Design Patterns--
-* Mediator (a layer between the manager panel, and the production floor parts like drone and robotarms, etc.) Promotes loose coupling
-* Proxy (a placeholder for the database, so that other parts can interact with the database through the placeholder)
-* Adapter (for handling components with different communication protocols and such)
 
 --Ideas for Architectural Patterns--
 * Client-Server for the web application
+  - Scalability: Server can be scaled to handle more requests
+  - Security: easier to implement security measures due to centralized management in server
+
+* Layered Architecture Pattern for the whole system
+  - Maintainability: Changes in one layer doesn't (always) affect the other layers.
+   Scalability: Each layer can be scaled independently 
+
 * Master-slave Architecture pattern for manager console and the production floor components
+  - Scalability: More 'slaves' can be added easily to handle workload
+  - Performance: 'Slaves' can execute tasks in parallel
 
---Key quality attributes--
-Modifiability: Since drones and robot arms are separate subsystems, they can easily be modified independently, where - for example - new features can be
-added to the drone, without modifying other parts of the overall system.
+See this link for explanation of architectural patterns:
+https://www.geeksforgeeks.org/software-engineering/types-of-software-architecture-patterns/
 
-**TA message from teacher**
-You are free to defien a high-level abstracxct design of your case, that you can work on. Don't think about implementation details, think overall structure and how they communicate.
-************************
+--Ideas for Design Patterns (NOT RELEVANT FOR THIS!!)--
+* Mediator (a layer between the manager panel, and the production floor parts like drone and robotarms, etc.) Promotes loose coupling
+* Proxy (a placeholder for the database, so that other parts can interact with the database through the placeholder)
+* Adapter (for handling components with different communication protocols and such)
+-------------------------------------------------------
 
 
 2. System Scope definition
 **Before eliciting requirements, you define the scope of your proposed system. Clearly delineate the system's boundaries, identifying its primary functionalities, target users, and interactions with external systems or environments. This definition is a crucial prerequisite for the subsequent requirements engineering phase.
 Refer to slide pp58.**
 
-The scope of the system: The website, Production Manager console and the production floor.
+The scope of the system: The website, Production Manager console and the production floor. See picture XXX 
 System's boundaries: (what is going on in each system? which part of each system is important for us?)
-* Manager Console: Scheduling & monitoring
+* Manager Console: Scheduling, monitoring, starting/stopping production run, create production order
 * Website: Placing an order, saving it to database
 * Database: Storing data, modifying data, deleting data, quering data
 * Production floor: Moving materials/parts, assembling the car
@@ -62,8 +70,22 @@ Non-Functional Requirements:
 * The system should be able to communicate and coordinate between components to successfully execute a production
 * The production software must have an uptime of 99.80%
 
+(Look at the system requirements in the case study slides. Also think about the quality attributes relevant for our use cases. How can we
+create non-func requirements that can be used to measure these? What metrics do we use to measure?)
+
 4. Feature Modeling
+**Conceptualize and construct a feature model to represent the system's functionalities and variabilities. Your model can use standard notation to clearly depict the hierarchy and relationships between features, including, e.g., mandatory features, optional features, alternative (XOR), inclusive (OR) feature groups.
+Refer to slide pp 45 – pp50, pp60.**
 
 5. Structural Architecture Modeling
+**Decompose the system into its constituent subsystems and components. Develop structural architectural models at two distinct levels of abstraction:
+• Analysis-Level Architecture: A high-level model focusing on the system's logical organization. It should define the primary subsystems and their core responsibilities and interactions.
+• Design-Level Architecture: A more concrete model detailing the specific components, their interfaces, and the protocols governing their interconnections. This model serves as a blueprint for implementation.
+Refer to slide pp51 – pp55, pp60 – pp71 (HW architecture model is optional).**
 
 6. Requirements Traceability
+**Establish traceability links from your elicited requirements to the elements in your models. Create a traceability matrix/table or use annotations to demonstrate how each requirement is:
+• Used by one or more features in your feature model.
+• Realized by specific subsystems or components in your analysis- and design-level architectural models.
+This mapping is critical for verifying design completeness and managing system evolution.
+Refer to slide pp60 – pp71 (HW architecture mode is optional).**

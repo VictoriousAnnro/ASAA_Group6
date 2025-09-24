@@ -62,15 +62,17 @@ Subsystems:
 --Meeting 22nd September--
 - Data Management System
   * Data Storage subsystem
-  * Data Security subsystem (to authenticate the user requesting something with the data)**
+  * Data Security subsystem (to authenticate the user requesting something with the data)** more like a quality of system.
 
 - Production Management System
-  * Scheduling Subsystem
+  * Scheduling Subsystem (keep track of which machine does what and when)
+    *hardware subsystems (up to you, depending on how you make it. You decide level of abstraction. You can facilitate the experiment on the level you choose. You can focus on the machines, like 10 subsystems in a machine, or you can do high-level where you see the entire production floor as your system. One group last year did a juice machine, where they just focused on one juice machine. Each system was a part of the machine, like a peeler-system and such)
   * Monitoring Subsystem (maybe something about the VIN-number assigned to each car. Monitoring machines and/or status of each car)
-  * Customer Reporting (keep track of customers' order, and notify customer when order is ready)
+  * Customer Reporting (keep track of customers' order, and notify customer when order is ready) - if it has an impact on architectural idea, then its a good idea to keep, otherwise out of scope
 
 - Web Service System
-  * Web Application subsystem (the website the customer uses)
+  * Web Application subsystem (the website the customer uses) (if not significant for the architecture you want to raise, then just simulate web appl, like a json script)
+(how strict are they abt 3 primary? ask the lecturer. TA says sub-subsystem might be complex enough but not sure)
 
 Questions:
 - Use case, is the current focus correct? We're focusing a lot on production and the production manager as an actor. Only one use case with customer.

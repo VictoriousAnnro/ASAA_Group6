@@ -59,7 +59,8 @@ Functional Requirements:
 * Product Manager should be able to manually start the execution of a production run
 
 Non-Functional Requirements:
-* 
+* The system should be able to communicate and coordinate between components to successfully execute a production
+* The production software must have an uptime of 99.80%
 
 4. Feature Modeling
 

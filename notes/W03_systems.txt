@@ -23,7 +23,8 @@ Identify systems & sub-systems:
 
 - Web Service System
   * Web Application subsystem (the website the customer uses) (if not significant for the architecture you want to raise, then just simulate web appl, like a json script)
-(how strict are they abt 3 primary systems? ask the lecturer! TA says sub-subsystem in Production Management System might be complex enough but not sure)
+(how strict are they abt 3 primary systems? ask the lecturer! TA says sub-subsystem in Production Management System might be complex enough but not sure).
+***Eun-Young's answer: Yes, if we have the sub-subsystems under Production Management System, the system IS complex enough, even if we just 'simulate' the web service. HOWEVER, we need to make it clear in the report, that the web service system is JUST simulated, not actually fully implemented.
 
 Questions:
 - Use case, is the current focus correct? We're focusing a lot on production and the production manager as an actor. Only one use case with customer.

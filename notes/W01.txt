@@ -7,3 +7,10 @@ What details do we think would be important for setting up Use Cases?
 * Which components are responsible for coordination, and how do they do it?
 * How does the system handle errors?
 **What about optimization? Is this part of the general workflow? Is it relevant for Use Case? Ask TA about this.
+
+* Description of domain
+Our project is about car manufacturing. We have a website, where customers can order cars, and have the option to modify their chosen car to some extent. We then have the production facility, inspired by the case presented in the lecture.
+Assumptions: 
+These following assumptions are purely related to the scope of the project - we're putting some boundaries for our system
+- We assume that the production facility is quite small, featuring only one assembly station, meaning one structure containing materials and parts, a drone that transports these things to the conveyor belt, the conveyor belt itself, some robot arms that assembly the cars, and an 'output' station, where the finished cars end up.
+- The website is very simple, only allowing customers to place an order.

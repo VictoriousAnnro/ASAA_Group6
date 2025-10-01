@@ -6,7 +6,6 @@ We will be working with car production.
 
 Assumptions:
 - We assume that once a production run starts, the product is assembled solely by robots. (we want to isolate the system from human interruption, besides the control panel). There are no humans involved in the physical assembly of products.
-//- We assume a single factory has multiple assembly stations (i.e. magnetic transport tracks and production cells), as well as multiple mobile robots (for delivering materials) (ask teacher)
 - We assume system is modular, so it's not necessary to shut the whole system down when performing maintenance on a part of it (like hardware maintenance), or even system updates (narrowing scope)
 - We assume the system might face the following challenges:
 	* Hardware failure
@@ -31,17 +30,20 @@ Steps:
 6. Components abort their current tasks, and return to default state.
 Postconditions: Production run is aborted, and all affected components return to default state.
 
-QA: "concerned with the ease which software can be made to demonstrate its fault"
-Use Case Name: Check status of active production run (check alerts)
-Actors: Production Manager,
-Preconditions: Production is running
+QA: "concerned with the ease which software can be made to demonstrate its fault" - Testability
+Use Case Name: Check status of production floor components
+Actors: Production Manager, Monitoring System
+Preconditions: Production is running, a component on the production floor is not acting as expected
 Steps:
 1. Production Manager logs into the production software.
 2. Production Mangager selects "Check status" option.
-3. Production Manager fetches a status on the production and verifies it.
-Postconditions: Production continues running, without interruptions.
+3. Monitoring System fetches logs and current status from each components on the production floor.
+4. Production Manager checks the logs and current status of the faulty component
+5. Production Manager pauses the component to get it fixed
+6. When component is fixed, Production Manager un-pauses the component
+Postconditions: Affected component is acting as expected.
 
-QA: "Concerned with ease at which system supports change"
+QA: "Concerned with ease at which system supports change" - Modifiability
 *Assumption: when doing hardware maintenance, only the relevant parts are turned off, not the whole production line.
 Use Case Name: Schedule hardware maintenance
 Actors: Production Manager, Production Scheduler
@@ -66,7 +68,7 @@ Steps:
 5. Production Scheduler confirms the date, and notifies related components.
 Postconditions: Components continue running, until the scheduled maintenance date.
 
-QA: "Ease at which system supports change" (and maybe "how easy it is for user to accomplish task")
+QA: "Ease at which system supports change" (and maybe "how easy it is for user to accomplish task") - Modifiability, Usability
 Use Case Name: Re-Schedule Production Run
 Actors: Production Manager, Production Scheduler
 Preconditions: The production order exists and has been verified, and has already been scheduled in the system
@@ -79,7 +81,7 @@ Steps:
 6. Production Scheduler confirms the schedule and notifies related components.
 Postconditions: The production run is re-scheduled, and all affected components are notified.
 
-QA: "protect data/information from people without authorization", "system supports change", "how easy is it for user to accomplish task"
+QA: "protect data/information from people without authorization", "system supports change", "how easy is it for user to accomplish task" - Security, Modifiability, Usability
 Use Case Name: Create new production run 
 Actors: Production Manager, (Production Verifier)
 Preconditions: The production order does not exists in the system
@@ -87,12 +89,12 @@ Steps:
 1. Production Manager logs into the production software.
 2. Production Manager selects the ”Create new Production Order” option.
 3. The system displayes the configurable components (such as the drones, robot arms, etc). 
-4. Production Manager configueres each component, to set up the production order, and selects resources
+4. Production Manager configures each component, to set up the production order, and selects resources
 5. The production verifier verifies the steps and specified resources of the production order
 6. Production Manager confirms the order, which is then saved in the system
 Postconditions: A new production order has been verified and exists in system
 
-QA: "Avoid straying into states that lead to damage/death", "easy for user to accomplish task", "operational when needed"
+QA: "Avoid straying into states that lead to damage/death", "easy for user to accomplish task", "operational when needed" - Safety, Usability, Availability
 Use Case Name: Manually execute production run
 Actors: Production Manager, Production Scheduler
 Preconditions: The specified production order exists and is verified & no production run is currently running
@@ -107,7 +109,7 @@ Steps:
 8. Production Scheduler confirms the run and notifies related components.
 Postconditions: A new production order is running
 
-QA: Security, flexibility?, usability, correctness?
+QA: Security, usability
 Use Case Name: Customer places an order
 Actors: Customer, Web Server
 Preconditions: The chosen car can be customized before purchase

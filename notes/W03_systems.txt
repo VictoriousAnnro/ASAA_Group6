@@ -18,10 +18,11 @@ Identify systems & sub-systems:
   * Data Storage subsystem (System logs, orders, etc.)
 
 - Production Management System
-  * Scheduling Subsystem (keep track of which machine does what and when)
+  * Scheduling Subsystem (keep track of which machine does what and when. Schedule full production runs, and 
+  coordinate hardware components during production)
     *Drone Subsystem (up to you, depending on how you make it. You decide level of abstraction. You can facilitate the experiment on the level you choose. You can focus on the machines, like 10 subsystems in a machine, or you can do high-level where you see the entire production floor as your system. One group last year did a juice machine, where they just focused on one juice machine. Each system was a part of the machine, like a peeler-system and such)
     * Robotarm Subsystems
-    * Conveoyr Belt Subsystem
+    * Conveyor Belt Subsystem
   * Monitoring Subsystem (Monitoring each component of the system, so like the drone, and the robot arms. Logs and 'current status')
 
 - Web Service System

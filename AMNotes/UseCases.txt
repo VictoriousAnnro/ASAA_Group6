@@ -1,30 +1,45 @@
-**-- Use cases --**
+* Description of domain
+Our project is about car manufacturing. We have a website, where customers can order cars, and have the option to modify their chosen car to some extent. We then have the production facility, inspired by the case presented in the lecture.
+Assumptions: 
+These following assumptions are purely related to the scope of the project - we're putting some boundaries for our system
+- We assume that the production facility is quite small, featuring only one assembly station, meaning one structure containing materials and parts, a drone that transports these things to the conveyor belt, the conveyor belt itself, some robot arms that assembly the cars, and an 'output' station, where the finished cars end up.
+- The website is very simple, only allowing customers to select a car, choose a few modifications, and place an order
+- One single production manager handles the production facility system
+- We assume that once a production run starts, the product is assembled solely by robots - so no humans are involved in assembling the cars.
+- We assume system is modular, so it's not necessary to shut the whole system down when performing maintenance on a part of it (like hardware maintenance), or even system updates
 
-We use the example presented in the exercises/lectures (See lecture 2 - complex systems page 14 on Itslearning)
-
-We will be working with car production. 
-
-Assumptions:
-- We assume that once a production run starts, the product is assembled solely by robots. (we want to isolate the system from human interruption, besides the control panel). There are no humans involved in the physical assembly of products.
-- We assume system is modular, so it's not necessary to shut the whole system down when performing maintenance on a part of it (like hardware maintenance), or even system updates (narrowing scope)
 - We assume the system might face the following challenges:
 	* Hardware failure
 	* Deadlocks (i.e. failed coordination in production - because of logical error in production run instructions)
-	* Internet and/or electricity outage (other external factors)
+	* Internet and/or electricity outage
 	* Physical products get stuck, blocking the system
-	* System is hacked
-	* Messages between components are lost (communication fails)
+	* Messages between components are lost
 	* Failure stemming from software updates disrupting the production run (methods might get deprecated)
 
--- Use cases --
-Quality attributes: Usability (ease of use)
+**--- Use cases ---**
+*I'm switching away from 'general production', and focusing on producing customer orders only. 
+This is to narrow the scope. TA said that such a system would still be complex enough*
+
+QA: Usability, Security, Availability
+Use Case Name: Schedule Production Run
+Actors: Production Manager, Production Scheduler
+Preconditions: The production order has been made by customer, and is stored in the database
+Steps:
+1. Production Manager logs into the production software.
+2. Production Manager selects the ”Schedule Production Run” option.
+3. Production Scheduler fetches customer-placed orders, available time slots and resources.
+4. Production Manager selects the customer order, an appropriate time slot and resources.
+5. Production Scheduler confirms the schedule and notifies related components.
+Postconditions: A production run is scheduled, and all affected components are notified.
+
+Quality attributes: Usability, Safety
 Use Case Name: Abort production run
 Actors: Production Manager, Production Scheduler
 Preconditions: Production is running
 Steps:
 1. Production Manager logs into the production software.
 2. Production Manager selects the ”Manage Production Run” option.
-3. Production Scheduler fetches overview of production
+3. Production Scheduler fetches overview of production.
 4. Production Manager selects the ”Stop Production Run” option.
 5. Production Scheduler confirms the abort, and notifies related components
 6. Components abort their current tasks, and return to default state.
@@ -44,7 +59,6 @@ Steps:
 Postconditions: Affected component is acting as expected.
 
 QA: "Concerned with ease at which system supports change" - Modifiability
-*Assumption: when doing hardware maintenance, only the relevant parts are turned off, not the whole production line.
 Use Case Name: Schedule hardware maintenance
 Actors: Production Manager, Production Scheduler
 Preconditions: Production is running
@@ -80,19 +94,6 @@ Steps:
 5. Production Manager moves the scheduled production run to an available timeslot
 6. Production Scheduler confirms the schedule and notifies related components.
 Postconditions: The production run is re-scheduled, and all affected components are notified.
-
-QA: "protect data/information from people without authorization", "system supports change", "how easy is it for user to accomplish task" - Security, Modifiability, Usability
-Use Case Name: Create new production run 
-Actors: Production Manager, (Production Verifier)
-Preconditions: The production order does not exists in the system
-Steps:
-1. Production Manager logs into the production software.
-2. Production Manager selects the ”Create new Production Order” option.
-3. The system displayes the configurable components (such as the drones, robot arms, etc). 
-4. Production Manager configures each component, to set up the production order, and selects resources
-5. The production verifier verifies the steps and specified resources of the production order
-6. Production Manager confirms the order, which is then saved in the system
-Postconditions: A new production order has been verified and exists in system
 
 QA: "Avoid straying into states that lead to damage/death", "easy for user to accomplish task", "operational when needed" - Safety, Usability, Availability
 Use Case Name: Manually execute production run

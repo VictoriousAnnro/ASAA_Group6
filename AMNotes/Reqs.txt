@@ -1,0 +1,47 @@
+2. System Scope definition
+**Before eliciting requirements, you define the scope of your proposed system. Clearly delineate the system's boundaries, identifying its primary functionalities, target users, and interactions with external systems or environments. This definition is a crucial prerequisite for the subsequent requirements engineering phase.
+Refer to slide pp58.**
+
+The scope of the system: The website, Production Manager console and the production floor. See picture systemDrawing.jpg 
+System's boundaries: (what is going on in each system? which part of each system is important for us?)
+* Manager Console: Scheduling, monitoring, starting/stopping production run
+* Website: Placing an order (customizable), saving order to database
+* Database: Storing data, deleting data, quering data
+* Production floor: Moving materials/parts, assembling the car
+
+Relevant stakeholders: Customer, Product Manager
+
+3. Requirements Elicitation and Specification
+Conduct a comprehensive requirements elicitation process for your case study. Formulate a detailed set of requirements, distinguishing between:
+• Functional Requirements: What the system must do.
+• Non-Functional Requirements (Quality Attributes): How the system must be (e.g., usability, reliability, performance, security, etc).
+• Ensure your requirements are specific, measurable, and unambiguous.
+Refer to slide pp57 – pp58.
+
+Functional Requirements:
+* Customer should be able to order a car through the website
+* Customer should be able to customize the car, before ordering it
+* Product Manager should be able to log in to the Manager Console with a username and password
+* Product Manager should be able to monitor the current status of the production floor
+* Product Manager should be able to pause components on the production floor, if the component needs fixing
+* Product Manager should be able to see an overview of the scheduled production runs
+* Product Manager should be able to schedule a production run
+* Product Manager should be able to re-schedule a production run
+* Product Manager should be able to abort a currently running production
+* Product Manager should be able to schedule maintenance for the production floor
+* Product Manager should be able to schedule a software update for the system
+* Product Manager should be able to manually start the execution of a production run
+
+Non-Functional Requirements:
+* The system should be able to communicate and coordinate between components to successfully produce a car
+* The production software must have an uptime of 99.80%
+* Customer should be able to place an order for a customized car within 7 clicks (VI skal kunne teste det. Prøv fx "indenfor 7 clicks skal jeg kunne køre production". Vi har lov til at definere hvad vi mener der gør det nemmere for brugere)
+* Any actor, who is not Production Manager, should never be able to schedule, abort or manually execute production runs. (eller fx access to critical operations should be behind authorization)
+* Production floor should be able to produce different variants of cars,....****
+
+Kriterier behøves ikke være numerisk målbare. Fomurlering for hvordan det vurderes skal bare være helt konkret. 
+***Usability, testability, modifiability, security, safety, availability (uptime)
+How can I measure these???
+
+(Look at the system requirements in the case study slides. Also think about the quality attributes relevant for our use cases. How can we
+create non-func requirements that can be used to measure these? What metrics do we use to measure?)

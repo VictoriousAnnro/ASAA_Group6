@@ -6,8 +6,7 @@ Refer to lecture slide pp17, pp58.**
 
 Many people were confused about how we can define our rationale for our system design, as we haven't chosen it yet. The TA asked the teacher, who answered; "You are free to define a high-level abstracxct design of your case, that you can work on. Don't think about implementation details, think overall structure and how they communicate."
 
-Our core problem is that we want to produce cars. We want to be able to do this in an effecient, timely and non-costly manner, with the ability for
-the customer to chose some customizations for their desired car.
+Our core problem is that we want to produce cars. We want to be able to do this in an effecient, timely and non-costly manner, with the ability for the customer to chose some customizations for their desired car.
 
 --Ideas for Architectural Patterns--
 * Client-Server for the web application
@@ -52,11 +51,14 @@ Relevant stakeholders: Customer, Product Manager
 • Ensure your requirements are specific, measurable, and unambiguous.
 Refer to slide pp57 – pp58.**
 
+*** Write WHY each requirement was created!
+
 Functional Requirements:
 * Customer should be able to order a car through the website
 * Customer should be able to customize the car, before ordering it
 * Product Manager should be able to log in to the Manager Console with a username and password
 * Product Manager should be able to monitor the current status of the production floor
+* Product Manager should be able to pause components on the production floor, if the component needs fixing
 * Product Manager should be able to see an overview of the scheduled production runs
 * Product Manager should be able to schedule a production run
 * Product Manager should be able to re-schedule a production run
@@ -67,8 +69,16 @@ Functional Requirements:
 * Product Manager should be able to manually start the execution of a production run
 
 Non-Functional Requirements:
-* The system should be able to communicate and coordinate between components to successfully execute a production
+* The system should be able to communicate and coordinate between components to successfully produce a car
 * The production software must have an uptime of 99.80%
+* 7/10 users of the system should think it's easy to use (svært for OS at teste.
+Prøv fx "indenfor 7 clicks skal jeg kunne køre production". Vi har lov til at definere hvad vi mener der gør det nemmere for brugere)
+* Any actor, who is not Production Manager, should never be able to schedule, abort or manually execute production runs. (eller fx access to critical operations should be behinde authorization)
+* 
+
+Kriterier behøves ikke være numerisk målbare. Fomurlering for hvordan det vurderes skal bare være helt konkret. 
+***Usability, testability, modifiability, security, safety, availability (uptime)
+How can I measure these???
 
 (Look at the system requirements in the case study slides. Also think about the quality attributes relevant for our use cases. How can we
 create non-func requirements that can be used to measure these? What metrics do we use to measure?)

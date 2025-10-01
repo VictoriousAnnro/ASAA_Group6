@@ -1,0 +1,334 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:143.0) Gecko/20100101 Firefox/143.0" version="28.2.5">
+  <diagram name="Page-1" id="c8BXnkDolNiKMapo78cJ">
+    <mxGraphModel dx="1901" dy="634" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="t_5J-x8RP_Ou-l33-hxp-5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="t_5J-x8RP_Ou-l33-hxp-1" target="t_5J-x8RP_Ou-l33-hxp-4" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t_5J-x8RP_Ou-l33-hxp-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="t_5J-x8RP_Ou-l33-hxp-1" target="t_5J-x8RP_Ou-l33-hxp-6" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t_5J-x8RP_Ou-l33-hxp-1" value="Production Management System" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="150" y="30" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="t_5J-x8RP_Ou-l33-hxp-10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="t_5J-x8RP_Ou-l33-hxp-2" target="t_5J-x8RP_Ou-l33-hxp-9" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t_5J-x8RP_Ou-l33-hxp-2" value="Data Management System" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="-110" y="30" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="t_5J-x8RP_Ou-l33-hxp-12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="t_5J-x8RP_Ou-l33-hxp-3" target="t_5J-x8RP_Ou-l33-hxp-11" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t_5J-x8RP_Ou-l33-hxp-3" value="Web Service System" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="-270" y="30" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-5" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="t_5J-x8RP_Ou-l33-hxp-4" target="_K1j5synthAdTgbkLIYn-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-7" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="t_5J-x8RP_Ou-l33-hxp-4" target="_K1j5synthAdTgbkLIYn-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t_5J-x8RP_Ou-l33-hxp-4" value="Scheduling Subsystem" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="70" y="200" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-2" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="t_5J-x8RP_Ou-l33-hxp-6" target="_K1j5synthAdTgbkLIYn-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-3" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="t_5J-x8RP_Ou-l33-hxp-6" target="REdQ5npoO9eREu5PmxTb-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-4" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="t_5J-x8RP_Ou-l33-hxp-6" target="_K1j5synthAdTgbkLIYn-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t_5J-x8RP_Ou-l33-hxp-6" value="Monitoring Subsystem" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="230" y="200" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="t_5J-x8RP_Ou-l33-hxp-9" value="Data Storage Subsystem" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="-110" y="200" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="t_5J-x8RP_Ou-l33-hxp-11" value="Web Application Subsystem" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="-270" y="200" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="_K1j5synthAdTgbkLIYn-1" value="Drone Subsystem" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="10" y="390" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="_K1j5synthAdTgbkLIYn-2" value="Production Cell Subsystem" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="300" y="390" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="REdQ5npoO9eREu5PmxTb-1" value="Conveyor Belt Subsystem" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="150" y="390" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="REdQ5npoO9eREu5PmxTb-3" value="&lt;div&gt;Could split even further into sensors, actuators, etc.&lt;/div&gt;&lt;div&gt;But that&#39;s out of scope for our project! We&#39;re keeping it high-level.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Det er ok at feature diagram KUN&lt;/div&gt;&lt;div&gt;fokuserer på Production Management System&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="-310" y="290" width="290" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-6" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="t_5J-x8RP_Ou-l33-hxp-4" target="REdQ5npoO9eREu5PmxTb-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-11" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=oval;endFill=1;strokeWidth=2;" edge="1" parent="1" source="GKSeMvlDGvGW67dvCW3W-8" target="GKSeMvlDGvGW67dvCW3W-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-12" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=oval;endFill=1;strokeWidth=2;" edge="1" parent="1" source="GKSeMvlDGvGW67dvCW3W-8" target="GKSeMvlDGvGW67dvCW3W-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-8" value="Production Management System" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="920" y="60" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-18" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=oval;endFill=1;" edge="1" parent="1" source="GKSeMvlDGvGW67dvCW3W-9" target="GKSeMvlDGvGW67dvCW3W-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-19" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=oval;endFill=1;" edge="1" parent="1" source="GKSeMvlDGvGW67dvCW3W-9" target="GKSeMvlDGvGW67dvCW3W-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-20" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=oval;endFill=1;" edge="1" parent="1" source="GKSeMvlDGvGW67dvCW3W-9" target="GKSeMvlDGvGW67dvCW3W-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-9" value="Scheduling Subsystem" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="780" y="135" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-53" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=oval;endFill=1;" edge="1" parent="1" source="GKSeMvlDGvGW67dvCW3W-10" target="GKSeMvlDGvGW67dvCW3W-51">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-54" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=oval;endFill=1;" edge="1" parent="1" source="GKSeMvlDGvGW67dvCW3W-10" target="GKSeMvlDGvGW67dvCW3W-52">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-10" value="Monitoring Subsystem" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1050" y="135" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-23" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;endArrow=oval;endFill=1;" edge="1" parent="1" source="GKSeMvlDGvGW67dvCW3W-14" target="GKSeMvlDGvGW67dvCW3W-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-24" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=oval;endFill=1;" edge="1" parent="1" source="GKSeMvlDGvGW67dvCW3W-14" target="GKSeMvlDGvGW67dvCW3W-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-14" value="Drone Subsystem" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="640" y="230" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-27" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="GKSeMvlDGvGW67dvCW3W-15" target="GKSeMvlDGvGW67dvCW3W-25">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-28" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="GKSeMvlDGvGW67dvCW3W-15" target="GKSeMvlDGvGW67dvCW3W-26">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-15" value="Conveyor Belt Subsystem" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="805" y="275" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-48" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="GKSeMvlDGvGW67dvCW3W-16" target="GKSeMvlDGvGW67dvCW3W-38">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-49" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="GKSeMvlDGvGW67dvCW3W-16" target="GKSeMvlDGvGW67dvCW3W-39">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-16" value="Production Cell Subsystem" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="950" y="245" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-17" value="&lt;div&gt;Depending on whether monitoring only passively monitors components, OR&lt;/div&gt;&lt;div&gt;allows for interaction w. components&amp;nbsp;&lt;/div&gt;&lt;div&gt;(like shutting down component when monitoring shows problems),&amp;nbsp;&lt;/div&gt;&lt;div&gt;monitoring MAY be connected to hardware systems as well&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1190" y="60" width="230" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-21" value="Movement" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="600" y="300" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-22" value="Hold Object" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="680" y="300" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-34" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=oval;endFill=1;" edge="1" parent="1" source="GKSeMvlDGvGW67dvCW3W-25" target="GKSeMvlDGvGW67dvCW3W-32">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-35" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=oval;endFill=1;" edge="1" parent="1" source="GKSeMvlDGvGW67dvCW3W-25" target="GKSeMvlDGvGW67dvCW3W-33">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-25" value="Basic" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="770" y="340" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-26" value="Detachable (input/output)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="860" y="340" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-30" value="" style="shape=or;whiteSpace=wrap;html=1;rotation=80;" vertex="1" parent="1">
+          <mxGeometry x="840" y="305" width="30" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-32" value="Direction-Ctrl" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="710" y="405" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-33" value="Speed-Ctrl" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="780" y="405" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-37" value="&lt;div&gt;Maybe not robot-arm subsystem, but production cell system? Table with robot arm(s).&lt;/div&gt;&lt;div&gt;Singleton = one robot arm&lt;/div&gt;&lt;div&gt;Dual = two robot arms&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="920" y="415" width="180" height="82.5" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-38" value="Dual Arm" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="340" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-39" value="Singleton" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="305" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-44" value="Movement" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="385" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-45" value="Hold object" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1150" y="350" width="80" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-46" value="Weld metal... etc" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1135" y="380" width="110" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-47" value="How specific do we wanna get with features?" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1160" y="425" width="100" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-50" value="" style="shape=or;whiteSpace=wrap;html=1;rotation=80;" vertex="1" parent="1">
+          <mxGeometry x="1040.0049164903091" y="280.0033207368564" width="30" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-51" value="ProdFloorStatus" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1150" y="190" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-52" value="Logs" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1075" y="200" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-70" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="GKSeMvlDGvGW67dvCW3W-55" target="GKSeMvlDGvGW67dvCW3W-66">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-55" value="Scheduling System" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1120" y="780" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-56" value="Drone Controller" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1320" y="780" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-57" value="Propeller Actuator" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1550" y="780" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-58" value="&lt;div&gt;Move&lt;/div&gt;&lt;div&gt;request&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1250" y="795" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-59" value="Move Req" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1470" y="796" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-62" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="GKSeMvlDGvGW67dvCW3W-60" target="GKSeMvlDGvGW67dvCW3W-61">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-60" value="PropellerSpeed Sensor" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1180" y="690" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-63" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="GKSeMvlDGvGW67dvCW3W-61" target="GKSeMvlDGvGW67dvCW3W-57">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-61" value="Propeller speed" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1370" y="705" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-64" value="How does it move in a direction??" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1145" y="650" width="190" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-65" value="Drone Controller" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1270" y="930" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-71" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="GKSeMvlDGvGW67dvCW3W-66" target="GKSeMvlDGvGW67dvCW3W-65">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-66" value="Transport Object Req" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1160" y="890" width="90" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-68" value="Grabbers Actuator" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1500" y="930" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-69" value="&lt;div&gt;Grabbers&lt;/div&gt;&lt;div&gt;Activation&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1410" y="940" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-72" value="&lt;font style=&quot;font-size: 22px;&quot;&gt;Feature Diagram&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="760" y="20" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-73" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;Architecture Analysis Level&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="490" y="530" width="150" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-76" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="GKSeMvlDGvGW67dvCW3W-74" target="GKSeMvlDGvGW67dvCW3W-75">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-74" value="Transport Req (from Production Scheduler)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="355" y="645.5" width="140" height="39" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-87" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="GKSeMvlDGvGW67dvCW3W-75" target="GKSeMvlDGvGW67dvCW3W-86">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-75" value="Drone Controller" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="647.5" width="100" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-77" value="Propeller Actuator" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="370" y="780" width="100" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-82" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="GKSeMvlDGvGW67dvCW3W-80" target="GKSeMvlDGvGW67dvCW3W-77">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-83" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="GKSeMvlDGvGW67dvCW3W-80" target="GKSeMvlDGvGW67dvCW3W-75">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-80" value="Move Req" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="480" y="705" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-84" value="(Success/failure?)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="445" y="710" width="130" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-85" value="Grabber Actuator" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="590" y="805" width="100" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-88" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="GKSeMvlDGvGW67dvCW3W-86" target="GKSeMvlDGvGW67dvCW3W-85">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-86" value="Grab Activation" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="610" y="735" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-95" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="GKSeMvlDGvGW67dvCW3W-90" target="GKSeMvlDGvGW67dvCW3W-94">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-90" value="Belt Sensor" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="150" y="895" width="100" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-92" value="Belt Controller" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="385" y="890" width="100" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-96" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="GKSeMvlDGvGW67dvCW3W-94" target="GKSeMvlDGvGW67dvCW3W-92">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-94" value="Move req" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="275" y="895" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-97" value="Belt just moves whenever something is placed on it. Item should &#39;fall off&#39; at production cell" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="155" y="955" width="200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-103" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="GKSeMvlDGvGW67dvCW3W-99" target="GKSeMvlDGvGW67dvCW3W-102">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-99" value="Production Cell Sensor" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="530" y="960" width="100" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-100" value="Item Arrived" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="630" y="930" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-101" value="Item Done" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="650" y="990" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-104" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="GKSeMvlDGvGW67dvCW3W-102" target="GKSeMvlDGvGW67dvCW3W-99">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-108" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="GKSeMvlDGvGW67dvCW3W-102" target="GKSeMvlDGvGW67dvCW3W-107">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-102" value="Robot Arm Controller" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="750" y="955" width="100" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-106" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="GKSeMvlDGvGW67dvCW3W-105" target="GKSeMvlDGvGW67dvCW3W-102">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-105" value="Task (from Production Scheduler)" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="785" y="851" width="140" height="39" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-110" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="GKSeMvlDGvGW67dvCW3W-107" target="GKSeMvlDGvGW67dvCW3W-102">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-107" value="Robot arm actuator" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="760" y="1065" width="100" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="GKSeMvlDGvGW67dvCW3W-113" value="&lt;div&gt;Perform task&lt;/div&gt;&lt;div&gt;(success/fail)&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="800" y="1010" width="120" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

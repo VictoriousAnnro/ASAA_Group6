@@ -87,11 +87,38 @@ create non-func requirements that can be used to measure these? What metrics do 
 **Conceptualize and construct a feature model to represent the system's functionalities and variabilities. Your model can use standard notation to clearly depict the hierarchy and relationships between features, including, e.g., mandatory features, optional features, alternative (XOR), inclusive (OR) feature groups.
 Refer to slide pp 45 – pp50, pp60.**
 
+   *Production Management(Mandatory)
+     *Scheduling(Mandatory)
+     *Monitoring(Mantadory)
+     *Hardware Coordination(Mandatory)
+        *Robot Arm(OR)
+        *Conveyor Belts(OR)
+        *Drones(OR)
+
+    *Data MAnagement(Mandatory)
+       *Production Oder(Mantadory)
+       *Logs(Optional)
+   *Web Service(OPtinal)//
+      *Customar Oder(Mandatory)
+      *Customization(Optional)
+
 5. Structural Architecture Modeling
 **Decompose the system into its constituent subsystems and components. Develop structural architectural models at two distinct levels of abstraction:
 • Analysis-Level Architecture: A high-level model focusing on the system's logical organization. It should define the primary subsystems and their core responsibilities and interactions.
 • Design-Level Architecture: A more concrete model detailing the specific components, their interfaces, and the protocols governing their interconnections. This model serves as a blueprint for implementation.
 Refer to slide pp51 – pp55, pp60 – pp71 (HW architecture model is optional).**
+
+
+Analysis-Level Architecture:
+  *Production Management System- The production manager manages scheduling and monitor the production run activites.
+ *Data Management system: Store oders, logs and production runs.
+ *Web service system: where customer can oder and also customize the product.
+ *Production Floor/Run: robot arms, conveyor belts and drones execute assembly the product.
+
+Design-Level Architecture:
+ *
+
+
 
 6. Requirements Traceability
 **Establish traceability links from your elicited requirements to the elements in your models. Create a traceability matrix/table or use annotations to demonstrate how each requirement is:

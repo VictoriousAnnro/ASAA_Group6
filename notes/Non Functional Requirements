@@ -1,0 +1,16 @@
+***Non Functional Requirements***
+a) Availability
+  1. Control Console Uptime - Manager Console > 99.8% Uptime
+  2. Website Uptime - Website Server  > 99.9% Uptime
+b) Safety
+  1. Abort to Safe State - From abort command to safe state <2s. (conveyor, drones, and robot arms stop)
+  2. Human Detection During Run - Sensors detect human presence on production floor - system aborts, or fails to start running
+c) Security
+  1. Authentication/Authorization - Manager Console Requires MFA, RBAC enforce - only Prod Manager can schedule/ start the production run
+  2. Encryption - Data-at-Rest encrypted with AES-256
+d) Performance
+  1. Website Performance - Order Confirmation screen displayed <2s after user clicks "Confirm Order" button
+  2. Control Console Performance - Production Run confirmation screen displayed <2s after Production Manager clicks "Confirm Run" button
+e) Usability
+  1. Website Usability - User can place a customized order within 7 clicks on the website
+  2. Control Console Usability - Production Run can be aborted within 2 clicks (Abort - Confirm?)

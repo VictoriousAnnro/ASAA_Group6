@@ -15,6 +15,9 @@ services:
     networks:
       - backend #mongoDB is only accessible through backend network
       # not sure it's needed, but may be good for security reasons? Otherwise just delete
+      # The scheduler should also be in the backend network, to connect to mongoDB
+      # https://www.howtogeek.com/devops/how-to-run-mongodb-in-a-docker-container/
+      #  "It'll be able to reference the container by name within MongoDB connection strings". So for us, scheduler can reach DB by contacting mongodb:27017
 
 volumes:
   mongodb_data:

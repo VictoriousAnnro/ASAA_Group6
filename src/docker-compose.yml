@@ -1,0 +1,33 @@
+# Docker compose is used to run multi-container applications
+version: '3.7'
+
+# https://www.geeksforgeeks.org/devops/docker-compose/
+# Services defined in a docker-compose.yml file are by default placed on one network and are able to connect to each other without any additional setup
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - backend #mongoDB is only accessible through backend network
+      # not sure it's needed, but may be good for security reasons? Otherwise just delete
+
+volumes:
+  mongodb_data:
+    driver: local
+
+networks:
+  frontend:
+    driver: bridge
+
+  backend:
+    driver: bridge
+
+
+# https://awstip.com/step-by-step-guide-persisting-mongodb-data-in-docker-containers-with-volumes-dbd991148eb9
+# This configuration sets up a MongoDB service, mounts the mongodb_data volume to /data/db, and ensures the data persists.
+# So we prolly won't need a Dockerfile for MongoDB, just this code here

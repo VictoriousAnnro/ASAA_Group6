@@ -1,11 +1,13 @@
-import json
 import time
 import threading
-import random
 from enum import Enum, auto
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Dict, Any, List, Optional
 
+
+# ---------------------------
+#  Run & Step States
+# ---------------------------
 
 class RunState(Enum):
     PENDING = auto()
@@ -30,7 +32,7 @@ class StepState(Enum):
 class SafetyModule:
     """
     Simulates safety flags like human presence and emergency stop.
-    Orchestrator should check these frequently and abort quickly if set.
+    For performance tests you can just leave them False.
     """
 
     def __init__(self):
@@ -72,12 +74,11 @@ class MonitoringLogger:
         if extra:
             entry.update(extra)
         self.events.append(entry)
-        # For now just print; later you can push this to DB, Kafka, etc.
         print(f"[{ts:.3f}][RUN:{run_id}] {message} | {extra or ''}")
 
 
 # ---------------------------
-#  Station simulator
+#  Station simulator (deterministic)
 # ---------------------------
 
 class StationStatus(Enum):
@@ -90,13 +91,14 @@ class StationStatus(Enum):
 
 class StationSimulator:
     """
-    Simulates a robot station. Work is done on a worker thread so we can abort / check safety.
+    Simulates a robot station with deterministic timing:
+    - Runs for exactly avg_duration seconds
+    - Only aborts if told to, or if safety goes unsafe
     """
 
-    def __init__(self, name: str, avg_duration: float = 3.0, failure_rate: float = 0.1):
+    def __init__(self, name: str, avg_duration: float = 3.0):
         self.name = name
         self.avg_duration = avg_duration
-        self.failure_rate = failure_rate
         self._status = StationStatus.IDLE
         self._thread: Optional[threading.Thread] = None
         self._abort_flag = False
@@ -111,36 +113,28 @@ class StationSimulator:
 
         def worker():
             print(f"[{self.name}] Starting task {task_id} with params {params}")
-            # Simulate variable duration
-            duration = random.uniform(self.avg_duration * 0.5, self.avg_duration * 1.5)
+            duration = self.avg_duration
             start = time.time()
             try:
                 while time.time() - start < duration:
-                    # Check abort flag
                     if self._abort_flag:
                         with self._lock:
                             self._status = StationStatus.ABORTED
                         print(f"[{self.name}] Task {task_id} aborted")
                         return
 
-                    # Check safety
                     if not safety.is_safe():
                         with self._lock:
                             self._status = StationStatus.ABORTED
                         print(f"[{self.name}] Task {task_id} aborted due to safety")
                         return
 
-                    time.sleep(0.1)
+                    time.sleep(0.01)  # small sleep to avoid busy loop
 
-                # Random failure
-                if random.random() < self.failure_rate:
-                    with self._lock:
-                        self._status = StationStatus.FAILED
-                    print(f"[{self.name}] Task {task_id} failed")
-                else:
-                    with self._lock:
-                        self._status = StationStatus.COMPLETED
-                    print(f"[{self.name}] Task {task_id} completed")
+                with self._lock:
+                    self._status = StationStatus.COMPLETED
+                print(f"[{self.name}] Task {task_id} completed")
+
             except Exception as e:
                 with self._lock:
                     self._status = StationStatus.FAILED
@@ -191,18 +185,23 @@ class ProductionRun:
 
 class OrchestratorCore:
     """
-    State machine that executes a ProductionRun step by step,
-    talks to station simulators, checks safety, and logs everything.
+    Executes a ProductionRun step by step,
+    talks to station simulators, checks safety,
+    and verifies timing against limits.
     """
 
-    def __init__(self, stations: Dict[str, StationSimulator],
+    def __init__(self,
+                 stations: Dict[str, StationSimulator],
                  safety: SafetyModule,
-                 logger: MonitoringLogger):
+                 logger: MonitoringLogger,
+                 time_limits: Dict[str, float]):
         self.stations = stations
         self.safety = safety
         self.logger = logger
+        self.time_limits = time_limits  # per-station max allowed time
 
     def execute_run(self, run: ProductionRun):
+        run_start = time.time()
         self.logger.log(run.run_id, "Run starting", {"order_id": run.order_id})
         run.state = RunState.IN_PROGRESS
 
@@ -219,15 +218,17 @@ class OrchestratorCore:
 
                 if step.state == StepState.SUCCESS:
                     run.current_step_index += 1
-                    continue
                 elif step.state in (StepState.ABORTED, StepState.FAILED):
-                    # simple strategy: abort whole run
                     run.state = RunState.ABORTED if step.state == StepState.ABORTED else RunState.FAULTED
                     self.logger.log(run.run_id, "Run ended early", {"run_state": run.state.name})
                     return
 
             run.state = RunState.COMPLETED
-            self.logger.log(run.run_id, "Run completed successfully")
+            self.logger.log(
+                run.run_id,
+                "Run completed successfully",
+                {"total_duration": time.time() - run_start}
+            )
 
         except Exception as e:
             run.state = RunState.FAULTED
@@ -249,9 +250,8 @@ class OrchestratorCore:
 
         station.start(task_id, step.params, self.safety)
 
-        # Wait for station to finish, checking safety and allowing timeout
         start_wait = time.time()
-        timeout = 30.0  # per-step timeout, can be tuned
+        timeout = 60.0  # generous timeout for perf tests
 
         while True:
             status = station.status()
@@ -273,34 +273,46 @@ class OrchestratorCore:
                 status = StationStatus.ABORTED
                 break
 
-            time.sleep(0.1)
+            time.sleep(0.01)
 
         step.finished_at = time.time()
+        duration = step.finished_at - step.started_at
 
         if status == StationStatus.COMPLETED:
             step.state = StepState.SUCCESS
-            self.logger.log(run.run_id, f"Step {step.id} completed", {"duration": step.finished_at - step.started_at})
         elif status == StationStatus.FAILED:
             step.state = StepState.FAILED
-            self.logger.log(run.run_id, f"Step {step.id} failed", {})
         elif status == StationStatus.ABORTED:
             step.state = StepState.ABORTED
-            self.logger.log(run.run_id, f"Step {step.id} aborted", {})
+
+        # Performance check against time limit
+        limit = self.time_limits.get(station_name)
+        within_limit = (limit is None) or (duration <= limit)
+
+        self.logger.log(
+            run.run_id,
+            f"Step {step.id} finished with state {step.state.name}",
+            {
+                "station": station_name,
+                "duration": duration,
+                "limit": limit,
+                "within_limit": within_limit
+            }
+        )
 
     def _abort_all_stations(self, run: ProductionRun, reason: str):
         self.logger.log(run.run_id, "Aborting all stations", {"reason": reason})
-        for name, station in self.stations.items():
+        for station in self.stations.values():
             station.abort()
 
 
 # ---------------------------
-#  Example "main" for local testing
+#  Example "main" for performance testing
 # ---------------------------
 
 def load_example_recipe() -> ProductionRun:
-    # In reality this would come from MongoDB or Scheduler via Kafka
     recipe_json = {
-        "run_id": "RUN-000",
+        "run_id": "RUN-PERF-000",
         "order_id": "ORDER-001",
         "steps": [
             {"id": 1, "station": "chassis",  "params": {"model": "Sedan"}},
@@ -322,7 +334,7 @@ def main():
     safety = SafetyModule()
     logger = MonitoringLogger()
 
-    # Create one simulator per station type
+    # Deterministic durations for each station (seconds)
     stations = {
         "chassis": StationSimulator("ChassisRobot", avg_duration=2.0),
         "engine": StationSimulator("EngineRobot", avg_duration=3.0),
@@ -332,20 +344,35 @@ def main():
         "lights": StationSimulator("LightsRobot", avg_duration=1.5),
     }
 
-    orchestrator = OrchestratorCore(stations=stations, safety=safety, logger=logger)
+    # Max allowed time per station (change these to your requirements)
+    time_limits = {
+        "chassis": 2.5,
+        "engine": 3.5,
+        "wheels": 2.0,
+        "interior": 3.0,
+        "paint": 5.0,
+        "lights": 2.0,
+    }
+
+    orchestrator = OrchestratorCore(
+        stations=stations,
+        safety=safety,
+        logger=logger,
+        time_limits=time_limits
+    )
+
     production_run = load_example_recipe()
-
-    # OPTIONAL: simulate a safety event after some time in a background thread
-    def simulate_safety():
-        time.sleep(6)
-        safety.set_human_present(True)  # or safety.trigger_e_stop()
-
-    threading.Thread(target=simulate_safety, daemon=True).start()
-
     orchestrator.execute_run(production_run)
-    print(f"Final run state: {production_run.state}")
+
+    print("\n===== SUMMARY =====")
+    print(f"Final run state: {production_run.state.name}")
     for step in production_run.steps:
-        print(f"Step {step.id} -> {step.state.name}, duration={ (step.finished_at or 0) - (step.started_at or 0):.2f}s")
+        duration = (step.finished_at or 0) - (step.started_at or 0)
+        station_name = step.station.lower()
+        limit = time_limits.get(station_name)
+        within = (limit is None) or (duration <= limit)
+        print(f"Step {step.id} ({station_name}) -> {step.state.name}, "
+              f"duration={duration:.2f}s, limit={limit}, within_limit={within}")
 
 
 if __name__ == "__main__":

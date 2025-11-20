@@ -1,10 +1,13 @@
 import mysql.connector
+
+config = {
+        'user': 'root',
+        'password': 'root',
+        'host': 'mysqlDB',
+        'port': '3306'
+    }
  
-dataBase = mysql.connector.connect(
-  host ="localhost",
-  user ="user",
-  passwd ="password"
-)
+dataBase = mysql.connector.connect(**config)
 
 cursorObject = dataBase.cursor()
 
@@ -22,6 +25,12 @@ def insertReadyOrder(OrderID):
     values = (OrderID, "ready")
     cursorObject.execute(query, values)
     dataBase.commit()
+
+def getOrderStatus(OrderID):
+    cursorObject.execute("SELECT Status FROM OrderStatus WHERE OrderID=%s", (OrderID))
+    order=cursorObject.fetchone()
+
+    return order
     
 def changeOrderStatus(OrderID, Status):
     query = """

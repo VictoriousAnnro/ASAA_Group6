@@ -7,7 +7,18 @@ version: '3.7'
 # To run the docker compose file:
 # docker compose up
 
+# To re-build images:
+# docker compose up --build
+
 services:
+  scheduler:
+    build: ./scheduler
+    links:
+      - mysqlDB
+    #networks: 
+    #  - backend
+    ports:
+      - "5000:5000"
   mongodb:
     image: mongo:latest
     container_name: mongodb
@@ -27,16 +38,20 @@ services:
     container_name: mysql
     ports:
       - "3306:3306"
-    env_file:
-      - .env
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    #env_file:
+    #  - .env
+    #expose:
+    #  - '3306'
     #command: --init-file /src/initdb/init.sql
     volumes:
       #This should run the initdb/init.sql whenever new container is created
       # Check is this messes with other data!
       - "./initdb/init.sql:/docker-entrypoint-initdb.d/init.sql"
       #- mysql_data:/var/lib/mysql
-    networks:
-      - backend # only accessible through backend network
+    #networks:
+    #  - backend # only accessible through backend network
 
 volumes:
   mongodb_data:
@@ -54,4 +69,3 @@ networks:
 
 # https://awstip.com/step-by-step-guide-persisting-mongodb-data-in-docker-containers-with-volumes-dbd991148eb9
 # This configuration sets up a MongoDB service, mounts the mongodb_data volume to /data/db, and ensures the data persists.
-# So we prolly won't need a Dockerfile for MongoDB, just this code here

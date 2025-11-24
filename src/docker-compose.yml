@@ -1,71 +1,58 @@
-# Docker compose is used to run multi-container applications
-version: '3.7'
-
-# https://www.geeksforgeeks.org/devops/docker-compose/
-# Services defined in a docker-compose.yml file are by default placed on one network and are able to connect to each other without any additional setup
-
 # To run the docker compose file:
 # docker compose up
 
+# Remove stopped containers
+# docker compose rm -f
+
 # To re-build images:
 # docker compose up --build
-
 services:
-  scheduler:
-    build: ./scheduler
-    links:
-      - mysqlDB
-    #networks: 
-    #  - backend
+# Kafka code from https://medium.com/@hankimhak451/getting-started-with-apache-kafka-in-python-a-practical-guide-9e122067a3c0
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - zookeeper
     ports:
-      - "5000:5000"
-  mongodb:
-    image: mongo:latest
-    container_name: mongodb
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongodb_data:/data/db
-    networks:
-      - backend #mongoDB is only accessible through backend network
-      # not sure it's needed, but may be good for security reasons? Otherwise just delete
-      # The scheduler should also be in the backend network, to connect to mongoDB
-      # https://www.howtogeek.com/devops/how-to-run-mongodb-in-a-docker-container/
-      #  "It'll be able to reference the container by name within MongoDB connection strings". So for us, scheduler can reach DB by contacting mongodb:27017
-
-  mysqlDB:
+      - 9092:9092
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+  db:
     image: mysql:latest
-    container_name: mysql
     ports:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: root
-    #env_file:
-    #  - .env
-    #expose:
-    #  - '3306'
-    #command: --init-file /src/initdb/init.sql
     volumes:
-      #This should run the initdb/init.sql whenever new container is created
-      # Check is this messes with other data!
-      - "./initdb/init.sql:/docker-entrypoint-initdb.d/init.sql"
-      #- mysql_data:/var/lib/mysql
-    #networks:
-    #  - backend # only accessible through backend network
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro"
+  mongodb:
+    image: mongo:latest
+    hostname: test_mongodb
+    environment:
+      - MONGO_INITDB_DATABASE=animal_db
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=pass
+    ports:
+      - 27017:27017
+    #volumes:
+    #  - mongodb_data:/data/db
+  app:
+    build: ./app
+    links:
+      - db
+      - mongodb
+    ports:
+      - "5000:5000"
 
 volumes:
   mongodb_data:
     driver: local
-  mysql_data:
-    driver: local
-
-networks:
-  frontend:
-    driver: bridge
-
-  backend:
-    driver: bridge
-
-
-# https://awstip.com/step-by-step-guide-persisting-mongodb-data-in-docker-containers-with-volumes-dbd991148eb9
-# This configuration sets up a MongoDB service, mounts the mongodb_data volume to /data/db, and ensures the data persists.

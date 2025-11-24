@@ -1,0 +1,4 @@
+pymongo
+sqlalchemy
+mysql-connector-python
+kafka-python

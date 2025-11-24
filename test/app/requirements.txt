@@ -1,3 +1,0 @@
-pymongo
-sqlalchemy
-mysql-connector-python

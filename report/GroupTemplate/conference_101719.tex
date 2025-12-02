@@ -65,14 +65,14 @@
 \author{
     \IEEEauthorblockN{
         Anne-Marie Rommerdahl\IEEEauthorrefmark{1},
-        Student 2\IEEEauthorrefmark{1},
+        Jannatul Ferdous\IEEEauthorrefmark{1},
         Student 3\IEEEauthorrefmark{1},
         Student 4\IEEEauthorrefmark{1},
         Student 5\IEEEauthorrefmark{1},
     }
     \IEEEauthorblockA{
         University of Southern Denmark, SDU Software Engineering, Odense, Denmark \\
-        Email: \IEEEauthorrefmark{1} \textnormal{\{anrom,student2,student3,student4,student5\}}@mmmi.sdu.dk
+        Email: \IEEEauthorrefmark{1} \textnormal{\{anrom,,student3,student4,student5\}}@mmmi.sdu.dk
     }
 }
 
@@ -193,6 +193,55 @@ Steps:
 This Section introduces the specified x QASes.
 The QASes are developed based on the use case.
 
+\subsection{Customer places an order}
+Actors: Customer, Web Server
+Preconditions: The chosen car can be customized before purchase
+Steps:
+The customer accesses the company website to choose their preferred car. The web server queries the database for the chosen model and fetches available customization options. After the customer chooses preferred customizations, they place the order. The web server saves the order in the database.
+Postconditions: A new customer order is saved in the database
+
+\subsection{Schedule Production Run}
+Actors: Production Scheduler, Production Orchestrator
+Preconditions: The production order has been made by the customer, and is stored in the database. 
+Steps:
+The Production Scheduler retrieves the order from the database and breaks it down into a JSON production recipe. Then fetches available time slots and resources. Prosuction Schedular selects an available time slot, schedules the production of the order, and notifies the Production Orchestrator.
+Postconditions: A production run is scheduled, and all affected components are notified.
+
+
+\subsection{Abort production run}
+Actors: Production Manager, Production Scheduler
+Preconditions: Production is running
+Steps:
+Production Manager logs into the production software and navigates the ”Manage Production Run” option.Production Scheduler retrievsand displays current production overview. When the Production Manager selects the ”Stop Production Run” option the Production Scheduler confirms the abort, and notifies related components. Each active components abort their current tasks, and return to default operational state.
+Postconditions: Production run is aborted, and all affected components return to default state.
+
+\subsection{Check status of production floor components}
+Actors: Production Manager, Production Orchestrator
+Preconditions: Production is running, a component on the production floor is not acting as expected
+Steps:
+Production Manager signs into the production software and selects the "Check status". Production Orchestrator fetches logs and real-time status information from each component on the production floor. After reviewing the logs and the current status of the faulty component, the Production manager pauses the component to allow for maintenance. When the component is fixed, the production manager resumes the component operation.
+Postconditions: Affected component is acting as expected.
+
+\subsection{Schedule hardware maintenance}
+Actors: Production Manager, Production Scheduler
+Preconditions: Production is running
+Steps:
+Production Manager logs into the production software and selects the ”Manage Production Run” option. Production Scheduler fetches an overview of production. Production Manager selects the ”Schedule Maintenance” option. Production Scheduler confirms the date and notifies related components.
+Postconditions: Components continue running, until the scheduled maintenance date.
+
+\subsection{Schedule software update}
+Actors: Production Manager, Production Scheduler
+Preconditions: Production is running
+Steps:
+Production Manager signs into the production software and selects the ”Manage Production Run” option. The Production Scheduler retrieves the current overview of production. Production Manager then selects the ”Schedule software update”, after which the Production Scheduler confirms the date and notifies all related components.
+Postconditions: Components continue running, until the scheduled maintenance date.
+
+\subsection{Execute production run}
+Actors: Production Orchestrator
+Preconditions: The production run for a placed order has been scheduled. 
+Steps:
+Production Orchestrator fetches the production recipe and coordinates the production run by assigning tasks to the available components on the production floor. Once all tasks are assigned, Production Orchestrator instructs the components to begin execution and monitors the components.
+Postconditions: Components continue running until the production run is complete.
 % Description of the overall architecture designs
 % Argue for tactics used to archieve the QASes
 % Discuss the trade-offs

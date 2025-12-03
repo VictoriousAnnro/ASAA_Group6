@@ -139,6 +139,7 @@ Section \ref{sec:evaluation} evaluates the proposed middleware on realistic equi
 \section{Problem and Approach}
 
 \label{sec:problem}
+% What is the problem* to be solved with the reliable architecture you build, and how will the problem be addressed. *The stated problem leads to the stated research question.
 \emph{Problem.}
 %AM
 In todays society, there is a heavy focus on the automation and digitalization of complex systems. The complex systems are used in many areas, such as industry, healthcare, public transport and so on. These systems are described as complex, because of the many parts involved, the intricate ways in which those parts communicate, and the overall behavior of the system - how do all these parts work together to complete the systems' goals? To ensure the correctness and reliability of such systems, it is of outmost importance that thought is put into the design. After all, failure in a system can lead to negative consequences ranging from minor inconviniences to death[SOURCE].\\
@@ -160,6 +161,7 @@ The following steps are taken to answer this paper's research questions:
 
 \section{Related work}
 \label{sec:related_work}
+% ... Shoul review the state of the art consisting of 8-10 papers and should contextualize how this study provides new knowledge to the field. 
 This Section addresses existing contributions by examining xxx in the I4.0 domain. 
 In total, x papers are investigated. 
 
@@ -177,36 +179,70 @@ All contributions provide valuable knowledge about reconfiguration but lack a st
 
 \section{Use Case}
 \label{sec:use_case}
+% From lecture 12 Summary-keypoint-exam topics sample: 
+% Unfold the problem with a use case and describe what the use case is about
+% So i dont think we need all our use cases. Just one or a few relevant ones
 This Section introduces the use cases, of which there are XX.
-%AM
-%The UML use case diagram is a good way to provide an overview of the actors and the behavior of a system. Its description, which is textual, should include the following items: the use case name and a brief description, the actor or actors who initiate the use case (primary actors), other actors who participate in the use case (secondary actors), the flow of events, alternative flows, and non-success cases.
-\subsection{Schedule Production Run}
-Actors: xxx\\
-Preconditions: xxx\\
-Steps:
-\begin{itemize}
-    \item Production Scheduler fetches the order from the database
-    \item Production Scheduler breaks down the order into a JSON production recipe, which is then stored in the database
-\end{itemize}
-\section{Quality Attribute Scenario}
-\label{sec:qas}
-This Section introduces the specified x QASes.
-The QASes are developed based on the use case.
+%\subsection{Add Customer Order to production queue}
+%Actors: Production Scheduler, Website\\
+%Preconditions: The order has been placed by the customer through the website.\\
+%Steps:
+%\begin{itemize}
+%    \item Production Scheduler recieves order details from website
+%    \item Production Scheduler breaks down the order into a JSON production recipe, which is then stored in the database
+%    \item Production Scheduler stores the order in the database, marked as 'ready'
+%\end{itemize}
+%Postconditions: An order is stored and marked as 'ready' for production. 
 
 \subsection{Customer places an order}
-Actors: Customer, Web Server
-Preconditions: The chosen car can be customized before purchase
+Actors: Customer, Website, Production Scheduler
+Preconditions: Available cars and customization options have been defined in database.
 Steps:
-The customer accesses the company website to choose their preferred car. The web server queries the database for the chosen model and fetches available customization options. After the customer chooses preferred customizations, they place the order. The web server saves the order in the database.
-Postconditions: A new customer order is saved in the database
+\begin{itemize}
+    \item Customer accesses company website
+    \item Customer chooses preferred car
+    \item Website fetches available customization options for chosen car
+    \item Customer chooses preferred customizations
+    \item Customer places the order
+    \item Website sends order details to the Scheduler
+    \item Production Scheduler recieves order details from website
+    \item Production Scheduler breaks down the order into a JSON production recipe, which is then stored in the database
+    \item Production Scheduler stores the order in the database, marked as 'ready'
+\end{itemize}
+Postconditions: A customer order is stored and marked as 'ready' for production.
+%The customer accesses the company website to choose their preferred car. The web server queries the database for the chosen model and fetches available customization options. After the customer chooses preferred customizations, they place the order. The web server saves the order in the database.
+%Postconditions: A new customer order is saved in the database
 
-\subsection{Schedule Production Run}
-Actors: Production Scheduler, Production Orchestrator
-Preconditions: The production order has been made by the customer, and is stored in the database. 
+%\subsection{Schedule Production Run}
+%Actors: Production Scheduler, Production Orchestrator
+%Preconditions: The production order has been made by the customer, and is stored in the database. 
+%Steps:
+%The Production Scheduler retrieves the order from the database and breaks it down into a JSON production recipe. Then fetches available time slots and resources. Prosuction Schedular selects an available time slot, schedules the production of the order, and notifies the Production Orchestrator.
+%Postconditions: A production run is scheduled, and all affected components are notified.
+\subsection{Execute production run}
+Actors: Production Orchestrator, Production Scheduler, Production Floor Components
+Preconditions: The recipe for a customer order has been created and stored, and the order has been marked as ready for production. Production Floor components are all available to work.
+Steps: 
 Steps:
-The Production Scheduler retrieves the order from the database and breaks it down into a JSON production recipe. Then fetches available time slots and resources. Prosuction Schedular selects an available time slot, schedules the production of the order, and notifies the Production Orchestrator.
-Postconditions: A production run is scheduled, and all affected components are notified.
+\begin{itemize}
+    \item Orchestrator contacts the Scheduler for next ready order
+    \item Scheduler queries the oldest order that is marked as ready in database
+    \item Scheduler fetches the relevant recipe from database, and sends it to the Orchestrator
+    \item Scheduler updates the order's status from 'ready' to 'inProgress'
+    \item Orchestrator delegates the steps in the recipe to production floor components and starts production
+\end{itemize}
+Postconditions: Order status is 'inProgress' and production run has started.
 
+%The production run for a placed order has been scheduled. 
+%Steps:
+%Production Orchestrator fetches the production recipe and coordinates the production run by assigning tasks to the available components on the production floor. Once all tasks are assigned, Production Orchestrator instructs the components to begin execution and monitors the components.
+%Postconditions: Components continue running until the production run is complete.
+\subsection{Check status of production floor components}
+Actors: Production Manager, Production Orchestrator
+Preconditions: Production is running, a component on the production floor is not acting as expected
+Steps:
+Production Manager signs into the production software and selects the "Check status". Production Orchestrator fetches logs and real-time status information from each component on the production floor. After reviewing the logs and the current status of the faulty component, the Production manager pauses the component to allow for maintenance. When the component is fixed, the production manager resumes the component operation.
+Postconditions: Affected component is acting as expected.
 
 \subsection{Abort production run}
 Actors: Production Manager, Production Scheduler
@@ -214,13 +250,6 @@ Preconditions: Production is running
 Steps:
 Production Manager logs into the production software and navigates the ”Manage Production Run” option.Production Scheduler retrievsand displays current production overview. When the Production Manager selects the ”Stop Production Run” option the Production Scheduler confirms the abort, and notifies related components. Each active components abort their current tasks, and return to default operational state.
 Postconditions: Production run is aborted, and all affected components return to default state.
-
-\subsection{Check status of production floor components}
-Actors: Production Manager, Production Orchestrator
-Preconditions: Production is running, a component on the production floor is not acting as expected
-Steps:
-Production Manager signs into the production software and selects the "Check status". Production Orchestrator fetches logs and real-time status information from each component on the production floor. After reviewing the logs and the current status of the faulty component, the Production manager pauses the component to allow for maintenance. When the component is fixed, the production manager resumes the component operation.
-Postconditions: Affected component is acting as expected.
 
 \subsection{Schedule hardware maintenance}
 Actors: Production Manager, Production Scheduler
@@ -236,15 +265,15 @@ Steps:
 Production Manager signs into the production software and selects the ”Manage Production Run” option. The Production Scheduler retrieves the current overview of production. Production Manager then selects the ”Schedule software update”, after which the Production Scheduler confirms the date and notifies all related components.
 Postconditions: Components continue running, until the scheduled maintenance date.
 
-\subsection{Execute production run}
-Actors: Production Orchestrator
-Preconditions: The production run for a placed order has been scheduled. 
-Steps:
-Production Orchestrator fetches the production recipe and coordinates the production run by assigning tasks to the available components on the production floor. Once all tasks are assigned, Production Orchestrator instructs the components to begin execution and monitors the components.
-Postconditions: Components continue running until the production run is complete.
 % Description of the overall architecture designs
 % Argue for tactics used to archieve the QASes
 % Discuss the trade-offs
+\section{Quality Attribute Scenario}
+\label{sec:qas}
+% The use case is the foundation to describe and specify architectural requirements.
+% So im assuming that means we dont include all QAs, just the ones relevant for our usecase and/or experiment?
+This Section introduces the specified x QASes.
+The QASes are developed based on the use case.
 
 \section{Design and Analysis Modelling}
 \label{sec:design_and_analysis_modelling}
@@ -301,5 +330,6 @@ Conclusion of the report, discussion and relevant future work.
 \section*{Contributions}
 \begin{tabular}{l|p{0.6\linewidth}}
 Name & Contribution\\
+Anne-Marie & Scheduler, Use cases\\
 \end{tabular}
 \end{document}

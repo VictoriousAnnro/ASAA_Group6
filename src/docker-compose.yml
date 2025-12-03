@@ -46,7 +46,7 @@ services:
     #volumes:
     #  - mongodb_data:/data/db
   app:
-    build: ./app
+    build: ./scheduler #./app
     links:
       - db
       - mongodb

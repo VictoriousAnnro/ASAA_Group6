@@ -427,3 +427,13 @@ replay_pid*
 # End of https://www.toptal.com/developers/gitignore/api/csharp,java
 
 .env
+
+# stupid conference build files
+conference_101719.aux
+conference_101719.bbl
+conference_101719.fdb_latexmk
+conference_101719.fls
+conference_101719.log
+conference_101719.blg
+conference_101719.out
+conference_101719.synctex.gz

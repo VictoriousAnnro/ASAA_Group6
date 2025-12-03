@@ -34,7 +34,7 @@ def add_to_cart(request):
         car_price = request.GET.get('car_price')
         print("car", car)
         cart , _ = Cart.objects.get_or_create(customer = customer)
-        cart_item , _  = CartItems.objects.get_or_create(cart = cart ,
+        cart_item , _  = CartItems.objects.get_or_create(cart = cart,
                                                           car = Car.objects.get(id = car), car_model=car_model, car_engine=car_engine, car_color=car_color, car_price=car_price)
         print(cart_item)
         cart_item.quantity += 1

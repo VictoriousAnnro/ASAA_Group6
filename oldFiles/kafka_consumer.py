@@ -19,12 +19,9 @@ def create_consumer():
 
 def process_order(order):
     """Simple function to process an order (just prints it in this example)"""
-    print(f"Processing order {order['order_id']} for {order['quantity']} units of {order['product']}")
-    # In a real application, you might:
-    # - Save to a database
-    # - Send confirmation emails
-    # - Update inventory
-    # - Trigger shipping processes
+    # print(f"Processing order {order['order_id']} for {order['quantity']} units of {order['product']}")
+    print(f"Received order with {order['chassisID']}, {order['engineID']}, {order['interiorID']} and {order['paintID']}")
+
 
 def run_consumer():
     """Run the consumer, reading messages"""

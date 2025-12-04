@@ -6,6 +6,7 @@ from order.models import Cart,CartItems, Order, OrderItems
 from product.models import Car
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
+from order.kafka_producer import run_producer
 
 # Create your views here.
 
@@ -18,10 +19,6 @@ def get_cart(request):
         print(e)
 
     return render( request,'order/cart.html', context = {'cart' : cart})
-
-
-
-
 
 @login_required(login_url="/account/login/")
 def add_to_cart(request):
@@ -91,6 +88,12 @@ def checkout_view(request, cart_id):
             address=address
         )
         cart.is_order = True
+
+        #newmethod
+        cartItems = cart.cart_items.all()
+        for item in cartItems:
+            # the cars dont have the needed values, we need to add them
+            run_producer(1, 2, 3, 4) #chassisID, engineID, interiorID, paintID
         cart.cart_items.all().delete()
         cart.save()
 

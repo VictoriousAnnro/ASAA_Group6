@@ -31,7 +31,8 @@ def createOrderConsumer():
     """Create a connection to Kafka broker as a consumer"""
     consumer = KafkaConsumer(
         'orders',                          # Topic to subscribe to
-        bootstrap_servers=['localhost:9092'],
+        #bootstrap_servers=['localhost:9092'],
+        bootstrap_servers=['kafka:29092'],
         # Convert JSON bytes to Python dict
         value_deserializer=lambda x: json.loads(x.decode('utf-8')),
         # Unique ID for this consumer group
@@ -42,14 +43,18 @@ def createOrderConsumer():
     return consumer
 
 def processCustOrder(order):
+    """Simple function to process an order (just prints it in this example)"""
+    # print(f"Processing order {order['order_id']} for {order['quantity']} units of {order['product']}")
+    print(f"Received order with {order['chassisID']}, {order['engineID']}, {order['interiorID']} and {order['paintID']}")
+
     # save order in Orders
-    sqlInterface.saveCustomerOrder(order['order_id'], order['chassisID'], order['engineID'], order['interiorID'], order['paintID'])
+    #sqlInterface.saveCustomerOrder(order['order_id'], order['chassisID'], order['engineID'], order['interiorID'], order['paintID'])
 
     # Insert recipe in mongodb
-    mongoInterface.insertRecipe(order['order_id'], order['chassisID'], order['engineID'], order['interiorID'], order['paintID'])
+    #mongoInterface.insertRecipe(order['order_id'], order['chassisID'], order['engineID'], order['interiorID'], order['paintID'])
 
     # put order in 'queue'
-    sqlInterface.insertReadyOrder(order['order_id'])
+    #sqlInterface.insertReadyOrder(order['order_id'])
 
 
 def listenKafka():

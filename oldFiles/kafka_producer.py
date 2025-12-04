@@ -3,6 +3,8 @@ import json
 from kafka import KafkaProducer
 import time
 
+# DELETE THIS FILE LATER - JUST TO SEE EXAMPLE
+
 def create_producer():
     """Create a connection to Kafka broker"""
     producer = KafkaProducer(

@@ -8,6 +8,9 @@
 # docker compose up --build
 services:
 # Kafka code from https://medium.com/@hankimhak451/getting-started-with-apache-kafka-in-python-a-practical-guide-9e122067a3c0
+
+# Error with Kafka roles solved using: https://docs.docker.com/guides/kafka/
+
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
     environment:
@@ -22,10 +25,14 @@ services:
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_LISTENERS: CONTROLLER://localhost:9091,PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_PROCESS_ROLES: broker, controller
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@localhost:9091
   mysqldb:
     image: mysql:latest
     ports:
@@ -60,7 +67,8 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./app:/app
+      #- ./app:/app
+      - ./website/app:/app
       - dev-static-data:/vol/web
     command: >
       sh -c "python manage.py wait_for_db &&

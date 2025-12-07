@@ -17,6 +17,10 @@ So:
 - Expand the functionality of the button to make a POST-request to the 'checkout/<str:cart_id>/' URL with hardcoded values about the customer. They DON'T need to be randomized every time.
 - Then we just click the button a bunch of times and check the outputs in the scheduler-log
 
+# To create an admin user
+The image/container/whatever has changed name bc of the changes made to the docker compose. This is the updated command:
+docker-compose run --rm website sh -c "python manage.py createsuperuser"
+
 # To run program
 Navigate to the /src folder.
 Run docker compose up --build

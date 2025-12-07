@@ -53,7 +53,12 @@ services:
     #volumes:
     #  - mongodb_data:/data/db
   scheduler:
-    build: ./scheduler #./app
+    #build: ./scheduler #./app
+    build: ./scheduler
+    #command: >
+    #  "python scheduler.py"
+    #volumes:
+    #- ./scheduler/scheduler:/scheduler
     links:
       - mysqldb
       - mongodb

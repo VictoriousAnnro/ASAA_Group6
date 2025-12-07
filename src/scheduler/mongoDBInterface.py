@@ -8,8 +8,21 @@ myclient = MongoClient(host='test_mongodb',port=27017, username='root', password
 mydb = myclient["mydatabase"]
 mycol = mydb["recipes"]
 
-def insertRecipe(orderID, chassisID, engineID, interiorID, paintID):
+def insertRecipe(car_title, model, engine, color): #orderID, chassisID, engineID, interiorID, paintID
+    # we let mongoDB set the _id primary key, and we use that as orderID
     recipe = {
+        "car_title": car_title,
+        "model": model,
+        "engine": engine,
+        "color": color,
+        "Steps": [
+            {"step": 1, "task": f"Assemble chassis for model {model}"},
+            {"step": 2, "task": f"Install engine {engine}"},
+            {"step": 3, "task": f"Apply paint {color}"}
+        ],
+    }
+    
+    """recipe = {
         "_id": orderID, # OrderID is Primary key
         "ChassisID": chassisID,
         "EngineID": engineID,
@@ -21,13 +34,11 @@ def insertRecipe(orderID, chassisID, engineID, interiorID, paintID):
             {"step": 3, "task": f"Install interior {interiorID}"},
             {"step": 4, "task": f"Apply paint {paintID}"}
         ],
-       
-        
-    }
+    }"""
 
     result = mycol.insert_one(recipe)
-    print(f"Recipe inserted successfully for OrderID {orderID} (RecipeID: {result.inserted_id})")
-
+    print(f"Recipe inserted successfully for order {result.inserted_id}")
+    return result.inserted_id
 
 
 def fetchRecipe(orderID):

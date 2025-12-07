@@ -18,14 +18,15 @@ import time
 # ===== KAFKA =====
 # Scheduler is receiver in kafka
 # while website is producer
-
-"""order = {
-    'order_id': lol,
-    'chassisID': lol,
-    'engineID': lol,
-    'interiorID': lol,
-    'paintID': lol
-}"""
+"""
+order = {
+        'car_title': car_title,
+        'model': model,
+        'engine': engine,
+        'color': color,
+        'price': price
+    }
+    """
 
 def createOrderConsumer():
     """Create a connection to Kafka broker as a consumer"""
@@ -44,17 +45,20 @@ def createOrderConsumer():
 
 def processCustOrder(order):
     """Simple function to process an order (just prints it in this example)"""
-    # print(f"Processing order {order['order_id']} for {order['quantity']} units of {order['product']}")
-    print(f"Received order with {order['chassisID']}, {order['engineID']}, {order['interiorID']} and {order['paintID']}")
+    # car_title, model, engine, color, price
+    print(f"Received order with {order['car_title']}, {order['model']}, {order['engine']}, {order['color']} and {order['price']}")
 
     # save order in Orders
     #sqlInterface.saveCustomerOrder(order['order_id'], order['chassisID'], order['engineID'], order['interiorID'], order['paintID'])
 
     # Insert recipe in mongodb
     #mongoInterface.insertRecipe(order['order_id'], order['chassisID'], order['engineID'], order['interiorID'], order['paintID'])
+    recipeID = mongoInterface.insertRecipe(order['car_title'], order['model'], order['engine'], order['color'])
 
     # put order in 'queue'
-    #sqlInterface.insertReadyOrder(order['order_id'])
+    sqlInterface.insertReadyOrder(recipeID)
+    print(f"Order {recipeID} has been inserted in queue as 'ready'")
+    print(f"Status for order {recipeID}: {sqlInterface.getOrderStatus(recipeID)}")
 
 
 def listenKafka():
@@ -89,6 +93,7 @@ def getNextReadyRecipe():
 
 # ===== Wait for messages on Kafka ====
 if __name__ == "__main__":
+    print("scheduler running")
     listenKafka()
 
 #mongoInterface.insertRecipe(3, 1, 2, 4, 3)

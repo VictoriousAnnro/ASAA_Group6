@@ -6,6 +6,28 @@ USE mysqlDatabase;
 
 -- create tables if not exist
 CREATE TABLE IF NOT EXISTS Cars (
+    model varchar(100) PRIMARY KEY,
+    engine varchar(100),
+    color varchar(50),
+    price int
+);
+
+CREATE TABLE IF NOT EXISTS Orders (
+    orderID int PRIMARY KEY,
+    model varchar(100),
+    engine varchar(100),
+    color varchar(50),
+    price int
+);
+
+CREATE TABLE IF NOT EXISTS OrderStatus (
+    orderID varchar(150) PRIMARY KEY,
+    status varchar(50), -- add check bc can only be in 3 states (ready, inProcess, done)
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- This will automatically create a timestamp with the current time, for any newly inserted row. You only need to specify OrderID and Status when inserting
+);
+
+
+/*CREATE TABLE IF NOT EXISTS Cars (
     chassisID int PRIMARY KEY,
     carName varchar(50), -- string is not a valid type, must be varchar
     ImageID varchar(250)
@@ -60,4 +82,4 @@ INSERT INTO Paint VALUES (1, "green", "glossy");
 INSERT INTO Paint VALUES (2, "blue", "metallic");
 INSERT INTO Paint VALUES (3, "red", "matte");
 INSERT INTO Paint VALUES (4, "yellow", "clearcoat");
-INSERT INTO Paint VALUES (5, "black", "clearcoat");
+INSERT INTO Paint VALUES (5, "black", "clearcoat");*/

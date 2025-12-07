@@ -92,8 +92,21 @@ def checkout_view(request, cart_id):
         #newmethod
         cartItems = cart.cart_items.all()
         for item in cartItems:
-            # the cars dont have the needed values, we need to add them
-            run_producer(1, 2, 3, 4) #chassisID, engineID, interiorID, paintID
+            # car_title, model, engine, color, price
+            run_producer(item.car.title, item.car_model, item.car_engine, item.car_color, item.car_price)
+            """OrderItems.objects.create(
+                    order = order,
+                    car = cart_item.car,
+                    quantity = cart_item.quantity,
+                    car_model = cart_item.car_model,
+                    car_engine = cart_item.car_engine,
+                    car_color = cart_item.car_color,
+                    car_price = cart_item.car_price
+                )"""
+            # car_id, model, engine, color, price
+            #run_producer(item.car.title, item.car_model, item.car_engine, item.color, item.price)
+            #run_producer(1, 2, 3, 4) #chassisID, engineID, interiorID, paintID
+
         cart.cart_items.all().delete()
         cart.save()
 

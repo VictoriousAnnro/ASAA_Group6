@@ -11,8 +11,9 @@ dataBase = mysql.connector.connect(**config)
 
 cursorObject = dataBase.cursor()
 
-def saveCustomerOrder(orderID, chassisID, engineID, interiorID, paintID):
-    cursorObject.execute(f"INSERT INTO Orders {orderID}, {chassisID}, {engineID}, {interiorID}, {paintID}")
+# we dont use this!
+#def saveCustomerOrder(orderID, chassisID, engineID, interiorID, paintID):
+#    cursorObject.execute(f"INSERT INTO Orders {orderID}, {chassisID}, {engineID}, {interiorID}, {paintID}")
     # I think below gives me syntax errors. Need to double-check if above works
     #query = """
     #INSERT INTO Orders (OrderID, chassisID, engineID, interiorID, paintID)
@@ -20,7 +21,7 @@ def saveCustomerOrder(orderID, chassisID, engineID, interiorID, paintID):
     #"""
     #values = (orderID, chassisID, engineID, interiorID, paintID)
     #cursorObject.execute(query, values)
-    dataBase.commit()
+#    dataBase.commit()
 
 def getCustomerOrder(OrderID):
     #cursorObject.execute("SELECT * FROM Orders WHERE orderID=%s", (OrderID))
@@ -30,7 +31,7 @@ def getCustomerOrder(OrderID):
     return order
 
 def insertReadyOrder(OrderID):
-    cursorObject.execute(f"INSERT INTO OrderStatus {OrderID}, 'ready'")
+    cursorObject.execute(f"INSERT INTO OrderStatus (orderID, status) VALUES ('{OrderID}', 'ready')")
     #query = """
     #INSERT INTO OrderStatus (OrderID, Status)
     #VALUES (%s, %s)
@@ -40,7 +41,7 @@ def insertReadyOrder(OrderID):
     dataBase.commit()
 
 def getOrderStatus(OrderID):
-    cursorObject.execute(f"SELECT * FROM OrderStatus WHERE orderID={OrderID}")
+    cursorObject.execute(f"SELECT * FROM OrderStatus WHERE orderID='{OrderID}'")
     order=cursorObject.fetchone()
 
     # this gives me syntax error:

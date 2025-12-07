@@ -7,6 +7,7 @@ from product.models import Car
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from order.kafka_producer import run_producer
+import datetime
 
 # Create your views here.
 
@@ -73,7 +74,11 @@ def remove_to_cart(request):
 
 @login_required(login_url="/accounts/login/")
 def checkout_view(request, cart_id):
+    ct = datetime.datetime.now()
+    ts = ct.timestamp()
+    print("timestamp:", ts)
     cart = Cart.objects.get(id=cart_id)
+
 
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -93,20 +98,8 @@ def checkout_view(request, cart_id):
         cartItems = cart.cart_items.all()
         for item in cartItems:
             # car_title, model, engine, color, price
-            run_producer(item.car.title, item.car_model, item.car_engine, item.car_color, item.car_price)
-            """OrderItems.objects.create(
-                    order = order,
-                    car = cart_item.car,
-                    quantity = cart_item.quantity,
-                    car_model = cart_item.car_model,
-                    car_engine = cart_item.car_engine,
-                    car_color = cart_item.car_color,
-                    car_price = cart_item.car_price
-                )"""
-            # car_id, model, engine, color, price
-            #run_producer(item.car.title, item.car_model, item.car_engine, item.color, item.price)
-            #run_producer(1, 2, 3, 4) #chassisID, engineID, interiorID, paintID
-
+            # send car details to scheduler via kafka
+            run_producer(item.car.title, item.car_model, item.car_engine, item.car_color, item.car_price, ts)
         cart.cart_items.all().delete()
         cart.save()
 

@@ -2,7 +2,7 @@ import mysqlInterface as sqlInterface
 import mongoDBInterface as mongoInterface
 import json
 from kafka import KafkaConsumer
-import time
+from datetime import datetime
 
 # TODO
 # is data persisted in volumes? Necessary?
@@ -46,7 +46,7 @@ def createOrderConsumer():
 def processCustOrder(order):
     """Simple function to process an order (just prints it in this example)"""
     # car_title, model, engine, color, price
-    print(f"Received order with {order['car_title']}, {order['model']}, {order['engine']}, {order['color']} and {order['price']}")
+    print(f"Received order with {order['car_title']}, {order['model']}, {order['engine']}, {order['color']} and {order['price']} timestamp: {datetime.fromtimestamp(order['timestamp'])}")
 
     # save order in Orders
     #sqlInterface.saveCustomerOrder(order['order_id'], order['chassisID'], order['engineID'], order['interiorID'], order['paintID'])
@@ -60,6 +60,11 @@ def processCustOrder(order):
     print(f"Order {recipeID} has been inserted in queue as 'ready'")
     print(f"Status for order {recipeID}: {sqlInterface.getOrderStatus(recipeID)}")
 
+    # create timestamp
+    # then compare to from website
+    ts = datetime.now().timestamp()
+    print("scheduler timestamp:", ts)
+    print(f"time it took: {datetime.fromtimestamp(ts - order['timestamp'])}")
 
 def listenKafka():
     # Run the consumer, reading messages
@@ -95,13 +100,3 @@ def getNextReadyRecipe():
 if __name__ == "__main__":
     print("scheduler running")
     listenKafka()
-
-#mongoInterface.insertRecipe(3, 1, 2, 4, 3)
-#rec = mongoInterface.fetchRecipe(3)
-#print(rec)
-
-
-#sqlInterface.insertReadyOrder(3)
-#print("inserted order 3")
-#status = sqlInterface.getOrderStatus('3')
-#print(status)

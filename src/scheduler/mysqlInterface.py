@@ -1,4 +1,6 @@
 import mysql.connector
+import datetime
+import time
 
 config = {
         'user': 'root',
@@ -25,7 +27,7 @@ cursorObject = dataBase.cursor()
 
 def getCustomerOrder(OrderID):
     #cursorObject.execute("SELECT * FROM Orders WHERE orderID=%s", (OrderID))
-    cursorObject.execute(f"SELECT * FROM Orders WHERE orderID={OrderID}")
+    cursorObject.execute(f"SELECT * FROM Orders WHERE orderID='{OrderID}'")
     order=cursorObject.fetchone()
 
     return order
@@ -54,8 +56,8 @@ def getOldestReadyOrder():
     cursorObject.execute(f"SELECT orderID FROM OrderStatus WHERE status='ready' ORDER BY timestamp ASC LIMIT 1")
     orderID=cursorObject.fetchone()
     return orderID
-    
+
 def changeOrderStatus(OrderID, Status):
-    cursorObject.execute(f"UPDATE OrderStatus SET status = {Status} WHERE orderID={OrderID}")
+    cursorObject.execute(f"UPDATE OrderStatus SET status = '{Status}' WHERE orderID='{OrderID}'")
 
     dataBase.commit()

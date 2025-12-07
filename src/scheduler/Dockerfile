@@ -20,5 +20,6 @@ RUN pip install -r requirements.txt
 EXPOSE 5000
 
 # Run scheduler.py when the container launches
+# doesnt work for some reason
 CMD [ "python", "./scheduler.py" ]
 #CMD python scheduler.py

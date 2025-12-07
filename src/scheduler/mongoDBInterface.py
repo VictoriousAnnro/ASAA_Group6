@@ -2,8 +2,6 @@
 from pymongo import MongoClient
 
 # Connect to MongoDB
-#myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-#myclient = MongoClient(host='mongodb', port=27017, username='root', password='pass', authSource='admin')
 myclient = MongoClient(host='test_mongodb',port=27017, username='root', password='pass',authSource="admin")
 mydb = myclient["mydatabase"]
 mycol = mydb["recipes"]

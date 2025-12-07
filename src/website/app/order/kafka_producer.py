@@ -12,7 +12,7 @@ def create_producer():
     )
     return producer
 
-def send_order(producer, car_title, model, engine, color, price):
+def send_order(producer, car_title, model, engine, color, price, timestamp):
     """Send a simple order message to Kafka"""
     # Create a sample order message
     # car_title, model, engine, color, price
@@ -21,7 +21,8 @@ def send_order(producer, car_title, model, engine, color, price):
         'model': model,
         'engine': engine,
         'color': color,
-        'price': price
+        'price': price,
+        'timestamp': timestamp
         #'order_id': order_id,
         #'chassisID': chassisID,  
         #'engineID': engineID,       
@@ -38,13 +39,13 @@ def send_order(producer, car_title, model, engine, color, price):
     )
     print(f"Sent order: {order}")
     
-def run_producer(car_title, model, engine, color, price): # car_title, model, engine, color, price
+def run_producer(car_title, model, engine, color, price, timestamp): # car_title, model, engine, color, price
     """Run the producer, sending a few messages"""
     producer = create_producer()
     
     try:
         # send message with order info
-        send_order(producer, car_title, model, engine, color, price)
+        send_order(producer, car_title, model, engine, color, price, timestamp)
     finally:
         # Always flush and close the producer when done
         producer.flush()

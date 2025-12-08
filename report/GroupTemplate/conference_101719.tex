@@ -203,6 +203,7 @@ Postconditions: A customer order is stored and marked as 'ready' for production.
 \section{Quality Attribute Scenario}
 This section contains the quality attributes for the architecture and also contains one or more Quality Attribute Scenarios, which illustrate the system's scenario.
 \subsection{Performance}
+\label{sec:qas}
 The performance of the system starts from the moment a customer has placed an order on the website, and the performance depends on the website, Non/Non-relational DB, Kafka Message bus, and Production Scheduler. The communication between these systems must take place within ten units.
 Scenarios: Two scenarios have been made for Performance.
 The first scenario on 1 shows that when a customer places an order through the car-selling website, it will publish to Kafka that an order has been created. After this event is done, the production scheduler fetches the message and starts generating the JSON production recipe, and marks it as ready as soon as it is stored in the database. This whole event chain will be complete within 10 time units. The customer's order submission to Kafka to get the message; this process must complete within four milliseconds. This scenario ensures that distributed communication does not cause significant latency and captures the system's performance requirement for the major workflow.
@@ -217,7 +218,6 @@ The first scenario on 1 shows that when a customer places an order through the c
 The second scenario on 2 shows that after the Kafka message bus gets the order from the website, the scheduler must start immediately to prevent delays. In normal load conditions, as soon as the message is available in Kafka, the scheduler must start generating the recipe within three milliseconds. This prevents performance bottlenecks in the message queue and also ensures that the event-driven architecture facilitates quick transitions from order creation to recipe development.
 
 
-\label{sec:qas}
 % The use case is the foundation to describe and specify architectural requirements.
 % So im assuming that means we dont include all QAs, just the ones relevant for our usecase and/or experiment?
 This Section introduces the specified x QASes.

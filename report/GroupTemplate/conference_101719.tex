@@ -201,7 +201,6 @@ Steps:
 Postconditions: A customer order is stored and marked as 'ready' for production.
 
 \section{Quality Attribute Scenario}
-\section{Quality Attribute Scenario}
 This section contains the quality attributes for the architecture and also contains one or more Quality Attribute Scenarios, which illustrate the system's scenario.
 \subsection{Performance}
 \label{sec:qas}
@@ -228,12 +227,8 @@ The second scenario on 2 shows that after the Kafka message bus gets the order f
     \label{quality attribute diagram 2.drawio}
 \end{figure}
 
-
-
-% The use case is the foundation to describe and specify architectural requirements.
-% So im assuming that means we dont include all QAs, just the ones relevant for our usecase and/or experiment?
-This Section introduces the specified x QASes.
-The QASes are developed based on the use case.
+In this subsection, the tactics that have been used to fulfill the Quality Attribute Scenarios are listed.\\
+To ensure the health of the connection from the systems, the most fundamental tactic is event-based processing, which separates the Website from the Scheduler and guarantees that user-facing operations do not hinder generating the JSON production recipe or database writing. It also covers the bound execution times tactics, as after the customer places the order, the message bus will receive the message within three milliseconds, and the Production Scheduler will generate the recipe within three milliseconds. To reduce overall latency, the system additionally depends on concurrency by simultaneously allowing the Scheduler to process messages, create recipes, and communicate with the database. By doing that, it avoids bottlenecks, and concurrent processing guarantees that the Scheduler can process incoming Kafka events.
 
 \section{Design and Analysis Modelling}
 \label{sec:design_and_analysis_modelling}

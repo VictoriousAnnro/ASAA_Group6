@@ -232,6 +232,38 @@ To ensure the health of the connection from the systems, the most fundamental ta
 
 \section{Design and Analysis Modelling}
 \label{sec:design_and_analysis_modelling}
+This section will outline the design patterns suitable for the project.\\
+
+ \subsubsection{Apache Kafka:} To establish communication between the website and the production scheduler, Apache Kafka will be used. The architecture requires a message bus for the subsystems to communicate with each other, and the system does not require a third-party broker or messages to be organized by "Topics," which is why Kafka is chosen instead of MQTT. Kafka decouples data streams and systems. The website sends data into Kafka, and the production scheduler queries Kafka for the data. It scales very well and won't require integration with every system.
+ 
+ \subsection{ Systems and subsystems}
+ \begin{itemize}
+    \item{1.Website}
+ \begin{itemize}
+        \item Backend
+      \begin{itemize}
+        \item Programming language: \textbf{ Django}
+        \begin{itemize}
+            \item Comprehensibility of the language makes it easier and faster to write understandable code, and easier to comply with the system. 
+            \item It has enough libraries to automate testing, as it can easily conduct testing. Also, it offers a platform that allows automation based on non-browser functionality. 
+        \end{itemize}
+        \item Database: SQLite
+    \end{itemize}
+\end{itemize}
+\begin{itemize}
+        \item Fronted 
+      \begin{itemize}
+        \item Programming language: \textbf{HTML,CSS,JavaScript }
+        \begin{itemize}
+            \item Runs anywhere, no installation needed.
+            \item UI updates instantly for all users.
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+\end{itemize}
+
+
+
 Design and analysis modelling.
 % Description of the overall architecture designs
 % Argue for tactics used to archieve the QASes

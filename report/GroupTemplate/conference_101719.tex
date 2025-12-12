@@ -136,31 +136,31 @@ Section \ref{sec:middleware_architecture} introduces the proposed reconfigurable
 Section \ref{sec:evaluation} evaluates the proposed middleware on realistic equipment in the I4.0 lab and analyzes the results against the stated QA requirement.   
 
 \section{Problem and Approach}
-
 \label{sec:problem}
 % What is the problem* to be solved with the reliable architecture you build, and how will the problem be addressed. *The stated problem leads to the stated research question.
 \emph{Problem.}
 %AM
 In todays society, there is a heavy focus on the automation and digitalization of complex systems. The complex systems are used in many areas, such as industry, healthcare, public transport and so on. These systems are described as complex, because of the many parts involved, the intricate ways in which those parts communicate, and the overall behavior of the system - how do all these parts work together to complete the systems' goals? To ensure the correctness and reliability of such systems, it is of outmost importance that thought is put into the design. After all, failure in a system can lead to negative consequences ranging from minor inconviniences to death[SOURCE].\\
-The Industry 4.0 production (I4.0) domain [... need to define]. In this domain there exist many complex production systems, one of which is the production of cars. Cars are sold not only for their functionality as a vehicle of transport, but often offer the customers a range of options for customization. These range from functional (such as the engine) to cosmetic (such as the color). Building a system that can handle customer orders and organize production of the placed orders is no small feat. It is one thing to design an architecture for such a system, but how does one ensure that it fulfills the requirements? Changes to the system during later parts of the development process are much more costly than changes made earlier in the process. Therefore it is important to ensure that the architecture is designed well, before implementation starts. From this, we've created these research questions:
+The Industry 4.0 production (I4.0) domain [... need to define]. In this domain there exist many complex production systems, one of which is the production of cars. Cars are sold not only for their functionality as a vehicle of transport, but often offer the customers a range of options for customization. These range from functional (such as the engine) to cosmetic (such as the color). Building a system that can handle customer orders and organize production of the placed orders is no small feat. It is one thing to design an architecture for such a system, but how does one ensure that it fulfills the requirements? Changes to the system during later parts of the development process are much more costly than changes made earlier in the process. Therefore it is important to ensure that the architecture is designed well, before implementation starts. For a system which customers directly interract with, an important aspect is the performance. Not only must the system provide quick feedback to customer actions, it must also be able to do so while servicing multiple customers at the same time. From this, we've created these research questions:
 \emph{Research questions:}
 \begin{enumerate}
-    \item  How to design software architecture that adopts defined architectural requirements?
-    \item How to evaluate the architectural requirements?
-    \item What trade-offs arise from the choosen technologies?
-    \item ...smth how effective is our architecture in ensuring the desired quality attributes?** PROLLY DELETE THIS
+    \item  How to design software architecture for performance?
+    \item How to evaluate the software architecture in regards to performance?
+    \item How well does a prototype built based on this architecture perform perfomance-wise? 
+    \item What trade-offs arise from the choosen technologies?** DELETE?
 \end{enumerate}
 
 \emph{Approach.}
 The following steps are taken to answer this paper's research questions:
 \begin{enumerate}
-    \item DO LATER
+    \item smth about each section of the report? Like, use cases were made to get an idea of what the system should be able to do?
 \end{enumerate}
 
 
 \section{Related work}
 \label{sec:related_work}
-% ... Should review the state of the art consisting of 8-10 papers and should contextualize how this study provides new knowledge to the field. 
+% ... Should review the state of the art consisting of 8-10 papers and should contextualize how this study provides new knowledge to the field.
+% this is about reconfigurability! we need to focus on performance! 
 This Section addresses existing contributions by examining xxx in the I4.0 domain. 
 In total, x papers are investigated. 
 
@@ -174,14 +174,11 @@ Two objectives for reconfiguration and how they can be reached are described.
 Several papers \cite{Koren1999Reconfigurable,Koren2010Design,Bortolini2018Reconfigurable} describe reconfigurable manufacturing systems that are cost-effective and responsive to market changes.
 
 All contributions provide valuable knowledge about reconfiguration but lack a study of the software architecture perspective that specifies a quantifiable reconfigurability architectural requirement, a software architecture that adopts the architectural requirements, and evaluates the architectural requirement. 
-% this is about reconfigurability! we need to focus on performance!
-
 
 \section{Use Case}
 \label{sec:use_case}
 % From lecture 12 Summary-keypoint-exam topics sample: 
 % Unfold the problem with a use case and describe what the use case is about
-% So i dont think we need all our use cases. Just one or a few relevant ones
 This Section introduces the use case of a customer placing an order on the company's website. This use case covers the sequence of actions starting from the customer accessing the website, to the moment when the order is saved and marked as 'ready' for production in the system.
 \subsection{Customer places an order}
 Actors: Customer, Website, Production Scheduler
@@ -227,23 +224,22 @@ The second scenario on 2 shows that after the Kafka message bus gets the order f
     \label{quality attribute diagram 2.drawio}
 \end{figure}
 
-In this subsection, the tactics that have been used to fulfill the Quality Attribute Scenarios are listed.\\
-To ensure the health of the connection from the systems, the most fundamental tactic is event-based processing, which separates the Website from the Scheduler and guarantees that user-facing operations do not hinder generating the JSON production recipe or database writing. It also covers the bound execution times tactics, as after the customer places the order, the message bus will receive the message within three milliseconds, and the Production Scheduler will generate the recipe within three milliseconds. To reduce overall latency, the system additionally depends on concurrency by simultaneously allowing the Scheduler to process messages, create recipes, and communicate with the database. By doing that, it avoids bottlenecks, and concurrent processing guarantees that the Scheduler can process incoming Kafka events.
-%move tactics to next section???
-
 \section{Design and Analysis Modelling}
 \label{sec:design_and_analysis_modelling}
+This section describes the different steps in the design process, as well as an analysis of the design.
 %Describe the design and argue for the design decision and how it meets the QASes. Part of the design decision must specify which tactics/patterns are used (provide arguments) and the trade-offs. 
 %Analyze the design and illustrate the system architecture model, encompassing both structure and behavior, using formal reasoning.
 % Feature model is optional. However, it should be explained what/which particular features (characteristics) are selected and the reason of choice.
 % A list of requirements. Diagram is optional. 
 % High level architecture structure: components and their interactions to meet the RQs.
+%Offers a clear and more comprehensive design, modeling and analysis with both a detailed description and a well-considered evaluation of pros and cons, including a clearer explanation of how the design and modeling affect Quality Attributes with relevant requirement analysis and tactics.
 
 %TODO AM
 % QAs from prev section used to formulate requirements here. 
 % then present tactics
+% Discuss the trade-offs
 % then structural model -> behavioral model
-Based on the QAS and the use case, several requirements were defined, which can be seen in table \ref{ReqTabel}[FIX TABLE LABEL!!]. 
+\subsection{Requirements} Based on the QAS and the use case, several requirements were defined, which can be seen in table \ref{ReqTabel}[FIX TABLE LABEL!!]. 
 %**not sure if only to include RQs for our QAeses??**
 \begin{center}
 \begin{tabular}{ | m{0.5cm} | m{4cm}| m{1cm} | m{1cm} | }
@@ -265,10 +261,12 @@ Based on the QAS and the use case, several requirements were defined, which can 
 \end{tabular}
 \label{ReqTabel}
 \end{center}
-% tactics
-% smth about kafka separating website from scheduler, so website doesnt have to wait. Replicas of website?
 
-% features
+\subsection{Tactics}
+% smth about kafka separating website from scheduler, so website doesnt have to wait. Replicas of website?
+To ensure the health of the connection from the systems, the most fundamental tactic is event-based processing, which separates the Website from the Scheduler and guarantees that user-facing operations do not hinder generating the JSON production recipe or database writing. It also covers the bound execution times tactics, as after the customer places the order, the message bus will receive the message within three milliseconds, and the Production Scheduler will generate the recipe within three milliseconds. To reduce overall latency, the system additionally depends on concurrency by simultaneously allowing the Scheduler to process messages, create recipes, and communicate with the database. By doing that, it avoids bottlenecks, and concurrent processing guarantees that the Scheduler can process incoming Kafka events.
+
+\subsection{Features}
 Figure \ref{FeatureDiagram} shows the features for the car production system that will realize the defined requirements. The system will have a website, from which the customer may browse and choose a car to customize. The Scheduler will process the orders by creating a production recipe for each order. The Scheduler also manages the status of each order, setting status to 'ready' for prodduction when the corresponding production recipe has been created and stored in the system. 
 \begin{figure}[h]
     \centering
@@ -277,19 +275,20 @@ Figure \ref{FeatureDiagram} shows the features for the car production system tha
     \label{FeatureDiagram}
 \end{figure}
 
-% structural model
-the structural model....
+\subsection{Structural Analysis Model}
+A structural analysis model (also called smth FAA) can be used to present the functions for the features defined in figure \ref{FeatureDiagram}, and the way data flows between the different parts. Figure \ref{schedulerFAA} shows the FAA of the Scheduler. 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\linewidth]{SchedulerFAA.jpg}
+    \includegraphics[width=1\linewidth]{SchedulerFAA.jpg}
     \caption{Functional Analysis Model of Scheduler}
     \label{schedulerFAA}
 \end{figure}
 
-% behavioral model
+\subsection{Finite-State Machine/Automata}
+Behavioral model, finite-state machine (FSM)...
 
-%Offers a clear and more comprehensive design, modeling and analysis with both a detailed description and a well-considered evaluation of pros and cons, including a clearer explanation of how the design and modeling affect Quality Attributes with relevant requirement analysis and tactics.
-
+\subsection{Technologies}
+%not sure where we should talk about actual technologies and tools used. It should deffo be in the report, but not sure it should be here?? i dunno
 This section will outline the design patterns suitable for the project.
 
  \subsubsection{Apache Kafka:} To establish communication between the website and the production scheduler, Apache Kafka will be used. The architecture requires a message bus for the subsystems to communicate with each other, and the system does not require a third-party broker or messages to be organized by "Topics," which is why Kafka is chosen instead of MQTT. Kafka decouples data streams and systems. The website sends data into Kafka, and the production scheduler queries Kafka for the data. It scales very well and won't require integration with every system.
@@ -320,27 +319,33 @@ This section will outline the design patterns suitable for the project.
 \end{itemize}
 \end{itemize}
 
-
-
-Design and analysis modelling.
-% Description of the overall architecture designs
-% Argue for tactics used to archieve the QASes
-% Discuss the trade-offs
-%AM
-% Use cases -> RQs -> feature model -> architectural model/SM?
-%feature model is optional. However, it should be xplained what/which particular features (characteristics) are selected and the reason of choise.
-%describe the design and argue for the design decision and how it meets the QASes. Part of the design decision must specify which tactics/patterns are used (provide arguments) and the trade-offs. 
-%analyse the design and illustrate the system architecture model, encompassing both structure and behavior, using formal reasoning
-
 \section{Formal verification and validation}
 \label{sec:formal_v_and_v}
-Formal verification and validation of system(s).
+%Offers a comprehensive and in-depth description of the V&V, covering detailed methodology, model checking execution, and thorough analysis of the verification/simulation results (including a table/list of property V&V results) and system/design improvement based on the interpretation of V&V results, demonstrating an advanced understanding of experimental methods in software engineering Formal verification and validation of system(s).
+
+% lecture 8 + 9
+In order to perform a formal verification and validation of the architecure, a model is created to represent the system, based on the Finite-State Machine defined in section \ref{sec:design_and_analysis_modelling}. Timing constraints are identified for the events within the model, based on the requirements. Then, the formal model can be verified to see whether it upholds the constraints and requirements, by simulating it in the model-checker tool UPPAAL [cite upaal somehow]. Figure XX shows the model for the website, and figure XX shows the scheduler.\\
+The properties to be evaluated, written in the UPPAAL query language, can be seen in table \ref{VVResults}, along with the result from the verification. If a property fails, UPPAAL outputs a counter example (CE) to show how it failed. 
+% What about the CTL tree thingy?
+\begin{center}
+\begin{tabular}{ | m{3cm} | m{1.5cm}| m{2cm} | }
+ \hline
+ Property & Result & Counter Example \\ 
+ \hline
+ A[] not deadlock & pass/fail & Ce or N/A \\ 
+ \hline
+ \( E<>\) state XX reached within time XX... & rgt & gr \\
+ \hline
+\end{tabular}
+\label{VVResults}
+\end{center}
+Based on these results,...
 
 
 \section{Evaluation}
 \label{sec:evaluation}
 
-% Empirical evaluation
+% Empirical evaluation - the actual experiment
 This Section describes the evaluation of the proposed design.
 Section \ref{sec:design} introduces the design of the experiment to evaluate the system. 
 Section \ref{sec:measurements} identifies the measurements in the system for the experiment.
@@ -350,8 +355,10 @@ Section \ref{sec:analysis} presents the analysis of the results from the experim
 \subsection{Experiment design}
 \label{sec:design}
 
+
 \subsection{Measurements}
 \label{sec:measurements}
+The time will be measured in (mili)seconds. 
 
 \subsection{Pilot test}
 \label{sec:pilot_test}
@@ -378,6 +385,6 @@ Conclusion of the report, discussion and relevant future work.
 \section*{Contributions}
 \begin{tabular}{l|p{0.6\linewidth}}
 Name & Contribution\\
-Anne-Marie & Scheduler, Use cases\\
+Anne-Marie & Scheduler, Kafka, Use case, Design and Analysis Modelling\\
 \end{tabular}
 \end{document}

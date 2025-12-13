@@ -243,21 +243,21 @@ This section describes the different steps in the design process, as well as an 
 \subsection{Requirements} Based on the QAS and the use case, several requirements were defined, which can be seen in table \ref{ReqTabel}[FIX TABLE LABEL!!]. 
 %**not sure if only to include RQs for our QAeses??**
 \begin{center}
-\begin{tabular}{ | m{0.5cm} | m{4cm}| m{1cm} | m{1cm} | }
+\begin{tabular}{ | m{0.7cm} | m{4cm}| m{1cm} | m{1cm} | }
  \hline
  Req ID & Description & Type & QA \\ 
  \hline
- id & Customer can choose from a list of available cars & Func & Us\\ 
+ RQ1 & Customer can choose from a list of available cars & Func & Us\\ 
  \hline
- id & Customer should be able to chose a car and customize the car's model, engine and color & type & qa\\ 
+ RQ2 & Customer should be able to chose a car and customize the car's model, engine and color & type & qa\\ 
  \hline
- id & Scheduler should prepare a placed order for production by creating and saving a production recipe & type & Perf\\
+ RQ3 & Scheduler should prepare a placed order for production by creating and saving a production recipe & type & Perf\\
  \hline
- id & Scheduler should keep track of an order's status (ready, in progress, completed) & type & per\\
+ RQ4 & Scheduler should keep track of an order's status (ready, in progress, completed) & type & per\\
  \hline
- id & The website should respond to user actions in less than 3 seconds & type & Perf\\
+ RQ5 & The website should respond to user actions in less than 3 seconds & type & Perf\\
  \hline
- id & Any order placed on the website should be saved and marked as 'ready' for production in database within 10 time units & type & Perf\\ 
+ RQ6 & Any order placed on the website should be saved and marked as 'ready' for production in database within 10 time units & type & Perf\\ 
  \hline
 \end{tabular}
 \label{ReqTabel}
@@ -286,6 +286,7 @@ A structural analysis model (also called smth FAA) can be used to present the fu
 \end{figure}
 
 \subsection{Finite-State Machine/Automata}
+To show the behavior of the system, finite-state machines (FSM) were defined for the website and scheduler, shown in figure \ref{websiteSM} and \ref{schedulerSM} respectively. 
 Behavioral model, finite-state machine (FSM)...
 \begin{figure}[h]
     \centering

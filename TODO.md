@@ -31,3 +31,8 @@ This is a TODO-list for random things we need fixed in the report.
 
 15. Formal verification, cite UPPAAL
 
+16. State machines, initial and exit states need correct black color. For some reason it just wouldnt work for me
+
+17. State machines, make website send message text
+
+18. State machines, website what happens after 'add to cart'? Is the user redirected or??

@@ -1,6 +1,8 @@
 ## TODO Report
 This is a TODO-list for random things we need fixed in the report.
 
+**Note the folder drawioFiles. We should keep our updated drawio files in there, so we can all access easily. Im having trouble w saving to my google drive, so i prefer this**
+
 1. Everyone should add their name and details to author list
 
 2. Problem And Approach needs to be finished. Sources and some text is missing. Also 'approach' section. 

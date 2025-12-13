@@ -147,7 +147,6 @@ The Industry 4.0 production (I4.0) domain [... need to define]. In this domain t
     \item  How to design software architecture for performance?
     \item How to evaluate the software architecture in regards to performance?
     \item How well does a prototype built based on this architecture perform perfomance-wise? 
-    \item What trade-offs arise from the choosen technologies?** DELETE?
 \end{enumerate}
 
 \emph{Approach.}
@@ -268,7 +267,7 @@ This section describes the different steps in the design process, as well as an 
 To ensure the health of the connection from the systems, the most fundamental tactic is event-based processing, which separates the Website from the Scheduler and guarantees that user-facing operations do not hinder generating the JSON production recipe or database writing. It also covers the bound execution times tactics, as after the customer places the order, the message bus will receive the message within three milliseconds, and the Production Scheduler will generate the recipe within three milliseconds. To reduce overall latency, the system additionally depends on concurrency by simultaneously allowing the Scheduler to process messages, create recipes, and communicate with the database. By doing that, it avoids bottlenecks, and concurrent processing guarantees that the Scheduler can process incoming Kafka events.
 
 \subsection{Features}
-Figure \ref{FeatureDiagram} shows the features for the car production system that will realize the defined requirements. The system will have a website, from which the customer may browse and choose a car to customize. The Scheduler will process the orders by creating a production recipe for each order. The Scheduler also manages the status of each order, setting status to 'ready' for prodduction when the corresponding production recipe has been created and stored in the system. 
+Figure \ref{FeatureDiagram} shows the features for the car production system that will realize the defined requirements. The system will have a website, from which the customer may browse and choose a car to customize. The Scheduler will process the orders by creating a production recipe for each order. The Scheduler also manages the status of each order, setting status to 'ready' for production when the corresponding production recipe has been created and stored in the system. 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\linewidth]{featureDiagram.jpg}
@@ -399,7 +398,7 @@ Section \ref{sec:analysis} presents the analysis of the results from the experim
 The experiment design will be based off the process presented in Claes Wohlin et al. 2012**. Thus, our goal template will be:
 \begin{itemize}
     \item Analyze our software architecture
-    \item For the purpose of checking whether the requirements are met With respect to the Performance QA
+    \item For the purpose of checking whether the requirements are met with respect to the performance QA
     \item From the point of view of the customer and developer
     \item In the context of a customer using the system (website and scheduler) to place an order for a customized car. %the system being locally hosted on a computer, deployed in Docker containers (or physical location? Like classroom? Or an informal setting as compared to a more formal/professional setting like a lab study). (Single-object study OR Multi-object variation study)
 \end{itemize}

@@ -224,6 +224,7 @@ The second scenario on 2 shows that after the Kafka message bus gets the order f
     \label{quality attribute diagram 2.drawio}
 \end{figure}
 
+
 \section{Design and Analysis Modelling}
 \label{sec:design_and_analysis_modelling}
 This section describes the different steps in the design process, as well as an analysis of the design.
@@ -304,33 +305,60 @@ Behavioral model, finite-state machine (FSM)...
 %not sure where we should talk about actual technologies and tools used. It should deffo be in the report, but not sure it should be here?? i dunno
 This section will outline the design patterns suitable for the project.
 
- \subsubsection{Apache Kafka:} To establish communication between the website and the production scheduler, Apache Kafka will be used. The architecture requires a message bus for the subsystems to communicate with each other, and the system does not require a third-party broker or messages to be organized by "Topics," which is why Kafka is chosen instead of MQTT. Kafka decouples data streams and systems. The website sends data into Kafka, and the production scheduler queries Kafka for the data. It scales very well and won't require integration with every system.
+ \subsection{Apache Kafka:} To establish communication between the website and the production scheduler, Apache Kafka will be used. The architecture requires a message bus for the subsystems to communicate with each other, and the system does not require a third-party broker or messages to be organized by \ref{https://www.hivemq.com/blog/mqtt-vs-kafka-real-time-bidirectional-data-processing/}"Topics," which is why Kafka is chosen instead of MQTT. Kafka decouples data streams and systems. The website sends data into Kafka, and the production scheduler queries Kafka for the data. It scales very well and will not  require integration with every system.
  
+
  \subsection{ Systems and subsystems}
  \begin{itemize}
-    \item{1.Website}
+    \item Website
  \begin{itemize}
-        \item Backend
+     \item Backend
       \begin{itemize}
-        \item Programming language: \textbf{ Django}
+        \item Programming language: Python Django framework
         \begin{itemize}
             \item Comprehensibility of the language makes it easier and faster to write understandable code, and easier to comply with the system. 
             \item It has enough libraries to automate testing, as it can easily conduct testing. Also, it offers a platform that allows automation based on non-browser functionality. 
         \end{itemize}
-        \item Database: SQLite
+        \item Database: Relational Database 
+    \end{itemize}
     \end{itemize}
 \end{itemize}
 \begin{itemize}
         \item Fronted 
       \begin{itemize}
-        \item Programming language: \textbf{HTML,CSS,JavaScript }
+        \item Programming language:HTML,CSS,JavaScript 
         \begin{itemize}
             \item Runs anywhere, no installation needed.
             \item UI updates instantly for all users.
         \end{itemize}
     \end{itemize}
 \end{itemize}
-\end{itemize}
+
+ \begin{itemize}
+    \item Scheduler
+
+      \begin{itemize}
+        \item Programming language: Python 
+        \item Database: Relational Database(MYSQL) 
+        \begin{itemize}
+            \item MySQL offers speed and reliability, especially high-speed read operations, where PostgreSQL seems to be more suited for complex queries, data integrity, and consistency. MySQL is better suited for the system, as the system has simple queries and wants speed.
+        \end{itemize}
+        \item Non-Relational Database(MongoDB)
+        \begin{itemize}
+            \item MongoDB is a document-oriented database. MongoDB stores data in the form of key-value pairs. MongoDB is high-speed, high-availability, and scalability, and also supports JSON formats and allows for ACID transactions.
+        \end{itemize}
+    \end{itemize}
+    \end{itemize}
+
+\subsection{Containerization}
+This subsection will contain the subsystems that are going to be containerized in the project and how they impact the performance attributes of the system. For containerization, Docker is going to be used.
+\subsubsection{Website}
+The website has been chosen to be containerized as it has to ensure that the execution environment is the same every time, regardless of the underlying operating system. The website must be scalable 
+since the quantity of users' orders can change over time.
+\subsubsection{Production Scheduler}
+The Production Scheduler has been chosen to be containerized as it is responsible for coordinating orders, generating production recipes, and scheduling production runs. It ensures the isolation between the scheduling logic and other parts of the system. It improves fault tolerance.
+\subsubsection{Impact}
+The impact of Docker Compose provides the system with maintainability and scalability. Containerization improves scalability by enabling the deployment of more instances of the Website or Scheduler as system demand rises. It also improves maintainability as it ensures that the service always runs in the same environment and works the same way on different operating systems.
 
 \section{Formal verification and validation}
 \label{sec:formal_v_and_v}

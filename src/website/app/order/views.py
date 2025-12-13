@@ -8,6 +8,38 @@ from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from order.kafka_producer import run_producer
 import datetime
+from django.http import JsonResponse, HttpResponseNotAllowed
+import random
+from django.utils.crypto import get_random_string
+
+# helper method for experiment
+def _checkout_cart_and_send_kafka(cart, name, email, phone, address):
+    ct = datetime.datetime.now()
+    ts = ct.timestamp()
+
+    cart.convertToOrder(
+        name=name,
+        email=email,
+        phone=phone,
+        address=address
+    )
+    cart.is_order = True
+
+    cart_items = cart.cart_items.all()
+    for item in cart_items:
+        run_producer(
+            item.car.title,
+            item.car_model,
+            item.car_engine,
+            item.car_color,
+            item.car_price,
+            ts,
+        )
+
+    cart_items.delete()
+    cart.save()
+    return ts
+
 
 # Create your views here.
 
@@ -74,6 +106,24 @@ def remove_to_cart(request):
 
 @login_required(login_url="/accounts/login/")
 def checkout_view(request, cart_id):
+    cart = Cart.objects.get(id=cart_id)
+
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        address = request.POST.get('address')
+
+        _checkout_cart_and_send_kafka(cart, name, email, phone, address)
+
+        return redirect('order-list')
+
+    return render(request, 'order/checkout.html', {'cart': cart})
+
+# original
+"""
+@login_required(login_url="/accounts/login/")
+def checkout_view(request, cart_id):
     ct = datetime.datetime.now()
     ts = ct.timestamp()
     print("timestamp:", ts)
@@ -106,6 +156,7 @@ def checkout_view(request, cart_id):
         return redirect('order-list')
 
     return render(request, 'order/checkout.html', {'cart': cart})
+    """
 
 def order_list_view(request):
     if request.method == 'GET':
@@ -116,3 +167,89 @@ def order_list_view(request):
         print("order_items", order_items)
         return render(request, 'order/orders.html', context={'orders':orders, 'order_items':order_items})
 
+@login_required(login_url="/accounts/login/")
+def experiment_place_order(request):
+    """
+    One experiment order:
+    - Picks a random car
+    - Creates a cart for the logged-in customer
+    - Fills it with randomized config data
+    - Runs normal checkout logic, including Kafka + timestamp
+    - Returns JSON for debugging
+    """
+    if request.method != "POST":
+        return HttpResponseNotAllowed(["POST"])
+
+    try:
+        customer = Customer.objects.get(user_ptr=request.user.id)
+    except Customer.DoesNotExist:
+        return JsonResponse({"error": "Customer not found for this user"}, status=400)
+
+    # Get all cars and pick a random one
+    cars = list(Car.objects.all())
+    if not cars:
+        return JsonResponse({"error": "No cars available for experiment"}, status=500)
+
+    car = random.choice(cars)
+
+    # Create a **new cart** for this experiment run
+    cart = Cart.objects.create(customer=customer)
+
+    # Randomization helpers
+    random_suffix = get_random_string(6)
+
+    engine_options = ["V6", "V8", "Electric", "Hybrid", "Diesel"]
+    color_options = ["Red", "Blue", "Black", "White", "Silver", "Green"]
+
+    car_model = getattr(car, "model", f"Model-{random_suffix}")
+    car_engine = random.choice(engine_options)
+    car_color = random.choice(color_options)
+
+    # Slightly randomize price around the car's real price (if it exists)
+    base_price = getattr(car, "price", 100000)
+    price_variation = random.randint(-5000, 5000)
+    car_price = max(1000, base_price + price_variation)
+
+    # Create the cart item
+    cart_item = CartItems.objects.create(
+        cart=cart,
+        car=car,
+        car_model=car_model,
+        car_engine=car_engine,
+        car_color=car_color,
+        car_price=car_price,
+        quantity=1,
+    )
+
+    print("Experiment: created cart item:", cart_item)
+
+
+    name = f"Experiment User {random_suffix}"
+    email = f"exp{random_suffix.lower()}@example.com"
+    phone = str(random.randint(10000000, 99999999))
+    address = f"Test Street {random.randint(1, 200)}"
+
+    ts = _checkout_cart_and_send_kafka(
+        cart=cart,
+        name=name,
+        email=email,
+        phone=phone,
+        address=address,
+    )
+
+    order = Order.objects.filter(customer=customer).order_by('-created_at').first()
+
+    return JsonResponse({
+        "message": "Experiment order created",
+        "timestamp": ts,
+        "cart_id": cart.id,
+        "order_id": order.id if order else None,
+        "car": {
+            "id": car.id,
+            "title": car.title,
+            "model": car_model,
+            "engine": car_engine,
+            "color": car_color,
+            "price": car_price,
+        },
+})

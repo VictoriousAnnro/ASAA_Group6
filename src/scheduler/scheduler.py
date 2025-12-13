@@ -3,6 +3,7 @@ import mongoDBInterface as mongoInterface
 import json
 from kafka import KafkaConsumer
 from datetime import datetime
+from datetime import timedelta
 
 # TODO
 # is data persisted in volumes? Necessary?
@@ -63,8 +64,15 @@ def processCustOrder(order):
     # create timestamp
     # then compare to from website
     ts = datetime.now().timestamp()
+    duration = ts - order['timestamp']
+
     print("scheduler timestamp:", ts)
-    print(f"time it took: {datetime.fromtimestamp(ts - order['timestamp'])}")
+    print("time it took:", timedelta(seconds=duration))
+    print(f"time it took (numeric): {duration:.3f} seconds") #here, we should put the output in a file
+
+    #ts = datetime.now().timestamp()
+    #print("scheduler timestamp:", ts)
+    #print(f"time it took: {datetime.fromtimestamp(ts - order['timestamp'])}")
 
 def listenKafka():
     # Run the consumer, reading messages

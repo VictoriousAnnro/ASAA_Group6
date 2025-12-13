@@ -10,18 +10,10 @@
     </div>
     <div class="col-md-7">
       <div class="input-group mt-3">
-
       </div>
     </div>
 
-
-
-
     <div class="col-md-3 mt-3">
-
-
-
-
       <a href="/order/cart/">
         <div class="circle float-right" onclick="window.location.href='/order/cart/';">
           <i class="fas fa-shopping-cart text-muted"></i>
@@ -30,8 +22,6 @@
             {{request.user.customer.getCartItemCount}}</span>
         </div>
       </a>
-
-
 
       {% if not request.user.is_authenticated %}
       <div class="circle float-right mr-4">
@@ -52,9 +42,11 @@
           <a class="dropdown-item" href="{% url 'logout_page' %}">Logout</a>
         </div>
       </div>
-
+      <!-- test button-->
+      <button id="run-load-test-btn" class="btn btn-warning btn-sm">
+        Run 50-order load test
+      </button>
       {% endif %}
-
 
     </div>
   </div>
@@ -63,47 +55,90 @@
 <!--newmethod-->
 <!-- I still can't add cars the normal way, so i have to use this-->
 <script>
-  btn = document.getElementById("add-to-cart-btn");
-  btn.addEventListener("click", function (e) {
-    e.preventDefault();
+  // "Add to cart" test button
+  const addToCartBtn = document.getElementById("add-to-cart-btn");
+  if (addToCartBtn) {
+    addToCartBtn.addEventListener("click", function (e) {
+      e.preventDefault();
 
-    const carId = 1;
-    const carModel = 'bi';
-    const carEngine = 'engin';
-    const carColor = 'red';
-    const carPrice = 100;
+      const carId = 1;
+      const carModel = 'bi';
+      const carEngine = 'engin';
+      const carColor = 'red';
+      const carPrice = 100;
 
-    const url = `/order/add-to-cart?car_id=${carId}`
-      + `&car_model=${carModel}`
-      + `&car_engine=${carEngine}`
-      + `&car_color=${carColor}`
-      + `&car_price=${carPrice}`;
+      const url = `/order/add-to-cart?car_id=${carId}`
+        + `&car_model=${carModel}`
+        + `&car_engine=${carEngine}`
+        + `&car_color=${carColor}`
+        + `&car_price=${carPrice}`;
 
-    getCall(url);
-    //window.location.href = url;
-  });
-
-  async function getCall(url) {
-    try {
-      const response = await fetch(url, {
+      fetch(url, {
         method: 'GET',
+      }).then(res => {
+        console.log("Add-to-cart test status:", res.status);
+      }).catch(err => {
+        console.error("Error in add-to-cart test:", err);
+      });
+    });
+  }
+
+
+  // Load test: 50 requests, 1 second apart
+
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+      const cookies = document.cookie.split(";");
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + "=")) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+
+  const csrftoken = getCookie("csrftoken");
+
+  const TOTAL_REQUESTS = 50;
+  const INTERVAL_MS = 1000;
+
+  async function sendExperimentRequest(index) {
+    try {
+      const response = await fetch("/order/experiment/place-order/", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
+          "X-CSRFToken": csrftoken,
         },
+        body: JSON.stringify({ run_index: index })
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        console.error(`Request ${index} failed with status`, response.status);
+        return;
       }
 
       const data = await response.json();
-      if (data.error) {
-        return `Error from Python: ${data.error}`;
-      }
-
-      return data.result;
-    } catch (error) {
-      return `An error occurred: ${error}`;
+      console.log(`Request ${index} OK`, data);
+    } catch (err) {
+      console.error(`Request ${index} error`, err);
     }
+  }
+
+  const loadTestBtn = document.getElementById("run-load-test-btn");
+  if (loadTestBtn) {
+    loadTestBtn.addEventListener("click", () => {
+      console.log(`Starting load test: ${TOTAL_REQUESTS} requests, ${INTERVAL_MS} ms apart`);
+
+      for (let i = 0; i < TOTAL_REQUESTS; i++) {
+        setTimeout(() => {
+          sendExperimentRequest(i);
+        }, i * INTERVAL_MS);
+      }
+    });
   }
 </script>

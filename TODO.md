@@ -35,6 +35,8 @@ This is a TODO-list for random things we need fixed in the report.
 
 16. State machines, initial and exit states need correct black color. For some reason it just wouldnt work for me
 
-17. State machines, make website send message text
+17. State machines, make website send message text. Also, does it need an 'exit' state??
 
 18. State machines, website what happens after 'add to cart'? Is the user redirected or??
+
+19. Design and analysis, should prolly have some mapping between requirements and diagrams. Consider requirement mapping matrix

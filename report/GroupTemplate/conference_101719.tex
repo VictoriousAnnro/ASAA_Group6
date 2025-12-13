@@ -290,19 +290,20 @@ Behavioral model, finite-state machine (FSM)...
 \begin{figure}[h]
     \centering
     \includegraphics[width=1\linewidth]{WebsiteSM.pdf}
-    \caption{sm website - FIX SENDING MESSAGE TO SCHEDULER}
+    \caption{Finite State Machine for the website}
     \label{websiteSM}
 \end{figure}
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=1\linewidth]{SchedulerSM.pdf}
-    \caption{sm scheduler}
+    \caption{Finite State Machine for the scheduler}
     \label{schedulerSM}
 \end{figure}
 
 \subsection{Technologies}
 %not sure where we should talk about actual technologies and tools used. It should deffo be in the report, but not sure it should be here?? i dunno
+% perhaps it should be moved to 'experiment design' in 'Evaluation', cuz the technologies are relevant for the experiment, and also this from exercise 10 which was abt experiment: "Decide on the tools, environments, and configurations necessary for the experiment."
 This section will outline the design patterns suitable for the project.
 
  \subsection{Apache Kafka:} To establish communication between the website and the production scheduler, Apache Kafka will be used. The architecture requires a message bus for the subsystems to communicate with each other, and the system does not require a third-party broker or messages to be organized by \ref{https://www.hivemq.com/blog/mqtt-vs-kafka-real-time-bidirectional-data-processing/}"Topics," which is why Kafka is chosen instead of MQTT. Kafka decouples data streams and systems. The website sends data into Kafka, and the production scheduler queries Kafka for the data. It scales very well and will not  require integration with every system.
@@ -385,7 +386,6 @@ Based on these results,...
 
 \section{Evaluation}
 \label{sec:evaluation}
-
 % Empirical evaluation - the actual experiment
 This Section describes the evaluation of the proposed design.
 Section \ref{sec:design} introduces the design of the experiment to evaluate the system. 
@@ -395,11 +395,19 @@ Section \ref{sec:analysis} presents the analysis of the results from the experim
 
 \subsection{Experiment design}
 \label{sec:design}
+The experiment design will be based off the process presented in Claes Wohlin et al. 2012**. Thus, our goal template will be:
+\begin{itemize}
+    \item Analyze our software architecture
+    \item For the purpose of checking whether the requirements are met With respect to the Performance QA
+    \item From the point of view of the customer and developer
+    \item In the context of a customer using the system (website and scheduler) to place an order for a customized car. %the system being locally hosted on a computer, deployed in Docker containers (or physical location? Like classroom? Or an informal setting as compared to a more formal/professional setting like a lab study). (Single-object study OR Multi-object variation study)
+\end{itemize}
 
+The scenario we'll be testing is: "From the moment a customer has placed an order on the website, the order must be placed in ‘queue’ (recipe should be saved in DB, and orderStatus should be ‘ready’), within 10 (timeunits**)". 
 
 \subsection{Measurements}
 \label{sec:measurements}
-The time will be measured in (mili)seconds. 
+The time will be measured in (mili)seconds for an action to finish.
 
 \subsection{Pilot test}
 \label{sec:pilot_test}

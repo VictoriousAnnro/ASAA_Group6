@@ -197,6 +197,7 @@ Steps:
 Postconditions: A customer order is stored and marked as 'ready' for production.
 
 \section{Quality Attribute Scenario}
+%lecture 12 - the use case is the foundation to describe and and specify architectural requirements. 
 This section contains the quality attributes for the architecture and also contains one or more Quality Attribute Scenarios (QAS), which illustrate the system's scenario.
 \subsection{Performance}
 \label{sec:qas}
@@ -223,6 +224,28 @@ The second scenario on 2 shows that after the Kafka message bus gets the order f
     \label{quality attribute diagram 2.drawio}
 \end{figure}
 
+\subsection{Requirements} Based on the QAS and the use case, several requirements were defined, which can be seen in table \ref{ReqTabel}[FIX TABLE LABEL!!]. 
+\begin{center}
+\begin{tabular}{ | m{0.7cm} | m{4cm}| m{1.5cm} | m{1.7cm} | }
+ \hline
+ Req ID & Description & Type & QA \\ 
+ \hline
+ RQ1 & Customer can choose from a list of available cars & Functional & Us\\ 
+ \hline
+ RQ2 & Customer should be able to chose a car and customize the car's model, engine and color & Functional & qa\\ 
+ \hline
+ RQ3 & Scheduler should prepare a placed order for production by creating and saving a production recipe & Functional & Perf\\
+ \hline
+ RQ4 & Scheduler should keep track of an order's status (ready, in progress, completed) & Functional & per\\
+ \hline
+ RQ5 & The website should respond to user actions in less than 3 seconds & Non-Functional & Performance\\
+ \hline
+ RQ6 & Any order placed on the website should be saved and marked as 'ready' for production in database within 10 time units & Non-Functional & Performance\\ 
+ \hline
+\end{tabular}
+\label{ReqTabel}
+\end{center}
+
 
 \section{Design and Analysis Modelling}
 \label{sec:design_and_analysis_modelling}
@@ -235,71 +258,48 @@ This section describes the different steps in the design process, as well as an 
 %Offers a clear and more comprehensive design, modeling and analysis with both a detailed description and a well-considered evaluation of pros and cons, including a clearer explanation of how the design and modeling affect Quality Attributes with relevant requirement analysis and tactics.
 
 %TODO AM
-% QAs from prev section used to formulate requirements here. 
-% then present tactics
+% present tactics
 % Discuss the trade-offs
 % then structural model -> behavioral model
-\subsection{Requirements} Based on the QAS and the use case, several requirements were defined, which can be seen in table \ref{ReqTabel}[FIX TABLE LABEL!!]. 
-%**not sure if only to include RQs for our QAeses??**
-\begin{center}
-\begin{tabular}{ | m{0.7cm} | m{4cm}| m{1cm} | m{1cm} | }
- \hline
- Req ID & Description & Type & QA \\ 
- \hline
- RQ1 & Customer can choose from a list of available cars & Func & Us\\ 
- \hline
- RQ2 & Customer should be able to chose a car and customize the car's model, engine and color & type & qa\\ 
- \hline
- RQ3 & Scheduler should prepare a placed order for production by creating and saving a production recipe & type & Perf\\
- \hline
- RQ4 & Scheduler should keep track of an order's status (ready, in progress, completed) & type & per\\
- \hline
- RQ5 & The website should respond to user actions in less than 3 seconds & type & Perf\\
- \hline
- RQ6 & Any order placed on the website should be saved and marked as 'ready' for production in database within 10 time units & type & Perf\\ 
- \hline
-\end{tabular}
-\label{ReqTabel}
-\end{center}
 
 \subsection{Tactics}
 % smth about kafka separating website from scheduler, so website doesnt have to wait. Replicas of website?
 To ensure the health of the connection from the systems, the most fundamental tactic is event-based processing, which separates the Website from the Scheduler and guarantees that user-facing operations do not hinder generating the JSON production recipe or database writing. It also covers the bound execution times tactics, as after the customer places the order, the message bus will receive the message within three milliseconds, and the Production Scheduler will generate the recipe within three milliseconds. To reduce overall latency, the system additionally depends on concurrency by simultaneously allowing the Scheduler to process messages, create recipes, and communicate with the database. By doing that, it avoids bottlenecks, and concurrent processing guarantees that the Scheduler can process incoming Kafka events.
 
 \subsection{Features}
-Figure \ref{FeatureDiagram} shows the features for the car production system that will realize the defined requirements. The system will have a website, from which the customer may browse and choose a car to customize. The Scheduler will process the orders by creating a production recipe for each order. The Scheduler also manages the status of each order, setting status to 'ready' for production when the corresponding production recipe has been created and stored in the system. 
+Figure \ref{FeatureDiagram} shows the features for the car production system that will realize the defined requirements. The system will have a website, from which the customer may browse (RQ1) and choose a car to customize (RQ2). The Scheduler will process the orders by creating a production recipe for each order (RQ3). The Scheduler also manages the status of each order (RQ4), setting status to 'ready' for production when the corresponding production recipe has been created and stored in the system. 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\linewidth]{featureDiagram.jpg}
-    \caption{Feature Diagram - CHANGE ORDERSTATUS}
+    \includegraphics[width=0.9\linewidth]{FeatureModel.pdf}
+    \caption{Feature Diagram of the car production system}
     \label{FeatureDiagram}
 \end{figure}
 
 \subsection{Structural Analysis Model}
 A structural analysis model (also called smth FAA) can be used to present the functions for the features defined in figure \ref{FeatureDiagram}, and the way data flows between the different parts. Figure \ref{schedulerFAA} shows the FAA of the Scheduler. 
-\begin{figure}[h]
+\begin{figure}[h!]
     \centering
-    \includegraphics[width=1\linewidth]{SchedulerFAA.jpg}
+    \includegraphics[width=0.83\linewidth]{SchedulerFAA.jpg}
     \caption{Functional Analysis Model of Scheduler}
     \label{schedulerFAA}
 \end{figure}
 
-\subsection{Finite-State Machine/Automata}
+\subsection{Finite-State Machine}
 To show the behavior of the system, finite-state machines (FSM) were defined for the website and scheduler, shown in figure \ref{websiteSM} and \ref{schedulerSM} respectively. 
-Behavioral model, finite-state machine (FSM)...
-\begin{figure}[h]
+\begin{figure}[h!]
     \centering
-    \includegraphics[width=1\linewidth]{WebsiteSM.pdf}
+    \includegraphics[width=1\linewidth]{SMWebsite.pdf}
     \caption{Finite State Machine for the website}
     \label{websiteSM}
 \end{figure}
-
+When accessing the website, all available products are shown to the user. The user may navigate to the sub-page containing the details for a specific car, where they may customize the car and add it to their cart. Adding it to their cart will redirect them to the cart, where they can checkout to place their order. Finally, they will be shown a confirmation screen. From any page on the website, they directly return to the homepage. 
 \begin{figure}[h]
     \centering
     \includegraphics[width=1\linewidth]{SchedulerSM.pdf}
     \caption{Finite State Machine for the scheduler}
     \label{schedulerSM}
 \end{figure}
+When the scheduler starts, it will listen for messages from the website. Once a message has been received containing details of an order, the scheduler will process the order, before returning to listening. 
 
 \subsection{Technologies}
 %not sure where we should talk about actual technologies and tools used. It should deffo be in the report, but not sure it should be here?? i dunno

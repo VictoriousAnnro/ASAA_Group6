@@ -4,6 +4,16 @@ import json
 from kafka import KafkaConsumer
 from datetime import datetime
 from datetime import timedelta
+import threading 
+"""
+ill be using threading for concurrency.
+threads dont actually execute at the same time, rather python switches very quickly between the threads, making it appear as if theyre executing at the same time. Since the two methods scheduler uses to process the order each make contact with an external database, it makes sense to run these two methods in a thread, so that while the first method is awaiting a response from the database, the second method is also being executed instead of waiting.
+Cons of this: We might set an order to be 'ready' before the recipe has even been saved. If smth goes wrong while saving the recipe, the order is still set as 'ready'. I think it's okay to have this con, as long as we're aware of it. In the real world, this would prolly be pretty bad for a customer website but alas. We all know school isn't real. 
+
+PROBLEM - OrderStatus gets orderID from mongoDB, so it MUST wait for it. Is there a way to get the order.id from the database in the website and use that instead? 
+ order = Order.objects.filter(customer=customer).order_by('-created_at').first()
+ this object 'order' has an id. When is the object created and stored in DB, and when can we get access to the ID?
+"""
 
 # TODO
 # is data persisted in volumes? Necessary?
@@ -54,7 +64,7 @@ def processCustOrder(order):
 
     # Insert recipe in mongodb
     #mongoInterface.insertRecipe(order['order_id'], order['chassisID'], order['engineID'], order['interiorID'], order['paintID'])
-    recipeID = mongoInterface.insertRecipe(order['car_title'], order['model'], order['engine'], order['color'])
+    #recipeID = mongoInterface.insertRecipe(order['car_title'], order['model'], order['engine'], order['color'])
 
     # put order in 'queue'
     sqlInterface.insertReadyOrder(recipeID)
@@ -73,6 +83,13 @@ def processCustOrder(order):
     #ts = datetime.now().timestamp()
     #print("scheduler timestamp:", ts)
     #print(f"time it took: {datetime.fromtimestamp(ts - order['timestamp'])}")
+
+def thread_saveRecipe(order):
+    # Insert recipe in mongodb
+    #mongoInterface.insertRecipe(order['order_id'], order['chassisID'], order['engineID'], order['interiorID'], order['paintID'])
+    recipeID = mongoInterface.insertRecipe(order['car_title'], order['model'], order['engine'], order['color'])
+
+def thread_saveReadyOrder():
 
 def listenKafka():
     # Run the consumer, reading messages

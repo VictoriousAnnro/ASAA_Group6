@@ -200,28 +200,32 @@ Postconditions: A customer order is stored and marked as 'ready' for production.
 This section contains the quality attributes for the architecture and also contains one or more Quality Attribute Scenarios (QAS), which illustrate the system's scenario.
 \subsection{Performance}
 \label{sec:qas}
-
+This section contains the quality attributes for the architecture and also contains one or more Quality Attribute Scenarios (QAS), which illustrate the system's scenario.
+\subsection{Performance quality attribute}
 The performance of the system starts from the moment a customer has placed an order on the website, and the performance depends on the website, Non/Non-relational DB, Kafka Message bus, and Production Scheduler. Communication between these systems must take place within ten units.\\
 
 \textbf{Scenarios:} Two scenarios have been made for Performance.\\
 
-The first scenario on 1 shows that when a customer places an order through the car-selling website, it will publish to Kafka that an order has been created. After this event is done, the production scheduler fetches the message and starts generating the JSON production recipe, and marks it as ready as soon as it is stored in the database. This entire event chain will be completed in 10 time units. The customer's order submission to Kafka to get the message; this process must complete within four milliseconds. This scenario ensures that distributed communication does not cause significant latency and captures the system's performance requirement for the major workflow.
+The first scenario on \ref{quality attribute diagram 1.drawio}  shows that when a customer places an order through the car-selling website, it will publish to Kafka that an order has been created. After this event is done, the production scheduler fetches the message and starts generating the JSON production recipe, and marks it as ready as soon as it is stored in the database. This entire event chain will be completed in 10 time units. The customer's order submission to Kafka to get the message; this process must complete within four milliseconds. This scenario ensures that distributed communication does not cause significant latency and captures the system's performance requirement for the major workflow.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\linewidth]{quality attribute diagram 1.drawio.png} % adjust filename
-    \caption{Scenario 1 for the Performance}
+    \caption{Scenario 1 for the website}
     \label{quality attribute diagram 1.drawio}
 \end{figure}
 
-The second scenario on 2 shows that after the Kafka message bus gets the order from the website, the scheduler must start immediately to prevent delays. In normal load conditions, as soon as the message is available in Kafka, the scheduler must start generating the recipe within three milliseconds. This prevents performance bottlenecks in the message queue and also ensures that the event-driven architecture facilitates quick transitions from order creation to recipe development.
+The second scenario on \ref{quality attribute diagram 2.drawio} shows that after the Kafka message bus receives the order from the website, the scheduler must start immediately to prevent delays. In normal load conditions, as soon as the message is available in Kafka, the scheduler must start generating the recipe within three milliseconds. This prevents performance bottlenecks in the message queue and also ensures that the event-driven architecture facilitates quick transitions from order creation to recipe development.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\linewidth]{quality attribute diagram 2.drawio.png} % adjust filename
-    \caption{Scenario 2 for the Performance}
+    \caption{Scenario 2 for the Scheduler after customer places the order}
     \label{quality attribute diagram 2.drawio}
 \end{figure}
+
+The scenario illustrated in \ref{quality attribute diagram 1.drawio} and \ref{quality attribute diagram 2.drawio} describes the performance of the system. The process begins when the customer places the order through the website and, after that, the scheduler gets the order from the website through the Kafka message bus. The production scheduler then breaks the order into a JSON recipe and stores it in the database, marking it 'ready' after storing it in the database. The complete event chain—from order submission to recipe persistence—is depicted in \ref{quality attribute diagram 1.drawio} and \ref{quality attribute diagram 2.drawio}. 
+
 
 \subsection{Requirements} Based on the QAS and the use case, several requirements were defined, which can be seen in table \ref{ReqTabel}[FIX TABLE LABEL!!]. 
 \begin{center}
@@ -245,6 +249,10 @@ The second scenario on 2 shows that after the Kafka message bus gets the order f
 \label{ReqTabel}
 \end{center}
 
+\subsection{Tactics for Quality Attribute }
+To ensure the health of the connection from the systems, the most fundamental tactic is event-based processing, which separates the Website from the Scheduler and guarantees that user-facing operations do not hinder generating the JSON production recipe or database writing. It also covers the bound execution times tactics, as after the customer places the order, the message bus will receive the message within three milliseconds, and the Production Scheduler will generate the recipe within three milliseconds. To reduce overall latency, the system additionally relies on concurrency by simultaneously allowing the website's backend to deploy uWSGI with multiple workers to handle several HTTP requests simultaneously. Each worker runs an instance of the Django application and processes user interactions independently. By doing so, it prevents new orders from being blocked and ensures the website remains responsive under concurrent user loads. Overall, concurrency improves throughput and response time without requiring multiple deployment replicas.
+
+
 
 \section{Design and Analysis Modelling}
 \label{sec:design_and_analysis_modelling}
@@ -260,10 +268,6 @@ This section describes the different steps in the design process, as well as an 
 % present tactics
 % Discuss the trade-offs
 % then structural model -> behavioral model
-
-\subsection{Tactics}
-% smth about kafka separating website from scheduler, so website doesnt have to wait. Replicas of website?
-To ensure the health of the connection from the systems, the most fundamental tactic is event-based processing, which separates the Website from the Scheduler and guarantees that user-facing operations do not hinder generating the JSON production recipe or database writing. It also covers the bound execution times tactics, as after the customer places the order, the message bus will receive the message within three milliseconds, and the Production Scheduler will generate the recipe within three milliseconds. To reduce overall latency, the system additionally depends on concurrency by simultaneously allowing the Scheduler to process messages, create recipes, and communicate with the database. By doing that, it avoids bottlenecks, and concurrent processing guarantees that the Scheduler can process incoming Kafka events.
 
 \subsection{Features}
 Figure \ref{FeatureDiagram} shows the features for the car production system that will realize the defined requirements. The system will have a website, from which the customer may browse (RQ1) and choose a car to customize (RQ2). The Scheduler will process the orders by creating a production recipe for each order (RQ3). The Scheduler also manages the status of each order (RQ4), setting status to 'ready' for production when the corresponding production recipe has been created and stored in the system. 
@@ -300,17 +304,21 @@ When accessing the website, all available products are shown to the user. The us
 \end{figure}
 When the scheduler starts, it will listen for messages from the website. Once a message has been received containing details of an order, the scheduler will process the order, before returning to listening. 
 
-\subsection{Technologies}
+\subsection{Systems and subsystems}
 %not sure where we should talk about actual technologies and tools used. It should deffo be in the report, but not sure it should be here?? i dunno
 % perhaps it should be moved to 'experiment design' in 'Evaluation', cuz the technologies are relevant for the experiment, and also this from exercise 10 which was abt experiment: "Decide on the tools, environments, and configurations necessary for the experiment."
-This section will outline the design patterns suitable for the project.
 
- \subsection{Apache Kafka:} To establish communication between the website and the production scheduler, Apache Kafka will be used. The architecture requires a message bus for the subsystems to communicate with each other, and the system does not require a third-party broker or messages to be organized by \ref{https://www.hivemq.com/blog/mqtt-vs-kafka-real-time-bidirectional-data-processing/}"Topics," which is why Kafka is chosen instead of MQTT. Kafka decouples data streams and systems. The website sends data into Kafka, and the production scheduler queries Kafka for the data. It scales very well and will not  require integration with every system.
+The architectural design follows a distributed system composed of multiple subsystems, with each one responsible for a specific part of the overall functionality. The system is structured to support quality attribute scenarios defined in Section \ref{sec:qas}.
+
+The system consists of three main subsystems: a user interface subsystem, a production scheduler, and a communication subsystem that enables event-driven communication between them. This section below will discuss the technology that is used for the subsystems.
+
+ \subsubsection{Message bus Apache Kafka:}
+ To establish communication between the website and the production scheduler, Apache Kafka will be used. The architecture requires a message bus for the subsystems to communicate with each other, and the system does not require a third-party broker or messages to be organized by \ref{https://www.hivemq.com/blog/mqtt-vs-kafka-real-time-bidirectional-data-processing/}"Topics," which is why Kafka is chosen instead of MQTT. Kafka decouples data streams and systems. The website sends data into Kafka, and the production scheduler queries Kafka for the data. It scales very well and will not  require integration with every system.\\
  
 
- \subsection{ Systems and subsystems}
- \begin{itemize}
-    \item Website
+\subsubsection{Website}
+The website subsystem is divided into two parts, where the frontend is responsible for user interaction and display, and the backend which is responsible for request handling, business logic, and communication with other subsystems.
+
  \begin{itemize}
      \item Backend
       \begin{itemize}
@@ -322,7 +330,7 @@ This section will outline the design patterns suitable for the project.
         \item Database: Relational Database 
     \end{itemize}
     \end{itemize}
-\end{itemize}
+    
 \begin{itemize}
         \item Fronted 
       \begin{itemize}
@@ -334,10 +342,8 @@ This section will outline the design patterns suitable for the project.
     \end{itemize}
 \end{itemize}
 
- \begin{itemize}
-    \item Scheduler
-
-      \begin{itemize}
+\subsubsection{Production Scheduler} 
+  \begin{itemize}
         \item Programming language: Python 
         \item Database: Relational Database(MYSQL) 
         \begin{itemize}
@@ -348,8 +354,7 @@ This section will outline the design patterns suitable for the project.
             \item MongoDB is a document-oriented database. MongoDB stores data in the form of key-value pairs. MongoDB is high-speed, high-availability, and scalability, and also supports JSON formats and allows for ACID transactions.
         \end{itemize}
     \end{itemize}
-    \end{itemize}
-
+    
 \subsection{Containerization}
 This subsection will contain the subsystems that are going to be containerized in the project and how they impact the performance attributes of the system. For containerization, Docker is going to be used.
 \subsubsection{Website}

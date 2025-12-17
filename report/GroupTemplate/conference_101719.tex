@@ -329,7 +329,7 @@ The architectural design follows a distributed system composed of multiple subsy
 The system consists of three main subsystems: a user interface subsystem, a production scheduler, and a communication subsystem that enables event-driven communication between them. This section below will discuss the technology that is used for the subsystems.
 
  \subsubsection{Message bus Apache Kafka:}
- To establish communication between the website and the production scheduler, Apache Kafka will be used. The architecture requires a message bus for the subsystems to communicate with each other, and the system does not require a third-party broker or messages to be organized by \ref{https://www.hivemq.com/blog/mqtt-vs-kafka-real-time-bidirectional-data-processing/}"Topics," which is why Kafka is chosen instead of MQTT. Kafka decouples data streams and systems. The website sends data into Kafka, and the production scheduler queries Kafka for the data. It scales very well and will not  require integration with every system.\\
+ To establish communication between the website and the production scheduler, Apache Kafka will be used. The architecture requires a message bus for the subsystems to communicate with each other, and the system does not require a third-party broker or messages to be organized by \cite{MQTTvsKafka}"Topics," which is why Kafka is chosen instead of MQTT. Kafka decouples data streams and systems. The website sends data into Kafka, and the production scheduler queries Kafka for the data. It scales very well and will not  require integration with every system.\\
  
 
 \subsubsection{Website}

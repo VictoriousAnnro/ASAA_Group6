@@ -238,21 +238,21 @@ The scenario illustrated in \ref{quality attribute diagram 1.drawio} and \ref{qu
 
 \subsection{Requirements} Based on the QAS and the use case, several requirements were defined, which can be seen in table \ref{ReqTabel}[FIX TABLE LABEL!!]. 
 \begin{center}
-\begin{tabular}{ | m{0.7cm} | m{4cm}| m{1.5cm} | m{1.7cm} | }
+\begin{tabular}{ | m{0.7cm} | m{5cm}| m{1.5cm} | }
  \hline
- Req ID & Description & Type & QA \\ 
+ Req ID & Description & Type \\ 
  \hline
- RQ1 & Customer can choose from a list of available cars & Functional & Us\\ 
+ RQ1 & Customer can choose from a list of available cars & Functional\\ 
  \hline
- RQ2 & Customer should be able to chose a car and customize the car's model, engine and color & Functional & qa\\ 
+ RQ2 & Customer should be able to chose a car and customize the car's model, engine and color & Functional\\ 
  \hline
- RQ3 & Scheduler should prepare a placed order for production by creating and saving a production recipe & Functional & Perf\\
+ RQ3 & Scheduler should prepare a placed order for production by creating and saving a production recipe & Functional\\
  \hline
- RQ4 & Scheduler should keep track of an order's status (ready, in progress, completed) & Functional & per\\
+ RQ4 & Scheduler should keep track of an order's status (ready, in progress, completed) & Functional\\
  \hline
- RQ5 & The website should respond to user actions in less than 3 seconds & Non-Functional & Performance\\
+ RQ5 & The website should respond to customer placing an order in less than 3 seconds & Non-Functional\\
  \hline
- RQ6 & Any order placed on the website should be saved and marked as 'ready' for production in database within 10 time units & Non-Functional & Performance\\ 
+ RQ6 & Any order placed on the website should be saved and marked as 'ready' for production in database within 10 time units & Non-Functional\\ 
  \hline
 \end{tabular}
 \label{ReqTabel}
@@ -300,7 +300,7 @@ A structural analysis model (also called smth FAA) can be used to present the fu
 To show the behavior of the system, finite-state machines (FSM) were defined for the website and scheduler, shown in figure \ref{websiteSM} and \ref{schedulerSM} respectively. 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=1\linewidth]{SMWebsite.pdf}
+    \includegraphics[width=1.1\linewidth]{SMWebsite.pdf}
     \caption{Finite State Machine for the website}
     \label{websiteSM}
 \end{figure}
@@ -379,23 +379,49 @@ The impact of Docker Compose provides the system with maintainability and scalab
 %Offers a comprehensive and in-depth description of the V&V, covering detailed methodology, model checking execution, and thorough analysis of the verification/simulation results (including a table/list of property V&V results) and system/design improvement based on the interpretation of V&V results, demonstrating an advanced understanding of experimental methods in software engineering Formal verification and validation of system(s).
 
 % lecture 8 + 9
-In order to perform a formal verification and validation of the architecure, a model is created to represent the system, based on the Finite-State Machine defined in section \ref{sec:design_and_analysis_modelling}. Timing constraints are identified for the events within the model, based on the requirements. Then, the formal model can be verified to see whether it upholds the constraints and requirements, by simulating it in the model-checker tool UPPAAL [cite upaal somehow]. Figure XX shows the model for the website, and figure XX shows the scheduler.\\
-The properties to be evaluated, written in the UPPAAL query language, can be seen in table \ref{VVResults}, along with the result from the verification. If a property fails, UPPAAL outputs a counter example (CE) to show how it failed. 
+In order to perform a formal verification and validation of the architecure, a model is created to represent the system, based on the Finite-State Machine defined in section \ref{sec:design_and_analysis_modelling}. Timing constraints are identified for the events within the model, based on the requirements. Then, the formal model can be verified to see whether it upholds the constraints and requirements, by simulating it in the model-checker tool UPPAAL [cite upaal somehow]. %Figure XX shows the model for the website, and figure XX shows the scheduler.\\
+Figure \ref{customerUppaal} shows a template for a customer. It should be noted that the templates won't show every single possible action that could happen, as the state space grows very quickly the more complex the model is. Testing a large state space isn't feasible, and thus the models are designed only to show the flow of a customer browsing the website and placing an order. The customer template is used only to simulate the flow. Therefore, random invariants have been assigned to the different states. The value 'g' is a global clock, which is reset whenever the customer places an order.\\
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\linewidth]{customerUppaal.png}
+    \caption{UPPAAL template for customer - fix size??}
+    \label{customerUppaal}
+\end{figure}
+
+Figure \ref{websiteUppaal} and \ref{schedulerUppaal} shows the templates for the website and scheduler, respectively.
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\linewidth]{websiteUppaal.png}
+    \caption{UPPAAL template for website}
+    \label{websiteUppaal}
+\end{figure}\\
+The website only changes in response to customer actions. Therefore, any state transition is triggered by a synchronization from the customer template.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\linewidth]{schedulerUppaal.png}
+    \caption{UPPAAL template for scheduler}
+    \label{schedulerUppaal}
+\end{figure}
+
+%how did we get the properties? How did we formalize time constraints n such?
+The properties to be evaluated, written in the UPPAAL query language, can be seen in table \ref{VVResults}, along with the result from the verification. %If a property fails, UPPAAL outputs a counter example (CE) to show how it failed. 
 % What about the CTL tree thingy?
 \begin{center}
-\begin{tabular}{ | m{3cm} | m{1.5cm}| m{2cm} | }
+\begin{tabular}{ | m{0.5cm} | m{6cm} | m{1cm}| }
  \hline
- Property & Result & Counter Example \\ 
+ ID &Property & Result\\ 
  \hline
- A[] not deadlock & pass/fail & Ce or N/A \\ 
+ UP1 & A[] not deadlock & Pass \\ 
  \hline
- \( E<>\) state XX reached within time XX... & rgt & gr \\
+ UP2 & \( E<>\) (Scheduler.OrderProcessed and \( g<=10\)) & Pass \\
+ \hline
+ UP3 & \( E<>\) (Scheduler.OrderProcessed and \( g>10\)) & Fail \\
  \hline
 \end{tabular}
 \label{VVResults}
 \end{center}
-Based on these results,...
-
+UP1 verifies that there is no state in the model where a deadlock occurs. UP2 verifies that there exists some path where the scheduler has reached the 'OrderProcessed' state while at most 10 timeunits have passed (measured using global clock 'g'), since the customer placed an order on the website. Lastly, UP3 verifies the same that U2, except it checks if more than 10 timeunits have passed since the order was placed. Since UP3 fails, this shows that there is no path in our model, where it takes more than 10 timeunits for a placed order to be processed and saved by the scheduler. 
 
 \section{Evaluation}
 \label{sec:evaluation}
@@ -447,6 +473,6 @@ Conclusion of the report, discussion and relevant future work.
 \section*{Contributions}
 \begin{tabular}{l|p{0.6\linewidth}}
 Name & Contribution\\
-Anne-Marie & Scheduler, Kafka, Use case, Design and Analysis Modelling\\
+Anne-Marie & Scheduler, Kafka, Problem and Approach, Related Work, Use case, Design and Analysis Modelling, Formal Verification and Validation\\
 \end{tabular}
 \end{document}

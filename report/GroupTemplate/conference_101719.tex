@@ -228,7 +228,20 @@ The second scenario on \ref{quality attribute diagram 2.drawio} shows that after
 
 The scenario illustrated in \ref{quality attribute diagram 1.drawio} and \ref{quality attribute diagram 2.drawio} describes the performance of the system. The process begins when the customer places the order through the website and, after that, the scheduler gets the order from the website through the Kafka message bus. The production scheduler then breaks the order into a JSON recipe and stores it in the database, marking it 'ready' after storing it in the database. The complete event chain—from order submission to recipe persistence—is depicted in \ref{quality attribute diagram 1.drawio} and \ref{quality attribute diagram 2.drawio}. 
 
+\section{Design and Analysis Modelling}
+\label{sec:design_and_analysis_modelling}
+This section describes the different steps in the design process, as well as an analysis of the design.
+%Describe the design and argue for the design decision and how it meets the QASes. Part of the design decision must specify which tactics/patterns are used (provide arguments) and the trade-offs. 
+%Analyze the design and illustrate the system architecture model, encompassing both structure and behavior, using formal reasoning.
+% Feature model is optional. However, it should be explained what/which particular features (characteristics) are selected and the reason of choice.
+% A list of requirements. Diagram is optional. 
+% High level architecture structure: components and their interactions to meet the RQs.
+%Offers a clear and more comprehensive design, modeling and analysis with both a detailed description and a well-considered evaluation of pros and cons, including a clearer explanation of how the design and modeling affect Quality Attributes with relevant requirement analysis and tactics.
 
+%TODO AM
+% present tactics
+% Discuss the trade-offs
+% then structural model -> behavioral model
 \subsection{Requirements} Based on the QAS and the use case, several requirements were defined, which can be seen in table \ref{ReqTabel}[FIX TABLE LABEL!!]. 
 \begin{center}
 \begin{tabular}{ | m{0.7cm} | m{5cm}| m{1.5cm} | }
@@ -253,23 +266,6 @@ The scenario illustrated in \ref{quality attribute diagram 1.drawio} and \ref{qu
 
 \subsection{Tactics for Quality Attribute }
 To ensure the health of the connection from the systems, the most fundamental tactic is event-based processing, which separates the Website from the Scheduler and guarantees that user-facing operations do not hinder generating the JSON production recipe or database writing. It also covers the bound execution times tactics, as after the customer places the order, the message bus will receive the message within three milliseconds, and the Production Scheduler will generate the recipe within three milliseconds. To reduce overall latency, the system additionally relies on concurrency by simultaneously allowing the website's backend to deploy uWSGI with multiple workers to handle several HTTP requests simultaneously. Each worker runs an instance of the Django application and processes user interactions independently. By doing so, it prevents new orders from being blocked and ensures the website remains responsive under concurrent user loads. Overall, concurrency improves throughput and response time without requiring multiple deployment replicas.
-
-
-
-\section{Design and Analysis Modelling}
-\label{sec:design_and_analysis_modelling}
-This section describes the different steps in the design process, as well as an analysis of the design.
-%Describe the design and argue for the design decision and how it meets the QASes. Part of the design decision must specify which tactics/patterns are used (provide arguments) and the trade-offs. 
-%Analyze the design and illustrate the system architecture model, encompassing both structure and behavior, using formal reasoning.
-% Feature model is optional. However, it should be explained what/which particular features (characteristics) are selected and the reason of choice.
-% A list of requirements. Diagram is optional. 
-% High level architecture structure: components and their interactions to meet the RQs.
-%Offers a clear and more comprehensive design, modeling and analysis with both a detailed description and a well-considered evaluation of pros and cons, including a clearer explanation of how the design and modeling affect Quality Attributes with relevant requirement analysis and tactics.
-
-%TODO AM
-% present tactics
-% Discuss the trade-offs
-% then structural model -> behavioral model
 
 \subsection{Features}
 Figure \ref{FeatureDiagram} shows the features for the car production system that will realize the defined requirements. The system will have a website, from which the customer may browse (RQ1) and choose a car to customize (RQ2). The Scheduler will process the orders by creating a production recipe for each order (RQ3). The Scheduler also manages the status of each order (RQ4), setting status to 'ready' for production when the corresponding production recipe has been created and stored in the system. 

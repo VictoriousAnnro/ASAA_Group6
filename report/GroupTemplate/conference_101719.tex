@@ -175,20 +175,6 @@ The paper \cite{ContinousEngineeringI4.0} [evaluates performance to improve syst
 
 While these contributions provide knowledge and new ideas about performance in the I4.0 domain, there is little to no focus on studying performance as a quantifiable architectural requirement, and how to evaluate a software architecture that adopts this requirement. 
 
-
-%---Delete later---
-In \cite{Wan2019Reconfigurable}, experiences are elaborated on a three-layer architecture of a reconfigurable smart factory for drug packing in healthcare I4.0. 
-
-The paper \cite{Yazen2010Ontology} proposes an ontology agent-based architecture for inferring  new configurations to adapt to changes in manufacturing requirements and/or environment.
-
-In \cite{Leitao2016Specification,Angione2017Integration} an architecture for a reconfigurable production system is specified.
-Two objectives for reconfiguration and how they can be reached are described.
-
-Several papers \cite{Koren1999Reconfigurable,Koren2010Design,Bortolini2018Reconfigurable} describe reconfigurable manufacturing systems that are cost-effective and responsive to market changes.
-
-All contributions provide valuable knowledge about reconfiguration but lack a study of the software architecture perspective that specifies a quantifiable reconfigurability architectural requirement, a software architecture that adopts the architectural requirements, and evaluates the architectural requirement. 
-%---------------------
-
 \section{Use Case}
 \label{sec:use_case}
 % From lecture 12 Summary-keypoint-exam topics sample: 
@@ -299,15 +285,20 @@ A structural analysis model (also called smth FAA) can be used to present the fu
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.83\linewidth]{SchedulerFAA.jpg}
-    \caption{Functional Analysis Model of Scheduler}
+    \caption{Functional Analysis Model of Scheduler - MAKE SMALLER!!}
     \label{schedulerFAA}
 \end{figure}
+\subsubsection{Scheduler Overview}
+Figure \ref{schedulerFAA} represents the FAA of the Scheduler. It shows how the Scheduler is organized internally and how its main parts work together. The Scheduler acts as the central component that receives order details from the website and handles the steps needed to prepare an order for production. To keep the design clear and manageable, this functionality is split into smaller subsystems, such as \textit{ProcessOrder}, \textit{RecipeGenerator}, and \textit{OrderStatus}, each responsible for a specific task in the order handling flow.
+
+\subsubsection{Data Flow Between Subsystems}
+When an order is received, the \textit{ProcessOrder} component checks and prepares the order before sending the information to the \textit{RecipeGenerator}, which creates a production recipe and returns a \textit{RecipeID}. This identifier is then stored by the \textit{OrderStatus} component so the system can keep track of the order’s progress. By showing these data flows and responsibilities, the model gives a clear overview of how the Scheduler supports order processing and status tracking within the system.
 
 \subsection{Finite-State Machine}
 To show the behavior of the system, finite-state machines (FSM) were defined for the website and scheduler, shown in figure \ref{websiteSM} and \ref{schedulerSM} respectively. 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=1.1\linewidth]{SMWebsite.pdf}
+    \includegraphics[width=1\linewidth]{SMWebsite.pdf}
     \caption{Finite State Machine for the website}
     \label{websiteSM}
 \end{figure}
@@ -441,7 +432,7 @@ Section \ref{sec:analysis} presents the analysis of the results from the experim
 
 \subsection{Experiment design}
 \label{sec:design}
-The experiment design will be based off the process presented in Claes Wohlin et al. 2012**. Thus, our goal template will be:
+The experiment design will be based off the process presented in (Claes Wohlin et al. 2012)\cite{ExperimentationClaes}. Thus, our goal template will be:
 \begin{itemize}
     \item Analyze our software architecture
     \item For the purpose of checking whether the requirements are met with respect to the performance QA
@@ -449,17 +440,81 @@ The experiment design will be based off the process presented in Claes Wohlin et
     \item In the context of a customer using the system (website and scheduler) to place an order for a customized car. %the system being locally hosted on a computer, deployed in Docker containers (or physical location? Like classroom? Or an informal setting as compared to a more formal/professional setting like a lab study). (Single-object study OR Multi-object variation study)
 \end{itemize}
 
-The scenario we'll be testing is: "From the moment a customer has placed an order on the website, the order must be placed in ‘queue’ (recipe should be saved in DB, and orderStatus should be ‘ready’), within 10 (timeunits**)". 
+The scenario we'll be testing is: "From the moment a customer has placed an order on the website, the order must be placed in ‘queue’ (recipe should be saved in DB, and orderStatus should be ‘ready’), within 10 timeunits". 
 
 \subsection{Measurements}
 \label{sec:measurements}
-The time will be measured in (mili)seconds for an action to finish.
+The time will be measured in seconds for an action to finish.
+The moment a customer performs a checkout for an order, the website will generate a timestamp. When the website forwards the order to the scheduler, this timestamp is included in the message.
+
+Upon consuming the message, the scheduler creates a timestamp as well(representing the time the message was received), and computes the duration, by calculating the difference between the two timestamps.
 
 \subsection{Pilot test}
 \label{sec:pilot_test}
+\subsubsection{Test Environment}
+The experiments were conducted in a containerized environment using Docker Compose. The system consisted of the following components:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Website (Python \& Django):} responsible for order creation, checkout, and producing Kafka messages.
+    \item \textbf{Apache Kafka:} used as the messaging middleware between the website and the scheduler.
+    \item \textbf{Scheduler (Python):} consumes order messages from Kafka and performs order handling logic.
+    \item \textbf{Databases:}
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{MySQL:} order and status persistence.
+        \item \textbf{MongoDB:} recipe storage.
+    \end{itemize}
+\end{itemize}
+All services were executed locally in Docker containers to ensure consistency across test runs.
+
+\subsubsection{Automated Load Test Design}
+To avoid manual testing and to simulate realistic system usage, an automated load test was implemented.
+
+\paragraph{Experiment Trigger}
+A dedicated test button was added to the website header and was visible only to authenticated users. When clicked, the button triggers a JavaScript routine that automatically sends multiple requests to the backend.
+
+\paragraph{Request Pattern}
+The experiment was configured as follows:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Number of orders:} 50
+    \item \textbf{Interval between orders:} 1 second
+    \item \textbf{Request type:} HTTP POST
+    \item \textbf{Endpoint:} \texttt{/order/experiment/place-order/}
+\end{itemize}
+This setup simulates a steady stream of users placing orders rather than a single burst.
+
+\subsubsection{Automated Experiment Endpoint}
+A dedicated backend endpoint was implemented exclusively for evaluation purposes. For each test request, the endpoint:
+\begin{itemize}[leftmargin=*]
+    \item Creates a new shopping cart for the logged-in user
+    \item Selects a random car from the database
+    \item Randomizes configuration parameters (engine, color, price)
+    \item Generates randomized but valid customer data
+    \item Executes the normal checkout process
+    \item Sends the order to Kafka with a timestamp
+\end{itemize}
+
+\subsubsection{Test Execution Procedure}
+The experiment was executed using the following steps:
+\begin{enumerate}[leftmargin=*]
+    \item All Docker containers were started using Docker Compose.
+    \item The scheduler service was manually started inside its container.
+    \item A user logged into the website through the browser.
+    \item The automated load-test button was clicked once.
+    \item The system generated 50 orders at one-second intervals.
+    \item The scheduler logs were observed to collect latency measurements.
+\end{enumerate}
 
 \subsection{Analysis}
 \label{sec:analysis}
+\subsubsection{Results and Observations}
+For each order, the scheduler printed the measured end-to-end processing time. All observed durations were well below the 10-second requirement, with typical values in the range of a few seconds. The results demonstrate that:
+\begin{itemize}[leftmargin=*]
+    \item Kafka message delivery introduces minimal latency
+    \item The system remains stable under sustained order creation
+    \item The scheduler processes incoming orders fast enough to meet the specified requirement
+\end{itemize}
+
+\subsubsection{Conclusion}
+The automated evaluation confirms that the implemented system satisfies the defined performance requirement of processing orders within 10 seconds end-to-end. By automating the experiment and using real system components, the evaluation provides reliable, repeatable, and realistic performance measurements.
 
 
 \section{Conclusion}

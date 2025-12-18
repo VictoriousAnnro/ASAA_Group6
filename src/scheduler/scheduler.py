@@ -64,7 +64,7 @@ def processCustOrder(order):
 
     # Insert recipe in mongodb
     #mongoInterface.insertRecipe(order['order_id'], order['chassisID'], order['engineID'], order['interiorID'], order['paintID'])
-    #recipeID = mongoInterface.insertRecipe(order['car_title'], order['model'], order['engine'], order['color'])
+    recipeID = mongoInterface.insertRecipe(order['car_title'], order['model'], order['engine'], order['color'])
 
     # put order in 'queue'
     sqlInterface.insertReadyOrder(recipeID)
@@ -76,20 +76,14 @@ def processCustOrder(order):
     ts = datetime.now().timestamp()
     duration = ts - order['timestamp']
 
-    print("scheduler timestamp:", ts)
+    #print("scheduler timestamp:", ts)
+    print("scheduler timestamp:", datetime.fromtimestamp(ts))
     print("time it took:", timedelta(seconds=duration))
     print(f"time it took (numeric): {duration:.3f} seconds") #here, we should put the output in a file
 
     #ts = datetime.now().timestamp()
     #print("scheduler timestamp:", ts)
     #print(f"time it took: {datetime.fromtimestamp(ts - order['timestamp'])}")
-
-def thread_saveRecipe(order):
-    # Insert recipe in mongodb
-    #mongoInterface.insertRecipe(order['order_id'], order['chassisID'], order['engineID'], order['interiorID'], order['paintID'])
-    recipeID = mongoInterface.insertRecipe(order['car_title'], order['model'], order['engine'], order['color'])
-
-def thread_saveReadyOrder():
 
 def listenKafka():
     # Run the consumer, reading messages

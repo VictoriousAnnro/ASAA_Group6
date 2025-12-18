@@ -126,9 +126,10 @@ Keyword1, Keyword2, Keyword3, Keyword4, Keyword5
 \end{IEEEkeywords}
 
 \section{Introduction and Motivation}
-%Introduction and motivate the problem
 
-The structure of the paper is as follows. 
+%Introduction and motivate the problem
+Industry 4.0 aims to modernize industrial production lines in factories by making all the components connected into one local environment where every component can communicate and exchange information with each other. By doing so, the production line can achieve shared objectives. In today's society, there is a heavy focus on the automation and digitalization of complex systems. Complex systems are used in various areas, including industry, healthcare, and public transportation, among others. These systems are described as complex because of the many parts involved, the intricate ways in which those parts communicate, and the overall behavior of the system - how do all these parts work together to complete the system's goals? To ensure the correctness and reliability of such systems, it is of utmost importance that thought is put into the design. After all, failure in a system can lead to negative consequences ranging from minor inconveniences to death[SOURCE Lecture 1].In the existing research, performance is frequently addressed either as a runtime concern or as a high-level consideration, rather than as an explicit architectural requirement grounded in concrete scenarios and measurable constraints. This limits the ability to reason about performance early in the design process and to provide evidence that an architecture is capable of meeting end-to-end performance expectations in distributed, event-driven systems. This paper focuses on designing a software architecture that can evaluate performance quality attributes. This study focuses on strengthening the link between architectural decisions and measurable system behavior.
+The structure of the paper is as follows. \\
 Section \ref{sec:problem} outlines the research question and the research approach to analyze the research question and evaluate our results.
 Section \ref{sec:related_work} describes similar work in the field and how our contribution fits the field.
 Section \ref{sec:use_case} presents a production reconfiguration use case.
@@ -140,8 +141,7 @@ Section \ref{sec:evaluation} evaluates the proposed middleware on realistic equi
 \label{sec:problem}
 % What is the problem* to be solved with the reliable architecture you build, and how will the problem be addressed. *The stated problem leads to the stated research question.
 \emph{Problem.}
-In todays society, there is a heavy focus on the automation and digitalization of complex systems. The complex systems are used in many areas, such as industry, healthcare, public transport and so on. These systems are described as complex, because of the many parts involved, the intricate ways in which those parts communicate, and the overall behavior of the system - how do all these parts work together to complete the systems' goals? To ensure the correctness and reliability of such systems, it is of outmost importance that thought is put into the design. After all, failure in a system can lead to negative consequences ranging from minor inconviniences to death[SOURCE Lecture 1].\\
-The Industry 4.0 production (I4.0) domain is characterized by the integration of physical components with different kinds of technology and the communication channels between. In this domain there exist many complex production systems, one of which is the production of cars. Cars are sold not only for their functionality as a vehicle of transport, but often offer the customers a range of options for customization. These range from functional (such as the engine) to cosmetic (such as the color). Building a system that can handle customer orders and organize production of the placed orders is no small feat. It is one thing to design an architecture for such a system, but how does one ensure that it fulfills the requirements? Changes to the system during later parts of the development process are much more costly than changes made earlier in the process. Therefore it is important to ensure that the architecture is designed well, before implementation starts. For a system which customers directly interract with, an important aspect is the performance. Not only must the system provide quick feedback to customer actions, it must also be able to do so while servicing multiple customers at the same time. From this, we've created these research questions:
+The Industry 4.0 production (I4.0) domain is characterized by the integration of physical components with different kinds of technology and the communication channels between them. In this domain, there exist many complex production systems, one of which is the production of cars. Cars are sold not only for their functionality as a vehicle of transport, but also offer the customers a range of options for customization. These range from functional (such as the engine) to cosmetic (such as the color). Building a system that can handle customer orders and organize production of the placed orders is no small feat. It is one thing to design an architecture for such a system, but how does one ensure that it fulfills the requirements? Changes to the system during later parts of the development process are much more costly than changes made earlier in the process. Therefore, it is important to ensure that the architecture is designed well before implementation starts. For a system that customers directly interact with, an important aspect is the performance. Not only must the system provide quick feedback to customer actions, but it must also be able to do so while servicing multiple customers at the same time. From this, we've created these research questions:
 \emph{Research questions:}
 \begin{enumerate}
     \item  How to design software architecture for performance?
@@ -165,18 +165,21 @@ The following steps are taken to answer this paper's research questions:
 % ... Should review the state of the art consisting of 8-10 papers and should contextualize how this study provides new knowledge to the field.
 % this is about reconfigurability! we need to focus on performance! 
 This Section addresses existing contributions by examining articles about software architectures for performance in the I4.0 domain. 
-In total, x papers are investigated. 
+In total, seven papers are investigated. 
 
 %currently 2 papers. Need minimum 8
 The paper \cite{ContinousEngineeringI4.0} [evaluates performance to improve system but only at run-time. ]
-\cite{ControlSystemsArchitecture} [case study implementation of a Traffic Management System to evaluate performance of several architectures.]
+\cite{ControlSystemsArchitecture} case study implementation of a Traffic Management System to evaluate performance of several architectures.
 
-\cite{AQuality4.0Modelforarchitectingindustry}[This study proposes a model-driven approach by transforming software architecture into performance models, allowing performance to be analyzed early in the development process.]
+\cite{AQuality4.0Modelforarchitectingindustry}This study proposes a model-driven approach by transforming software architecture into performance models, allowing performance to be analyzed early in the development process.
 
-\cite{performanceanalysisappliedtoatelecommunicationsystem}[The authors show how performance models can be systematically constructed from architectural descriptions that include performance-related details, enabling early evaluation of system performance before implementation.]
+\cite{performanceanalysisappliedtoatelecommunicationsystem}The authors show how performance models can be systematically constructed from architectural descriptions that include performance-related details, enabling early evaluation of system performance before implementation.
 
-\cite{ApproachestoSoftwarePerformanceAnalysis}[The paper addresses the performance quality attribute by systematically examining how software architectures specify, analyze, and evaluate performance requirements such as latency, throughput, and response time.]
+\cite{ApproachestoSoftwarePerformanceAnalysis}The paper addresses the performance quality attribute by systematically examining how software architectures specify, analyze, and evaluate performance requirements such as latency, throughput, and response time.
 
+\cite{Ananalyticalapproachtoarchbasedsoftwareperformances}The paper introduces a practical way to predict how well software performs and how reliable it is by analyzing how its parts interact during execution. Using a tool called ATAC, the approach turns real execution data into useful performance insights, helping connect theoretical models with how software actually behaves in the real world.
+
+\cite{PerformanceEvaofComponentbasedSS}The paper focuses on improving software performance verification by identifying key factors that influence how effectively performance issues are detected and managed during development. Through case studies, literature reviews, and practitioner surveys, eight moderator factors were identified — including proper verification environments, suitable techniques, clear performance requirements, skilled cross-functional teams, and strong organizational support. These factors help organizations design better verification processes, ensuring software meets performance expectations like speed, efficiency, and resource use before release.
 
 While these contributions provide knowledge and new ideas about performance in the I4.0 domain, there is little to no focus on studying performance as a quantifiable architectural requirement, and how to evaluate a software architecture that adopts this requirement. 
 

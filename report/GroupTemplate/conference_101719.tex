@@ -300,14 +300,14 @@ When an order is received, the \textit{ProcessOrder} component checks and prepar
 To show the behavior of the system, finite-state machines (FSM) were defined for the website and scheduler, shown in figure \ref{websiteSM} and \ref{schedulerSM} respectively. 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=1\linewidth]{SMWebsite.pdf}
+    \includegraphics[width=1\linewidth]{websiteSM.pdf}
     \caption{Finite State Machine for the website}
     \label{websiteSM}
 \end{figure}
 When accessing the website, all available products are shown to the user. The user may navigate to the sub-page containing the details for a specific car, where they may customize the car and add it to their cart. Adding it to their cart will redirect them to the cart, where they can checkout to place their order. Finally, they will be shown a confirmation screen. From any page on the website, they directly return to the homepage. 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=1\linewidth]{SchedulerSM.pdf}
+    \includegraphics[width=1\linewidth]{schedulerSM.pdf}
     \caption{Finite State Machine for the scheduler}
     \label{schedulerSM}
 \end{figure}
@@ -384,7 +384,7 @@ Figure \ref{customerUppaal} shows a template for a customer. It should be noted 
 \begin{figure}[h]
     \centering
     \includegraphics[width=1\linewidth]{customerUppaal.png}
-    \caption{UPPAAL template for customer - fix size??}
+    \caption{UPPAAL template for customer}
     \label{customerUppaal}
 \end{figure}
 

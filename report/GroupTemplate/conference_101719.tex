@@ -151,7 +151,11 @@ The Industry 4.0 production (I4.0) domain is characterized by the integration of
 \emph{Approach.}
 The following steps are taken to answer this paper's research questions:
 \begin{enumerate}
-    \item smth about each section of the report? Like, use cases were made to get an idea of what the system should be able to do?
+    \item Define Use case(s)
+    \item Define Quality Attribute Scenario(s)
+    \item Define requirements and identify useful tactics
+    \item Construct formal requirements to verify formal models of the system
+    \item Implement a prototype and perform an experiment to assess the Performance
 \end{enumerate}
 
 
@@ -242,8 +246,8 @@ This section describes the different steps in the design process, as well as an 
 % present tactics
 % Discuss the trade-offs
 % then structural model -> behavioral model
-\subsection{Requirements} Based on the QAS and the use case, several requirements were defined, which can be seen in table \ref{ReqTabel}[FIX TABLE LABEL!!]. 
-\begin{center}
+\subsection{Requirements} Based on the QAS and the use case, several requirements were defined, which can be found in table \ref{ReqTable}. 
+\begin{table}
 \begin{tabular}{ | m{0.7cm} | m{5cm}| m{1.5cm} | }
  \hline
  Req ID & Description & Type \\ 
@@ -261,8 +265,9 @@ This section describes the different steps in the design process, as well as an 
  RQ6 & Any order placed on the website should be saved and marked as 'ready' for production in database within 10 time units & Non-Functional\\ 
  \hline
 \end{tabular}
-\label{ReqTabel}
-\end{center}
+\caption{Requirements Table}
+\label{ReqTable}
+\end{table}
 
 \subsection{Tactics for Quality Attribute }
 To ensure the health of the connection from the systems, the most fundamental tactic is event-based processing, which separates the Website from the Scheduler and guarantees that user-facing operations do not hinder generating the JSON production recipe or database writing. It also covers the bound execution times tactics, as after the customer places the order, the message bus will receive the message within three milliseconds, and the Production Scheduler will generate the recipe within three milliseconds. To reduce overall latency, the system additionally relies on concurrency by simultaneously allowing the website's backend to deploy uWSGI with multiple workers to handle several HTTP requests simultaneously. Each worker runs an instance of the Django application and processes user interactions independently. By doing so, it prevents new orders from being blocked and ensures the website remains responsive under concurrent user loads. Overall, concurrency improves throughput and response time without requiring multiple deployment replicas.
@@ -277,11 +282,11 @@ Figure \ref{FeatureDiagram} shows the features for the car production system tha
 \end{figure}
 
 \subsection{Structural Analysis Model}
-A structural analysis model (also called smth FAA) can be used to present the functions for the features defined in figure \ref{FeatureDiagram}, and the way data flows between the different parts. Figure \ref{schedulerFAA} shows the FAA of the Scheduler. 
+A structural analysis model (also called smth FAA) can be used to present the functions for the features defined in figure \ref{FeatureDiagram}, and the way data flows between the different parts. 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.83\linewidth]{SchedulerFAA.jpg}
-    \caption{Functional Analysis Model of Scheduler - MAKE SMALLER!!}
+    \includegraphics[width=1\linewidth]{StructuralDiagram.pdf}
+    \caption{Functional Analysis Model of Scheduler}
     \label{schedulerFAA}
 \end{figure}
 \subsubsection{Scheduler Overview}
@@ -401,7 +406,7 @@ The website only changes in response to customer actions. Therefore, any state t
 %how did we get the properties? How did we formalize time constraints n such?
 The properties to be evaluated, written in the UPPAAL query language, can be seen in table \ref{VVResults}, along with the result from the verification. %If a property fails, UPPAAL outputs a counter example (CE) to show how it failed. 
 % What about the CTL tree thingy?
-\begin{center}
+\begin{table}
 \begin{tabular}{ | m{0.5cm} | m{6cm} | m{1cm}| }
  \hline
  ID &Property & Result\\ 
@@ -413,8 +418,9 @@ The properties to be evaluated, written in the UPPAAL query language, can be see
  UP3 & \( E<>\) (Scheduler.OrderProcessed and \( g>10\)) & Fail \\
  \hline
 \end{tabular}
+\caption{Model Properties expressed in UPPAAL Query Language}
 \label{VVResults}
-\end{center}
+\end{table}
 UP1 verifies that there is no state in the model where a deadlock occurs. UP2 verifies that there exists some path where the scheduler has reached the 'OrderProcessed' state while at most 10 timeunits have passed (measured using global clock 'g'), since the customer placed an order on the website. Lastly, UP3 verifies the same that U2, except it checks if more than 10 timeunits have passed since the order was placed. Since UP3 fails, this shows that there is no path in our model, where it takes more than 10 timeunits for a placed order to be processed and saved by the scheduler. 
 
 \section{Evaluation}

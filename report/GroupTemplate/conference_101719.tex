@@ -68,12 +68,12 @@
     \IEEEauthorblockN{
         Anne-Marie Rommerdahl\IEEEauthorrefmark{1},
         Jannatul Ferdous\IEEEauthorrefmark{2},
-        Umma Soneyatul Jannat\IEEEauthorrefmark{3},
-        Student 4\IEEEauthorrefmark{4}
+        Umma Soneyatul Jannat\IEEEauthorrefmark{3},   
+        Wiktor Poznachowski\IEEEauthorrefmark{4}
     }
     \IEEEauthorblockA{
         University of Southern Denmark, SDU Software Engineering, Odense, Denmark \\
-        Email: \IEEEauthorrefmark{1} \textnormal{\{anrom,umjan25,student4,student5\}}@mmmi.sdu.dk
+        Email: \IEEEauthorrefmark{1} \textnormal{\{anrom,umjan25,jafar23,wipoz25\}}@mmmi.sdu.dk
     }
 }
 
@@ -128,7 +128,7 @@ Industry 4.0, Smart Manufacturing, Software Architecture Evaluation, Formal Veri
 \section{Introduction and Motivation}
 
 %Introduction and motivate the problem
-Industry 4.0 aims to modernize industrial production lines in factories by making all the components connected into one local environment where every component can communicate and exchange information with each other. By doing so, the production line can achieve shared objectives. In today's society, there is a heavy focus on the automation and digitalization of complex systems. Complex systems are used in various areas, including industry, healthcare, and public transportation, among others. These systems are described as complex because of the many parts involved, the intricate ways in which those parts communicate, and the overall behavior of the system - how do all these parts work together to complete the system's goals? To ensure the correctness and reliability of such systems, it is of utmost importance that thought is put into the design. After all, failure in a system can lead to negative consequences ranging from minor inconveniences to death[SOURCE Lecture 1].In the existing research, performance is frequently addressed either as a runtime concern or as a high-level consideration, rather than as an explicit architectural requirement grounded in concrete scenarios and measurable constraints. This limits the ability to reason about performance early in the design process and to provide evidence that an architecture is capable of meeting end-to-end performance expectations in distributed, event-driven systems. This paper focuses on designing a software architecture that can evaluate performance quality attributes. This study focuses on strengthening the link between architectural decisions and measurable system behavior.
+Industry 4.0 aims to modernize industrial production lines in factories by making all the components connected into one local environment where every component can communicate and exchange information with each other. By doing so, the production line can achieve shared objectives. In today's society, there is a heavy focus on the automation and digitalization of complex systems. Complex systems are used in various areas, including industry, healthcare, and public transportation, among others. These systems are described as complex because of the many parts involved, the intricate ways in which those parts communicate, and the overall behavior of the system - how do all these parts work together to complete the system's goals? To ensure the correctness and reliability of such systems, it is of utmost importance that thought is put into the design. After all, failure in a system can lead to negative consequences ranging from minor inconveniences to death\cite{News}.In the existing research, performance is frequently addressed either as a runtime concern or as a high-level consideration, rather than as an explicit architectural requirement grounded in concrete scenarios and measurable constraints. This limits the ability to reason about performance early in the design process and to provide evidence that an architecture is capable of meeting end-to-end performance expectations in distributed, event-driven systems. This paper focuses on designing a software architecture that can evaluate performance quality attributes. This study focuses on strengthening the link between architectural decisions and measurable system behavior.
 The structure of the paper is as follows. \\
 Section \ref{sec:problem} outlines the research question and the research approach to analyze the research question and evaluate our results.
 Section \ref{sec:related_work} describes similar work in the field and how our contribution fits the field.
@@ -163,11 +163,10 @@ The following steps are taken to answer this paper's research questions:
 \label{sec:related_work}
 % ... Should review the state of the art consisting of 8-10 papers and should contextualize how this study provides new knowledge to the field.
 % this is about reconfigurability! we need to focus on performance! 
-This Section addresses existing contributions by examining articles about software architectures for performance in the I4.0 domain. 
-In total, seven papers are investigated. 
+This Section addresses existing contributions by examining articles about software architectures for performance in the I4.0 domain. In total, seven papers are investigated. The following paragraphs summarize the contributions of each paper.\\
 
 %currently 2 papers. Need minimum 8
-The paper \cite{ContinousEngineeringI4.0} [evaluates performance to improve system but only at run-time. ]
+\cite{ContinousEngineeringI4.0} evaluates performance to improve system but only at run-time.
 \cite{ControlSystemsArchitecture} case study implementation of a Traffic Management System to evaluate performance of several architectures.
 
 \cite{AQuality4.0Modelforarchitectingindustry}This study proposes a model-driven approach by transforming software architecture into performance models, allowing performance to be analyzed early in the development process.
@@ -445,7 +444,7 @@ The experiment design will be based off the process presented in (Claes Wohlin e
     \item In the context of a customer using the system (website and scheduler) to place an order for a customized car. %the system being locally hosted on a computer, deployed in Docker containers (or physical location? Like classroom? Or an informal setting as compared to a more formal/professional setting like a lab study). (Single-object study OR Multi-object variation study)
 \end{itemize}
 
-The scenario we'll be testing is: "From the moment a customer has placed an order on the website, the order must be placed in ‘queue’ (recipe should be saved in DB, and orderStatus should be ‘ready’), within 10 timeunits". 
+The scenario we'll be testing is based on requirement RQ6 (table \ref{ReqTable}): "From the moment a customer has placed an order on the website, the order must be placed in ‘queue’ (recipe should be saved in DB, and orderStatus should be ‘ready’), within 10 timeunits". 
 
 \subsection{Measurements}
 \label{sec:measurements}
@@ -517,7 +516,7 @@ The experiment was executed using the following steps:
 % Ordinal: Ranks entities after an ordering criteria, e.g. greater than. Examples: grades, software complexity
 % measure of central tendency: median, percentile.
 % dispersion: interval of variation
-The results for all 50 test-orders can be seen in figure \ref{results1} and \ref{results2}. 
+The results for all 50 test-orders can be seen in figure \ref{results1} and \ref{results2}, with the median being 0,14 seconds. 
 \begin{figure}[h!]
     \includegraphics[width=1\linewidth]{results1.png}
     \caption{OrderID, timestamps and order processing time, part 1}
@@ -547,13 +546,29 @@ The automated evaluation confirms that the implemented system satisfies the defi
 
 \section{Conclusion}
 \label{sec:conclusion}
-Conclusion of the report, discussion and relevant future work.
+%Conclusion of the report, discussion and relevant future work.
+%RQ1:
+In this study shows a proof of concept of how Industry 4.0 could be designed for car company , where a customer can access the website and choose their desired car and they can customize their car from the option available for their desired car. The study focuses on performance quality attribute and design the architecture based on the requirements to meet the goal.  \\
+%RQ2:
+In order to evaluate the software architecture in regards to performance, we defined formal requirements and time constraints, then tested these using formal models in UPPAAL. Through UPPAAL, we were able to verify that our model never reaches a state, where it takes more than 10 time units for an order to be processed, after a customer has performed checkout.\\
+Then, we implemented a simple prototype where we could test the actual performance of the system, using timestamps. 
+%RQ3:
+By running our experiment, we found a median value of 0,140 seconds, with the maximum value being 0,206 seconds.
 
 \subsection{Discussion}
 \label{sec:Discussion}
+The results gathered from the experiment show that the system does indeed satisfy our requirement for performance (RQ6) as specified in table \ref{ReqTable}.
+It should however be noted, that the hypothesis of our system fulfilling this requirement has not been formally rejected/validated, as we have not calculated the p-value. 
+
+Another thing worthy of note, is the rather generous time constraint for requirement RQ6. 10 seconds to process a rather simple customer order is a long time, and in the real world, customers would likely have thought something went wrong if the system was processing for that long. 
+%anything else that could be better abt this project?
+
 
 \subsection{Future work}
 \label{sec:future_work}
+Though this study covers the design, evaluation and implementation of a core event sequence, the system is still rather simple. In the I4.0 domain, systems are categorized as being complex, usually consisting of several more parts than this simple system, which results in a more complex design for communication between the parts. Future research could perform the same procedure as this study, but with a larger and more complex system, that employs several tactics and design patterns. The system from this study could be expanded to cover the whole chain from the customer website, to the production floor where the order is put into prodution. 
+
+%Furthermore, future work could test out 
 
 \bibliographystyle{IEEEtran}
 \bibliography{references}
@@ -563,10 +578,10 @@ Conclusion of the report, discussion and relevant future work.
 \section*{Contributions}
 \begin{tabular}{l|p{0.6\linewidth}}
 Name & Contribution\\
-Anne-Marie Rommerdahl & Scheduler, Kafka, Introduction, Problem and Approach, Use case, Design and Analysis Modelling, Formal Verification and Validation, Evaluation (Analysis)\\
-JannatulFardous & Website,Introduction,Related Work,Design and Analysis Modelling\\
-Wiktor & Automated Experiment, Evaluation\\
+Anne-Marie Rommerdahl & Scheduler, Kafka, Introduction, Problem and Approach, Use case, Design and Analysis Modelling, Formal Verification and Validation, Evaluation (Analysis), Conclusion\\
+Jannatul Fardous & Website, Introduction, Related Work, Design and Analysis Modelling\\
 Umma Soneyatul Jannat & Website, Abstract, Keywords and Related Work\\
+Wiktor Poznachowski & Automated Experiment, Evaluation\\
 \end{tabular}
 
 \end{document}

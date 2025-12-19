@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.6//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_6.dtd'>
+<nta>
+	<declaration>// Place global declarations here.
+chan carDetails, addToCart, checkoutOrder, homepage, websiteAccess;
+broadcast chan placeOrder;
+clock g;
+
+/*cant place invariants on website, bc website only does something when signal is received! It doesnt quite make sense
+to add a transition from one page to another as separate states to keep track of time.
+Rather, I think this is something we can check as a property. Like, when we reach a certain state after signal, the time 
+should be curTime + maxAllowedTimeForAction.
+
+Will it be a problem that customer can perform actions at any time, while scheduler is processing stuff? In real life, 
+customer isnt dependent on scheduler
+
+Lecture 8 - state space grows very quickly with the model complexity, so its very important to scope the model! We shouldnt
+include every single thing about the system. 
+
+
+==IMPORTANT NOTE==
+Currently, the scheduler won't handle all orders. It gets orders from a broadcast channel, which means the messages don't block. Thus, the rest of the system may continue running,
+sending more orders, while scheduler isn't in a state to handle a new order yet. I tested this manually. 
+Either we solve this by creating a new template for the message bus, which will listen for orders, increment every time it receives an order from customer. However, 
+this might be difficult, as it cant listen AND forward the orders at the same time. Maybe can use 'commited' or 'urgent' state?
+If not enough time, maybe just keep it in mind for exam if they ask. 
+
+*/
+
+
+</declaration>
+	<template>
+		<name x="5" y="5">SchedulerT</name>
+		<declaration>// Place local declarations here.
+clock a;</declaration>
+		<location id="id0" x="-229" y="-127">
+			<name x="-263" y="-170">Listening</name>
+		</location>
+		<location id="id1" x="-68" y="-127">
+			<name x="-110" y="-170">ReceiveOrder</name>
+			<label kind="invariant" x="-78" y="-110">a&lt;=3</label>
+		</location>
+		<location id="id2" x="76" y="-127">
+			<name x="25" y="-170">GenerateRecipe</name>
+			<label kind="invariant" x="59" y="-110">a&lt;=1</label>
+		</location>
+		<location id="id3" x="221" y="-127">
+			<name x="178" y="-161">StoreRecipe</name>
+			<label kind="invariant" x="238" y="-136">a&lt;=2</label>
+		</location>
+		<location id="id4" x="-17" y="0">
+			<name x="-68" y="-34">OrderProcessed</name>
+			<label kind="invariant" x="-27" y="17">a&lt;=1</label>
+		</location>
+		<init ref="id0"/>
+		<transition id="id5">
+			<source ref="id4"/>
+			<target ref="id0"/>
+			<label kind="assignment" x="-211" y="0">a=0</label>
+			<nail x="-229" y="0"/>
+		</transition>
+		<transition id="id6">
+			<source ref="id3"/>
+			<target ref="id4"/>
+			<label kind="assignment" x="229" y="-34">a=0</label>
+			<nail x="221" y="0"/>
+		</transition>
+		<transition id="id7">
+			<source ref="id2"/>
+			<target ref="id3"/>
+			<label kind="assignment" x="94" y="-127">a=0</label>
+		</transition>
+		<transition id="id8">
+			<source ref="id1"/>
+			<target ref="id2"/>
+			<label kind="assignment" x="-25" y="-127">a=0</label>
+		</transition>
+		<transition id="id9">
+			<source ref="id0"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="-204" y="-153">placeOrder?</label>
+			<label kind="assignment" x="-203" y="-127">a=0</label>
+		</transition>
+	</template>
+	<template>
+		<name>WebsiteT</name>
+		<declaration>clock c; </declaration>
+		<location id="id10" x="-416" y="-144">
+			<name x="-426" y="-178">Idle</name>
+		</location>
+		<location id="id11" x="-238" y="-144">
+			<name x="-280" y="-178">ProductView</name>
+		</location>
+		<location id="id12" x="-85" y="-144">
+			<name x="-136" y="-187">CarDetails</name>
+		</location>
+		<location id="id13" x="76" y="-144">
+			<name x="66" y="-178">Cart</name>
+		</location>
+		<location id="id14" x="-102" y="-17">
+			<name x="-153" y="-59">Confirmation</name>
+		</location>
+		<location id="id15" x="76" y="-17">
+		</location>
+		<init ref="id10"/>
+		<transition id="id16">
+			<source ref="id15"/>
+			<target ref="id14"/>
+		</transition>
+		<transition id="id17">
+			<source ref="id13"/>
+			<target ref="id15"/>
+			<label kind="synchronisation" x="85" y="-102">placeOrder?</label>
+		</transition>
+		<transition id="id18">
+			<source ref="id14"/>
+			<target ref="id11"/>
+			<label kind="synchronisation" x="-263" y="8">homepage?</label>
+			<nail x="-238" y="-17"/>
+		</transition>
+		<transition id="id19">
+			<source ref="id12"/>
+			<target ref="id13"/>
+			<label kind="synchronisation" x="-51" y="-170">addToCart?</label>
+		</transition>
+		<transition id="id20">
+			<source ref="id11"/>
+			<target ref="id12"/>
+			<label kind="synchronisation" x="-212" y="-144">carDetails?</label>
+		</transition>
+		<transition id="id21">
+			<source ref="id10"/>
+			<target ref="id11"/>
+			<label kind="synchronisation" x="-382" y="-161">websiteAccess?</label>
+			<nail x="-255" y="-144"/>
+		</transition>
+	</template>
+	<template>
+		<name>Customer</name>
+		<declaration>clock d;</declaration>
+		<location id="id22" x="-357" y="-161">
+			<label kind="invariant" x="-357" y="-195">d&lt;=300</label>
+		</location>
+		<location id="id23" x="-119" y="-161">
+			<label kind="invariant" x="-144" y="-195">d&lt;=100</label>
+		</location>
+		<location id="id24" x="60" y="-161">
+			<label kind="invariant" x="42" y="-195">d&lt;=5</label>
+		</location>
+		<location id="id25" x="-119" y="-42">
+			<name x="-195" y="-76">OrderConfirmation</name>
+			<label kind="invariant" x="-144" y="-25">d&lt;=10</label>
+		</location>
+		<location id="id26" x="-501" y="-161">
+		</location>
+		<init ref="id26"/>
+		<transition id="id27">
+			<source ref="id26"/>
+			<target ref="id22"/>
+			<label kind="synchronisation" x="-493" y="-187">websiteAccess!</label>
+			<label kind="assignment" x="-476" y="-161">d=0</label>
+		</transition>
+		<transition id="id28">
+			<source ref="id24"/>
+			<target ref="id25"/>
+			<label kind="synchronisation" x="-42" y="-119">placeOrder!</label>
+			<label kind="assignment" x="-17" y="-93">d=0, g=0</label>
+			<nail x="60" y="-42"/>
+		</transition>
+		<transition id="id29">
+			<source ref="id25"/>
+			<target ref="id22"/>
+			<label kind="synchronisation" x="-340" y="-76">homepage!</label>
+			<label kind="assignment" x="-339" y="-42">d=0</label>
+			<nail x="-357" y="-42"/>
+		</transition>
+		<transition id="id30">
+			<source ref="id23"/>
+			<target ref="id24"/>
+			<label kind="synchronisation" x="-68" y="-187">addToCart!</label>
+			<label kind="assignment" x="-76" y="-161">d=0</label>
+		</transition>
+		<transition id="id31">
+			<source ref="id22"/>
+			<target ref="id23"/>
+			<label kind="synchronisation" x="-263" y="-187">carDetails!</label>
+			<label kind="assignment" x="-229" y="-161">d=0</label>
+		</transition>
+	</template>
+	<system>
+Scheduler = SchedulerT();
+Website = WebsiteT();
+Cust = Customer();
+system Scheduler, Website, Cust;
+</system>
+	<queries>
+		<query>
+			<formula>A[] not deadlock
+</formula>
+			<comment/>
+			<result outcome="success" type="quality" timestamp="2025-12-17 14:37:30 +0100">
+			</result>
+		</query>
+		<query>
+			<formula>E&lt;&gt; (Scheduler.OrderProcessed and g&lt;=10) </formula>
+			<comment/>
+			<result outcome="success" type="quality" timestamp="2025-12-17 15:06:54 +0100">
+			</result>
+		</query>
+		<query>
+			<formula>E&lt;&gt; (Scheduler.OrderProcessed and g&gt;10) </formula>
+			<comment/>
+			<result outcome="failure" type="quality" timestamp="2025-12-17 15:07:56 +0100">
+			</result>
+		</query>
+	</queries>
+</nta>

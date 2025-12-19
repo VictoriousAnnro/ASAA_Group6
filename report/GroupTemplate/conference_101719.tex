@@ -15,6 +15,8 @@
 \usepackage{makecell}
 \usepackage{tcolorbox}
 \usepackage{amsthm}
+\usepackage{array}
+\usepackage{pdfpages}
 %\usepackage[english]{babel}
 \usepackage{pifont} % checkmarks
 %\theoremstyle{definition}
@@ -67,10 +69,11 @@
         Anne-Marie Rommerdahl\IEEEauthorrefmark{1},
         Jannatul Ferdous\IEEEauthorrefmark{2},
         Umma Soneyatul Jannat\IEEEauthorrefmark{3},   
-        Wiktor Poznachowski\IEEEauthorrefmark{4},
+        Wiktor Poznachowski\IEEEauthorrefmark{4}
     }
     \IEEEauthorblockA{
         University of Southern Denmark, SDU Software Engineering, Odense, Denmark \\
+        Email: \IEEEauthorrefmark{1} \textnormal{\{anrom,umjan25,jafar23,wipoz25\}}@mmmi.sdu.dk
         Email: \IEEEauthorrefmark{1} \textnormal{\{anrom,umjan25,jafar23,wipoz25\}}@mmmi.sdu.dk
     }
 }
@@ -113,6 +116,11 @@ The rapid adoption of Industry 4.0 technologies has transformed traditional auto
 Most related work, which primarily addresses functional and structural aspects of Industry 4.0 architectures, this study focuses on early-stage performance measurement as a core architectural concern.    
 % Aim 
 This project presents a software architecture for an Industry 4.0 enabled automated car manufacturing system designed to support fast and flexible processing of customer-specific vehicle configurations.
+The rapid adoption of Industry 4.0 technologies has transformed traditional automotive manufacturing into intelligent and automated production systems. However, many existing car manufacturing systems are constrained by legacy architectures that limit responsiveness, performance transparency when handling complex customized orders.
+% Gap
+Most related work, which primarily addresses functional and structural aspects of Industry 4.0 architectures, this study focuses on early-stage performance measurement as a core architectural concern.    
+% Aim 
+This project presents a software architecture for an Industry 4.0 enabled automated car manufacturing system designed to support fast and flexible processing of customer-specific vehicle configurations.
 % Method
 The proposed architecture contains a client-facing web application for order customization. A prototype implementation was developed to validate the architectural design, and experimental evaluations were conducted to measure performance characteristics during the architecture development phase.
 % Results 
@@ -124,78 +132,308 @@ Industry 4.0, Smart Manufacturing, Software Architecture Evaluation, Formal Veri
 \end{IEEEkeywords}
 
 \section{Introduction and Motivation}
-%Introduction and motivate the problem
 
-The structure of the paper is as follows. 
-Section \ref{sec:problem} outlines the research question and the research approach. 
-%to analyze the research question and evaluate our results.
+%Introduction and motivate the problem
+Industry 4.0 aims to modernize industrial production lines in factories by making all the components connected into one local environment where every component can communicate and exchange information with each other. By doing so, the production line can achieve shared objectives. In today's society, there is a heavy focus on the automation and digitalization of complex systems. Complex systems are used in various areas, including industry, healthcare, and public transportation, among others. These systems are described as complex because of the many parts involved, the intricate ways in which those parts communicate, and the overall behavior of the system - how do all these parts work together to complete the system's goals? To ensure the correctness and reliability of such systems, it is of utmost importance that thought is put into the design. After all, failure in a system can lead to negative consequences ranging from minor inconveniences to death\cite{News}.In the existing research, performance is frequently addressed either as a runtime concern or as a high-level consideration, rather than as an explicit architectural requirement grounded in concrete scenarios and measurable constraints. This limits the ability to reason about performance early in the design process and to provide evidence that an architecture is capable of meeting end-to-end performance expectations in distributed, event-driven systems. This paper focuses on designing a software architecture that can evaluate performance quality attributes. This study focuses on strengthening the link between architectural decisions and measurable system behavior.
+The structure of the paper is as follows. \\
+Section \ref{sec:problem} outlines the research question and the research approach to analyze the research question and evaluate our results.
 Section \ref{sec:related_work} describes similar work in the field and how our contribution fits the field.
 Section \ref{sec:use_case} presents a production reconfiguration use case.
 The use case serves as input to specify a reconfigurability QA requirement in Section \ref{sec:qas}.
-Section \ref{sec:middleware_architecture} introduces the proposed reconfigurable middleware software architecture design.
 Section \ref{sec:evaluation} evaluates the proposed middleware on realistic equipment in the I4.0 lab and analyzes the results against the stated QA requirement.   
 
 \section{Problem and Approach}
-
 \label{sec:problem}
+% What is the problem* to be solved with the reliable architecture you build, and how will the problem be addressed. *The stated problem leads to the stated research question.
 \emph{Problem.}
-
+The Industry 4.0 production (I4.0) domain is characterized by the integration of physical components with different kinds of technology and the communication channels between them. In this domain, there exist many complex production systems, one of which is the production of cars. Cars are sold not only for their functionality as a vehicle of transport, but also offer the customers a range of options for customization. These range from functional (such as the engine) to cosmetic (such as the color). Building a system that can handle customer orders and organize production of the placed orders is no small feat. It is one thing to design an architecture for such a system, but how does one ensure that it fulfills the requirements? Changes to the system during later parts of the development process are much more costly than changes made earlier in the process. Therefore, it is important to ensure that the architecture is designed well before implementation starts. For a system that customers directly interact with, an important aspect is the performance. Not only must the system provide quick feedback to customer actions, but it must also be able to do so while servicing multiple customers at the same time. From this, we've created these research questions:
 \emph{Research questions:}
 \begin{enumerate}
-    \item  
-    \item 
+    \item  How to design software architecture for performance?
+    \item How to evaluate the software architecture in regards to performance?
+    \item How well does a prototype built based on this architecture perform perfomance-wise? 
 \end{enumerate}
 
 \emph{Approach.}
-The following steps are taken to answer this paper's research questions: 
+The following steps are taken to answer this paper's research questions:
 \begin{enumerate}
-    \item 
+    \item Define Use case(s)
+    \item Define Quality Attribute Scenario(s)
+    \item Define requirements and identify useful tactics
+    \item Construct formal requirements to verify formal models of the system
+    \item Implement a prototype and perform an experiment to assess the Performance
 \end{enumerate}
 
 
 \section{Related work}
 \label{sec:related_work}
-This Section addresses existing contributions by examining xxx in the I4.0 domain. 
-In total, x papers are investigated. 
+% ... Should review the state of the art consisting of 8-10 papers and should contextualize how this study provides new knowledge to the field.
+% this is about reconfigurability! we need to focus on performance! 
+This Section addresses existing contributions by examining articles about software architectures for performance in the I4.0 domain. In total, seven papers are investigated. The following paragraphs summarize the contributions of each paper.\\
 
-In \cite{Wan2019Reconfigurable}, experiences are elaborated on a three-layer architecture of a reconfigurable smart factory for drug packing in healthcare I4.0. 
+%currently 2 papers. Need minimum 8
+\cite{ContinousEngineeringI4} evaluates performance to improve system but only at run-time.
+\cite{ControlSystemsArchitecture} case study implementation of a Traffic Management System to evaluate performance of several architectures.
 
-The paper \cite{Yazen2010Ontology} proposes an ontology agent-based architecture for inferring  new configurations to adapt to changes in manufacturing requirements and/or environment.
+\cite{AQuality4Modelforarchitectingindustry}This study proposes a model-driven approach by transforming software architecture into performance models, allowing performance to be analyzed early in the development process.
 
-In \cite{Leitao2016Specification,Angione2017Integration} an architecture for a reconfigurable production system is specified.
-Two objectives for reconfiguration and how they can be reached are described.
+\cite{performanceanalysisappliedtoatelecommunicationsystem}The authors show how performance models can be systematically constructed from architectural descriptions that include performance-related details, enabling early evaluation of system performance before implementation.
 
-Several papers \cite{Koren1999Reconfigurable,Koren2010Design,Bortolini2018Reconfigurable} describe reconfigurable manufacturing systems that are cost-effective and responsive to market changes.
+\cite{ApproachestoSoftwarePerformanceAnalysis}The paper addresses the performance quality attribute by systematically examining how software architectures specify, analyze, and evaluate performance requirements such as latency, throughput, and response time.
 
-All contributions provide valuable knowledge about reconfiguration but lack a study of the software architecture perspective that specifies a quantifiable reconfigurability architectural requirement, a software architecture that adopts the architectural requirements, and evaluates the architectural requirement. 
+\cite{Ananalyticalapproachtoarchbasedsoftwareperformances}The paper introduces a practical way to predict how well software performs and how reliable it is by analyzing how its parts interact during execution. Using a tool called ATAC, the approach turns real execution data into useful performance insights, helping connect theoretical models with how software actually behaves in the real world.
 
+\cite{PerformanceEvaofComponentbasedSS}The paper focuses on improving software performance verification by identifying key factors that influence how effectively performance issues are detected and managed during development. Through case studies, literature reviews, and practitioner surveys, eight moderator factors were identified — including proper verification environments, suitable techniques, clear performance requirements, skilled cross-functional teams, and strong organizational support. These factors help organizations design better verification processes, ensuring software meets performance expectations like speed, efficiency, and resource use before release.
+
+While these contributions provide knowledge and new ideas about performance in the I4.0 domain, there is little to no focus on studying performance as a quantifiable architectural requirement, and how to evaluate a software architecture that adopts this requirement. 
 
 \section{Use Case}
 \label{sec:use_case}
-This Section introduces the use cases.
+% From lecture 12 Summary-keypoint-exam topics sample: 
+% Unfold the problem with a use case and describe what the use case is about
+This Section introduces the use case of a customer placing an order on the company's website. This use case covers the sequence of actions starting from the customer accessing the website, to the moment when the order is saved and marked as 'ready' for production in the system.
+\subsection{Customer places an order}
+Actors: Customer, Website, Production Scheduler
+Preconditions: Available cars and customization options have been defined in database.
+Steps:
+\begin{itemize}
+    \item Customer accesses company website
+    \item Customer chooses preferred car
+    \item Website fetches available customization options for chosen car
+    \item Customer chooses preferred customizations
+    \item Customer places the order
+    \item Website sends order details to the Scheduler
+    \item Production Scheduler recieves order details from website
+    \item Production Scheduler breaks down the order into a JSON production recipe, which is then stored in the database
+    \item Production Scheduler stores the order in the database, marked as 'ready'
+\end{itemize}
+Postconditions: A customer order is stored and marked as 'ready' for production.
 
 \section{Quality Attribute Scenario}
+%lecture 12 - the use case is the foundation to describe and and specify architectural requirements. 
+This section contains the quality attributes for the architecture and also contains one or more Quality Attribute Scenarios (QAS), which illustrate the system's scenario.
+\subsection{Performance}
 \label{sec:qas}
-This Section introduces the specified x QASes.
-The QASes are developed based on the use case.
+This section contains the quality attributes for the architecture and also contains one or more Quality Attribute Scenarios (QAS), which illustrate the system's scenario.
+\subsection{Performance quality attribute}
+The performance of the system starts from the moment a customer has placed an order on the website, and the performance depends on the website, Non/Non-relational DB, Kafka Message bus, and Production Scheduler. Communication between these systems must take place within ten units.\\
 
-% Description of the overall architecture designs
-% Argue for tactics used to archieve the QASes
-% Discuss the trade-offs
+\textbf{Scenarios:} Two scenarios have been made for Performance.\\
+
+The first scenario on \ref{QADiagram1} shows that when a customer places an order through the car-selling website, it will publish to Kafka that an order has been created. After this event is done, the production scheduler fetches the message and starts generating the JSON production recipe, and marks it as ready as soon as it is stored in the database. This entire event chain will be completed in 10 time units. The customer's order submission to Kafka to get the message; this process must complete within four milliseconds. This scenario ensures that distributed communication does not cause significant latency and captures the system's performance requirement for the major workflow.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\linewidth]{quality attribute scenario.drawio.png} % adjust filename
+    \caption{Scenario 1 for the website}
+    \label{QADiagram1}
+\end{figure}
+
+The second scenario on \ref{QADiagram2} shows that after the Kafka message bus receives the order from the website, the scheduler must start immediately to prevent delays. In normal load conditions, as soon as the message is available in Kafka, the scheduler must start generating the recipe within three milliseconds. This prevents performance bottlenecks in the message queue and also ensures that the event-driven architecture facilitates quick transitions from order creation to recipe development.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\linewidth]{quality attribute diagram 2.drawio.png} % adjust filename
+    \caption{Scenario 2 for the Scheduler after customer places the order}
+    \label{QADiagram2}
+\end{figure}
+
+The scenario illustrated in \ref{QADiagram1} and \ref{QADiagram2} describes the performance of the system. The process begins when the customer places the order through the website and, after that, the scheduler gets the order from the website through the Kafka message bus. The production scheduler then breaks the order into a JSON recipe and stores it in the database, marking it 'ready' after storing it in the database. The complete event chain—from order submission to recipe persistence—is depicted in \ref{QADiagram1} and \ref{QADiagram2}. 
 
 \section{Design and Analysis Modelling}
 \label{sec:design_and_analysis_modelling}
-Design and analysis modelling.
+This section describes the different steps in the design process, as well as an analysis of the design.
+%Describe the design and argue for the design decision and how it meets the QASes. Part of the design decision must specify which tactics/patterns are used (provide arguments) and the trade-offs. 
+%Analyze the design and illustrate the system architecture model, encompassing both structure and behavior, using formal reasoning.
+% Feature model is optional. However, it should be explained what/which particular features (characteristics) are selected and the reason of choice.
+% A list of requirements. Diagram is optional. 
+% High level architecture structure: components and their interactions to meet the RQs.
+%Offers a clear and more comprehensive design, modeling and analysis with both a detailed description and a well-considered evaluation of pros and cons, including a clearer explanation of how the design and modeling affect Quality Attributes with relevant requirement analysis and tactics.
+
+%TODO AM
+% present tactics
+% Discuss the trade-offs
+% then structural model -> behavioral model
+\subsection{Requirements} Based on the QAS and the use case, several requirements were defined, which can be found in table \ref{ReqTable}. 
+\begin{table}
+\begin{tabular}{ | m{0.7cm} | m{5cm}| m{1.5cm} | }
+ \hline
+ Req ID & Description & Type \\ 
+ \hline
+ RQ1 & Customer can choose from a list of available cars & Functional\\ 
+ \hline
+ RQ2 & Customer should be able to chose a car and customize the car's model, engine and color & Functional\\ 
+ \hline
+ RQ3 & Scheduler should prepare a placed order for production by creating and saving a production recipe & Functional\\
+ \hline
+ RQ4 & Scheduler should keep track of an order's status (ready, in progress, completed) & Functional\\
+ \hline
+ RQ5 & The website should respond to customer placing an order in less than 3 seconds & Non-Functional\\
+ \hline
+ RQ6 & Any order placed on the website should be saved and marked as 'ready' for production in database within 10 time units & Non-Functional\\ 
+ \hline
+\end{tabular}
+\caption{Requirements Table}
+\label{ReqTable}
+\end{table}
+
+\subsection{Tactics for Quality Attribute }
+To ensure the health of the connection from the systems, the most fundamental tactic is event-based processing, which separates the Website from the Scheduler and guarantees that user-facing operations do not hinder generating the JSON production recipe or database writing. It also covers the bound execution times tactics, as after the customer places the order, the message bus will receive the message within three milliseconds, and the Production Scheduler will generate the recipe within three milliseconds. To reduce overall latency, the system additionally relies on concurrency by simultaneously allowing the website's backend to deploy uWSGI with multiple workers to handle several HTTP requests simultaneously. Each worker runs an instance of the Django application and processes user interactions independently. By doing so, it prevents new orders from being blocked and ensures the website remains responsive under concurrent user loads. Overall, concurrency improves throughput and response time without requiring multiple deployment replicas.
+
+\subsection{Features}
+Figure \ref{FeatureDiagram} shows the features for the car production system that will realize the defined requirements. The system will have a website, from which the customer may browse (RQ1) and choose a car to customize (RQ2). The Scheduler will process the orders by creating a production recipe for each order (RQ3). The Scheduler also manages the status of each order (RQ4), setting status to 'ready' for production when the corresponding production recipe has been created and stored in the system. 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{FeatureModel.pdf}
+    \caption{Feature Diagram of the car production system}
+    \label{FeatureDiagram}
+\end{figure}
+
+\subsection{Structural Analysis Model}
+A structural analysis model (also called smth FAA) can be used to present the functions for the features defined in figure \ref{FeatureDiagram}, and the way data flows between the different parts. 
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\linewidth]{StructuralDiagram.pdf}
+    \caption{Functional Analysis Model of Scheduler}
+    \label{schedulerFAA}
+\end{figure}
+\subsubsection{Scheduler Overview}
+Figure \ref{schedulerFAA} represents the FAA of the Scheduler. It shows how the Scheduler is organized internally and how its main parts work together. The Scheduler acts as the central component that receives order details from the website and handles the steps needed to prepare an order for production. To keep the design clear and manageable, this functionality is split into smaller subsystems, such as \textit{ProcessOrder}, \textit{RecipeGenerator}, and \textit{OrderStatus}, each responsible for a specific task in the order handling flow.
+
+\subsubsection{Data Flow Between Subsystems}
+When an order is received, the \textit{ProcessOrder} component checks and prepares the order before sending the information to the \textit{RecipeGenerator}, which creates a production recipe and returns a \textit{RecipeID}. This identifier is then stored by the \textit{OrderStatus} component so the system can keep track of the order’s progress. By showing these data flows and responsibilities, the model gives a clear overview of how the Scheduler supports order processing and status tracking within the system.
+
+\subsection{Finite-State Machine}
+To show the behavior of the system, finite-state machines (FSM) were defined for the website and scheduler, shown in figure \ref{websiteSM} and \ref{schedulerSM} respectively. 
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\linewidth]{websiteSM.pdf}
+    \caption{Finite State Machine for the website}
+    \label{websiteSM}
+\end{figure}
+When accessing the website, all available products are shown to the user. The user may navigate to the sub-page containing the details for a specific car, where they may customize the car and add it to their cart. Adding it to their cart will redirect them to the cart, where they can checkout to place their order. Finally, they will be shown a confirmation screen. From any page on the website, they directly return to the homepage. 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\linewidth]{schedulerSM.pdf}
+    \caption{Finite State Machine for the scheduler}
+    \label{schedulerSM}
+\end{figure}
+When the scheduler starts, it will listen for messages from the website. Once a message has been received containing details of an order, the scheduler will process the order, before returning to listening. 
+
+\subsection{Systems and subsystems}
+%not sure where we should talk about actual technologies and tools used. It should deffo be in the report, but not sure it should be here?? i dunno
+% perhaps it should be moved to 'experiment design' in 'Evaluation', cuz the technologies are relevant for the experiment, and also this from exercise 10 which was abt experiment: "Decide on the tools, environments, and configurations necessary for the experiment."
+
+The architectural design follows a distributed system composed of multiple subsystems, with each one responsible for a specific part of the overall functionality. The system is structured to support quality attribute scenarios defined in Section \ref{sec:qas}.
+
+The system consists of three main subsystems: a user interface subsystem, a production scheduler, and a communication subsystem that enables event-driven communication between them. This section below will discuss the technology that is used for the subsystems.
+
+ \subsubsection{Message bus Apache Kafka:}
+ To establish communication between the website and the production scheduler, Apache Kafka will be used. The architecture requires a message bus for the subsystems to communicate with each other, and the system does not require a third-party broker or messages to be organized by \cite{MQTTvsKafka}"Topics," which is why Kafka is chosen instead of MQTT. Kafka decouples data streams and systems. The website sends data into Kafka, and the production scheduler queries Kafka for the data. It scales very well and will not  require integration with every system.\\
+ 
+
+\subsubsection{Website}
+The website subsystem is divided into two parts, where the frontend is responsible for user interaction and display, and the backend which is responsible for request handling, business logic, and communication with other subsystems.
+
+ \begin{itemize}
+     \item Backend
+      \begin{itemize}
+        \item Programming language: Python Django framework
+        \begin{itemize}
+            \item Comprehensibility of the language makes it easier and faster to write understandable code, and easier to comply with the system. 
+            \item It has enough libraries to automate testing, as it can easily conduct testing. Also, it offers a platform that allows automation based on non-browser functionality. 
+        \end{itemize}
+        \item Database: Relational Database 
+    \end{itemize}
+    \end{itemize}
+    
+\begin{itemize}
+        \item Fronted 
+      \begin{itemize}
+        \item Programming language:HTML,CSS,JavaScript 
+        \begin{itemize}
+            \item Runs anywhere, no installation needed.
+            \item UI updates instantly for all users.
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Production Scheduler} 
+  \begin{itemize}
+        \item Programming language: Python 
+        \item Database: Relational Database(MYSQL) 
+        \begin{itemize}
+            \item MySQL offers speed and reliability, especially high-speed read operations, where PostgreSQL seems to be more suited for complex queries, data integrity, and consistency. MySQL is better suited for the system, as the system has simple queries and wants speed.
+        \end{itemize}
+        \item Non-Relational Database(MongoDB)
+        \begin{itemize}
+            \item MongoDB is a document-oriented database. MongoDB stores data in the form of key-value pairs. MongoDB is high-speed, high-availability, and scalability, and also supports JSON formats and allows for ACID transactions.
+        \end{itemize}
+    \end{itemize}
+    
+\subsection{Containerization}
+This subsection will contain the subsystems that are going to be containerized in the project and how they impact the performance attributes of the system. For containerization, Docker is going to be used.
+\subsubsection{Website}
+The website has been chosen to be containerized as it has to ensure that the execution environment is the same every time, regardless of the underlying operating system. The website must be scalable 
+since the quantity of users' orders can change over time.
+\subsubsection{Production Scheduler}
+The Production Scheduler has been chosen to be containerized as it is responsible for coordinating orders, generating production recipes, and scheduling production runs. It ensures the isolation between the scheduling logic and other parts of the system. It improves fault tolerance.
+\subsubsection{Impact}
+The impact of Docker Compose provides the system with maintainability and scalability. Containerization improves scalability by enabling the deployment of more instances of the Website or Scheduler as system demand rises. It also improves maintainability as it ensures that the service always runs in the same environment and works the same way on different operating systems.
 
 \section{Formal verification and validation}
 \label{sec:formal_v_and_v}
-Formal verification and validation of system(s).
+%Offers a comprehensive and in-depth description of the V&V, covering detailed methodology, model checking execution, and thorough analysis of the verification/simulation results (including a table/list of property V&V results) and system/design improvement based on the interpretation of V&V results, demonstrating an advanced understanding of experimental methods in software engineering Formal verification and validation of system(s).
 
+% lecture 8 + 9
+In order to perform a formal verification and validation of the architecure, a model is created to represent the system, based on the Finite-State Machine defined in section \ref{sec:design_and_analysis_modelling}. Timing constraints are identified for the events within the model, based on the requirements. Then, the formal model can be verified to see whether it upholds the constraints and requirements, by simulating it in the model-checker tool UPPAAL\cite{uppaal}. The UPPAAL model in this paper was designed to test cover the sequence starting when a customer places an order till it is saved and marked as 'ready' in the system. This will verify the logic of our system, before the architecture is implemented in a prototype. For this purpose, we've created three templates, which we introduce below.\\
+Figure \ref{customerUppaal} shows a template for a customer. It should be noted that the templates won't show every single possible action that could happen, as the state space grows very quickly the more complex the model is. Testing a large state space isn't feasible, and thus the models are designed only to show the flow of a customer browsing the website and placing an order. The customer template is used only to assist in simulating the flow of the system. Therefore, random invariants have been assigned to the different states. The value 'g' is a global clock, which is reset whenever the customer places an order.\\
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\linewidth]{customerUppaal.png}
+    \caption{UPPAAL template for customer}
+    \label{customerUppaal}
+\end{figure}
+
+Figure \ref{websiteUppaal} and \ref{schedulerUppaal} shows the templates for the website and scheduler, respectively.
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\linewidth]{websiteUppaal.png}
+    \caption{UPPAAL template for website}
+    \label{websiteUppaal}
+\end{figure}\\
+The website only changes in response to customer actions. Therefore, any state transition is triggered by a synchronization from the customer template.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\linewidth]{schedulerUppaal.png}
+    \caption{UPPAAL template for scheduler}
+    \label{schedulerUppaal}
+\end{figure}
+
+%how did we get the properties? How did we formalize time constraints n such?
+The properties to be evaluated, written in the UPPAAL query language, can be seen in table \ref{VVResults}, along with the result from the verification. %If a property fails, UPPAAL outputs a counter example (CE) to show how it failed. 
+% What about the CTL tree thingy?
+\begin{table}
+\begin{tabular}{ | m{0.5cm} | m{6cm} | m{1cm}| }
+ \hline
+ ID &Property & Result\\ 
+ \hline
+ UP1 & A[] not deadlock & Pass \\ 
+ \hline
+ UP2 & \( E<>\) (Scheduler.OrderProcessed and \( g<=10\)) & Pass \\
+ \hline
+ UP3 & \( E<>\) (Scheduler.OrderProcessed and \( g>10\)) & Fail \\
+ \hline
+\end{tabular}
+\caption{Model Properties expressed in UPPAAL Query Language}
+\label{VVResults}
+\end{table}
+UP1 verifies that there is no state in the model where a deadlock occurs. UP2 verifies that there exists some path where the scheduler has reached the 'OrderProcessed' state while at most 10 timeunits have passed (measured using global clock 'g'), since the customer placed an order on the website. Lastly, UP3 verifies the same that U2, except it checks if more than 10 timeunits have passed since the order was placed. Since UP3 fails, this shows that there is no path in our model, where it takes more than 10 timeunits for a placed order to be processed and saved by the scheduler. 
 
 \section{Evaluation}
 \label{sec:evaluation}
-
-% Empirical evaluation
+% Empirical evaluation - the actual experiment
 This Section describes the evaluation of the proposed design.
 Section \ref{sec:design} introduces the design of the experiment to evaluate the system. 
 Section \ref{sec:measurements} identifies the measurements in the system for the experiment.
@@ -204,26 +442,141 @@ Section \ref{sec:analysis} presents the analysis of the results from the experim
 
 \subsection{Experiment design}
 \label{sec:design}
+The experiment design will be based off the process presented in (Claes Wohlin et al. 2012)\cite{ExperimentationClaes}. Thus, our goal template will be:
+\begin{itemize}
+    \item Analyze our software architecture
+    \item For the purpose of checking whether the requirements are met with respect to the performance QA
+    \item From the point of view of the customer and developer
+    \item In the context of a customer using the system (website and scheduler) to place an order for a customized car. %the system being locally hosted on a computer, deployed in Docker containers (or physical location? Like classroom? Or an informal setting as compared to a more formal/professional setting like a lab study). (Single-object study OR Multi-object variation study)
+\end{itemize}
+
+The scenario we'll be testing is based on requirement RQ6 (table \ref{ReqTable}): "From the moment a customer has placed an order on the website, the order must be placed in ‘queue’ (recipe should be saved in DB, and orderStatus should be ‘ready’), within 10 timeunits". 
 
 \subsection{Measurements}
 \label{sec:measurements}
+The time will be measured in seconds for an action to finish.
+The moment a customer performs a checkout for an order, the website will generate a timestamp. When the website forwards the order to the scheduler, this timestamp is included in the message.
+
+Upon consuming the message, the scheduler creates a timestamp as well(representing the time the message was received), and computes the duration, by calculating the difference between the two timestamps.
 
 \subsection{Pilot test}
 \label{sec:pilot_test}
+\subsubsection{Test Environment}
+The experiments were conducted in a containerized environment using Docker Compose. The system consisted of the following components:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Website (Python \& Django):} responsible for order creation, checkout, and producing Kafka messages.
+    \item \textbf{Apache Kafka:} used as the messaging middleware between the website and the scheduler.
+    \item \textbf{Scheduler (Python):} consumes order messages from Kafka and performs order handling logic.
+    \item \textbf{Databases:}
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{MySQL:} order and status persistence.
+        \item \textbf{MongoDB:} recipe storage.
+    \end{itemize}
+\end{itemize}
+All services were executed locally in Docker containers to ensure consistency across test runs.
+
+\subsubsection{Automated Load Test Design}
+To avoid manual testing and to simulate realistic system usage, an automated load test was implemented.
+
+\paragraph{Experiment Trigger}
+A dedicated test button was added to the website header and was visible only to authenticated users. When clicked, the button triggers a JavaScript routine that automatically sends multiple requests to the backend.
+
+\paragraph{Request Pattern}
+The experiment was configured as follows:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Number of orders:} 50
+    \item \textbf{Interval between orders:} 1 second
+    \item \textbf{Request type:} HTTP POST
+    \item \textbf{Endpoint:} \texttt{/order/experiment/place-order/}
+\end{itemize}
+This setup simulates a steady stream of users placing orders rather than a single burst.
+
+\subsubsection{Automated Experiment Endpoint}
+A dedicated backend endpoint was implemented exclusively for evaluation purposes. For each test request, the endpoint:
+\begin{itemize}[leftmargin=*]
+    \item Creates a new shopping cart for the logged-in user
+    \item Selects a random car from the database
+    \item Randomizes configuration parameters (engine, color, price)
+    \item Generates randomized but valid customer data
+    \item Executes the normal checkout process
+    \item Sends the order to Kafka with a timestamp
+\end{itemize}
+
+\subsubsection{Test Execution Procedure}
+The experiment was executed using the following steps:
+\begin{enumerate}[leftmargin=*]
+    \item All Docker containers were started using Docker Compose.
+    \item The scheduler service was manually started inside its container.
+    \item A user logged into the website through the browser.
+    \item The automated load-test button was clicked once.
+    \item The system generated 50 orders at one-second intervals.
+    \item The scheduler logs were observed to collect latency measurements.
+\end{enumerate}
 
 \subsection{Analysis}
 \label{sec:analysis}
+%Analyze the collected data, e.g. using descriptive statistics.
+% Evaluate the results against the metrics defined for the quality attribute, e.g. testing your hyptothesis.
+% Identify the successes and shortcomings of the current architecture in meeting the chosen quality attribute.
+% Provide recommendations for architecture refinement, if necessary, based on the experimental findings
+% Ordinal: Ranks entities after an ordering criteria, e.g. greater than. Examples: grades, software complexity
+% measure of central tendency: median, percentile.
+% dispersion: interval of variation
+The results for all 50 test-orders can be seen in figure \ref{results1} and \ref{results2}, with the median being 0,14 seconds. 
+\begin{figure}[h!]
+    \includegraphics[width=1\linewidth]{results1.png}
+    \caption{OrderID, timestamps and order processing time, part 1}
+    \label{results1}
+\end{figure}
+\begin{figure}[h!]
+    \includegraphics[width=1\linewidth]{results2.png}
+    \caption{OrderID, timestamps and order processing time, part 2}
+    \label{results2}
+\end{figure}
 
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1.1\linewidth]{ASAAGraph.png}
+    \caption{Order processing time}
+    \label{resultsGraph}
+\end{figure}
+Figure \ref{resultsGraph} shows the process time for an order, from the moment it is placed by a customer to the moment the scheduler has stored it and marked it as 'ready' for production.
+
+All observed durations were well below the 10-second requirement, with typical values in the range of a few seconds. The results demonstrate that:
+\begin{itemize}[leftmargin=*]
+    \item Kafka message delivery introduces minimal latency
+    \item The system remains stable under sustained order creation
+    \item The scheduler processes incoming orders fast enough to meet the specified requirement
+\end{itemize}
+The automated evaluation confirms that the implemented system satisfies the defined performance requirement of processing orders within 10 seconds end-to-end. By automating the experiment and using real system components, the evaluation provides reliable, repeatable, and realistic performance measurements.
 
 \section{Conclusion}
 \label{sec:conclusion}
-Conclusion of the report, discussion and relevant future work.
+%Conclusion of the report, discussion and relevant future work.
+%RQ1:
+In this study shows a proof of concept of how Industry 4.0 could be designed for car company , where a customer can access the website and choose their desired car and they can customize their car from the option available for their desired car. The study focuses on performance quality attribute and design the architecture based on the requirements to meet the goal.  \\
+%RQ2:
+In order to evaluate the software architecture in regards to performance, we defined formal requirements and time constraints, then tested these using formal models in UPPAAL. Through UPPAAL, we were able to verify that our model never reaches a state, where it takes more than 10 time units for an order to be processed, after a customer has performed checkout.\\
+Then, we implemented a simple prototype where we could test the actual performance of the system, using timestamps. 
+%RQ3:
+By running our experiment, we found a median value of 0,140 seconds, with the maximum value being 0,206 seconds.
 
 \subsection{Discussion}
 \label{sec:Discussion}
+The results gathered from the experiment show that the system does indeed satisfy our requirement for performance (RQ6) as specified in table \ref{ReqTable}.
+It should however be noted, that the hypothesis of our system fulfilling this requirement has not been formally rejected/validated, as we have not calculated the p-value. 
+
+Another thing worthy of note, is the rather generous time constraint for requirement RQ6. 10 seconds to process a rather simple customer order is a long time, and in the real world, customers would likely have thought something went wrong if the system was processing for that long. 
+
+In addition  the current experiment was done under controlled environment using docker. This setup ensures repeatability but it does not capture variability due to communication delays, shared resource contention, or distributed deployment conditions. Thus, the measured results reflect architectural performance under constrained and stable execution conditions rather than under adverse operational scenarios.
+%anything else that could be better abt this project?
+
 
 \subsection{Future work}
 \label{sec:future_work}
+Though this study covers the design, evaluation and implementation of a core event sequence, the system is still rather simple. In the I4.0 domain, systems are categorized as being complex, usually consisting of several more parts than this simple system, which results in a more complex design for communication between the parts. Future research could perform the same procedure as this study, but with a larger and more complex system, that employs several tactics and design patterns. The system from this study could be expanded to cover the whole chain from the customer website, to the production floor where the order is put into production. The current UPPAAL models can be extended to represent multiple customers and schedulers. The models currently represent a single execution flow to manage state-space complexity; incorporating controlled concurrency would enable evaluation of performance under contention and higher load. Instead of random invariants in the future can assign appropriate invariants that can be tested in real time. 
+
+%Furthermore, future work could test out 
 
 \bibliographystyle{IEEEtran}
 \bibliography{references}
@@ -233,5 +586,10 @@ Conclusion of the report, discussion and relevant future work.
 \section*{Contributions}
 \begin{tabular}{l|p{0.6\linewidth}}
 Name & Contribution\\
+Anne-Marie Rommerdahl & Scheduler, Kafka, Introduction, Problem and Approach, Use case, Design and Analysis Modelling, Formal Verification and Validation, Evaluation (Analysis), Conclusion\\
+Jannatul Fardous & Website, Introduction, Related Work, Design and Analysis Modelling,Conclusion\\
+Umma Soneyatul Jannat & Website, Abstract, Keywords and Related Work\\
+Wiktor Poznachowski & Automated Experiment, Evaluation\\
 \end{tabular}
+
 \end{document}

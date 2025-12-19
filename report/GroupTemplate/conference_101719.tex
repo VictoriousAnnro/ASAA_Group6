@@ -510,17 +510,40 @@ The experiment was executed using the following steps:
 
 \subsection{Analysis}
 \label{sec:analysis}
-\subsubsection{Results and Observations}
-For each order, the scheduler printed the measured end-to-end processing time. All observed durations were well below the 10-second requirement, with typical values in the range of a few seconds. The results demonstrate that:
+%Analyze the collected data, e.g. using descriptive statistics.
+% Evaluate the results against the metrics defined for the quality attribute, e.g. testing your hyptothesis.
+% Identify the successes and shortcomings of the current architecture in meeting the chosen quality attribute.
+% Provide recommendations for architecture refinement, if necessary, based on the experimental findings
+% Ordinal: Ranks entities after an ordering criteria, e.g. greater than. Examples: grades, software complexity
+% measure of central tendency: median, percentile.
+% dispersion: interval of variation
+The results for all 50 test-orders can be seen in figure \ref{results1} and \ref{results2}. 
+\begin{figure}[h!]
+    \includegraphics[width=1\linewidth]{results1.png}
+    \caption{OrderID, timestamps and order processing time, part 1}
+    \label{results1}
+\end{figure}
+\begin{figure}[h!]
+    \includegraphics[width=1\linewidth]{results2.png}
+    \caption{OrderID, timestamps and order processing time, part 2}
+    \label{results2}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1.1\linewidth]{ASAAGraph.png}
+    \caption{Order processing time}
+    \label{resultsGraph}
+\end{figure}
+Figure \ref{resultsGraph} shows the process time for an order, from the moment it is placed by a customer to the moment the scheduler has stored it and marked it as 'ready' for production.
+
+All observed durations were well below the 10-second requirement, with typical values in the range of a few seconds. The results demonstrate that:
 \begin{itemize}[leftmargin=*]
     \item Kafka message delivery introduces minimal latency
     \item The system remains stable under sustained order creation
     \item The scheduler processes incoming orders fast enough to meet the specified requirement
 \end{itemize}
-
-\subsubsection{Conclusion}
 The automated evaluation confirms that the implemented system satisfies the defined performance requirement of processing orders within 10 seconds end-to-end. By automating the experiment and using real system components, the evaluation provides reliable, repeatable, and realistic performance measurements.
-
 
 \section{Conclusion}
 \label{sec:conclusion}
@@ -540,13 +563,10 @@ Conclusion of the report, discussion and relevant future work.
 \section*{Contributions}
 \begin{tabular}{l|p{0.6\linewidth}}
 Name & Contribution\\
-Anne-Marie Rommerdahl & Scheduler, Kafka, Introduction, Problem and Approach, Use case, Design and Analysis Modelling, Formal Verification and Validation\\
+Anne-Marie Rommerdahl & Scheduler, Kafka, Introduction, Problem and Approach, Use case, Design and Analysis Modelling, Formal Verification and Validation, Evaluation (Analysis)\\
 JannatulFardous & Website,Introduction,Related Work,Design and Analysis Modelling\\
-Wiktor & Automated Experiment, Evaluation
+Wiktor & Automated Experiment, Evaluation\\
 Umma Soneyatul Jannat & Website, Abstract, Keywords and Related Work\\
 \end{tabular}
-
-\appendix
-\includepdf[pages={1}]{ASAA_results.pdf}
 
 \end{document}

@@ -215,25 +215,25 @@ The performance of the system starts from the moment a customer has placed an or
 
 \textbf{Scenarios:} Two scenarios have been made for Performance.\\
 
-The first scenario on \ref{quality attribute diagram 1.drawio}  shows that when a customer places an order through the car-selling website, it will publish to Kafka that an order has been created. After this event is done, the production scheduler fetches the message and starts generating the JSON production recipe, and marks it as ready as soon as it is stored in the database. This entire event chain will be completed in 10 time units. The customer's order submission to Kafka to get the message; this process must complete within four milliseconds. This scenario ensures that distributed communication does not cause significant latency and captures the system's performance requirement for the major workflow.
+The first scenario on \ref{QADiagram1} shows that when a customer places an order through the car-selling website, it will publish to Kafka that an order has been created. After this event is done, the production scheduler fetches the message and starts generating the JSON production recipe, and marks it as ready as soon as it is stored in the database. This entire event chain will be completed in 10 time units. The customer's order submission to Kafka to get the message; this process must complete within four milliseconds. This scenario ensures that distributed communication does not cause significant latency and captures the system's performance requirement for the major workflow.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\linewidth]{quality attribute scenario.drawio.png} % adjust filename
+    \includegraphics[width=1\linewidth]{quality attribute scenario.drawio.png} % adjust filename
     \caption{Scenario 1 for the website}
-    \label{quality attribute diagram 1.drawio}
+    \label{QADiagram1}
 \end{figure}
 
-The second scenario on \ref{quality attribute diagram 2.drawio} shows that after the Kafka message bus receives the order from the website, the scheduler must start immediately to prevent delays. In normal load conditions, as soon as the message is available in Kafka, the scheduler must start generating the recipe within three milliseconds. This prevents performance bottlenecks in the message queue and also ensures that the event-driven architecture facilitates quick transitions from order creation to recipe development.
+The second scenario on \ref{QADiagram2} shows that after the Kafka message bus receives the order from the website, the scheduler must start immediately to prevent delays. In normal load conditions, as soon as the message is available in Kafka, the scheduler must start generating the recipe within three milliseconds. This prevents performance bottlenecks in the message queue and also ensures that the event-driven architecture facilitates quick transitions from order creation to recipe development.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\linewidth]{quality attribute diagram 2.drawio.png} % adjust filename
+    \includegraphics[width=1\linewidth]{quality attribute diagram 2.drawio.png} % adjust filename
     \caption{Scenario 2 for the Scheduler after customer places the order}
-    \label{quality attribute diagram 2.drawio}
+    \label{QADiagram2}
 \end{figure}
 
-The scenario illustrated in \ref{quality attribute diagram 1.drawio} and \ref{quality attribute diagram 2.drawio} describes the performance of the system. The process begins when the customer places the order through the website and, after that, the scheduler gets the order from the website through the Kafka message bus. The production scheduler then breaks the order into a JSON recipe and stores it in the database, marking it 'ready' after storing it in the database. The complete event chain—from order submission to recipe persistence—is depicted in \ref{quality attribute diagram 1.drawio} and \ref{quality attribute diagram 2.drawio}. 
+The scenario illustrated in \ref{QADiagram1} and \ref{QADiagram2} describes the performance of the system. The process begins when the customer places the order through the website and, after that, the scheduler gets the order from the website through the Kafka message bus. The production scheduler then breaks the order into a JSON recipe and stores it in the database, marking it 'ready' after storing it in the database. The complete event chain—from order submission to recipe persistence—is depicted in \ref{QADiagram1} and \ref{QADiagram2}. 
 
 \section{Design and Analysis Modelling}
 \label{sec:design_and_analysis_modelling}
@@ -540,8 +540,9 @@ Conclusion of the report, discussion and relevant future work.
 \section*{Contributions}
 \begin{tabular}{l|p{0.6\linewidth}}
 Name & Contribution\\
-Anne-Marie & Scheduler, Kafka, Problem and Approach, Related Work, Use case, Design and Analysis Modelling, Formal Verification and Validation\\
+Anne-Marie Rommerdahl & Scheduler, Kafka, Introduction, Problem and Approach, Use case, Design and Analysis Modelling, Formal Verification and Validation\\
 JannatulFardous & Website,Introduction,Related Work,Design and Analysis Modelling\\
+Wiktor & Automated Experiment, Evaluation
 \end{tabular}
 
 \appendix

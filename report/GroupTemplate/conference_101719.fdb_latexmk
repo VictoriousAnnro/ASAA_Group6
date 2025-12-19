@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex conference_101719"] 1766181401.32013 "conference_101719.aux" "conference_101719.bbl" "conference_101719" 1766181401.58983 2
+["bibtex conference_101719"] 1766182459.21706 "conference_101719.aux" "conference_101719.bbl" "conference_101719" 1766182459.52338 2
   "./references.bib" 1766181400 30388 d482ffbd70267d95c8a8db7ccb2a3d4f ""
   "C:/Users/annem/AppData/Local/Programs/MiKTeX/bibtex/bst/ieeetran/IEEEtran.bst" 1440622569 57748 7c8250ecf02814ce6ddc0cdbb63df1dd ""
-  "conference_101719.aux" 1766181393 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
+  "conference_101719.aux" 1766182458 11010 22e3f7c6fae5d2455cdfbc20b924da53 "pdflatex"
   (generated)
   "conference_101719.bbl"
   "conference_101719.blg"
   (rewritten before read)
-["pdflatex"] 1766181377.42126 "c:/Users/annem/Desktop/ASAA_Group6/report/GroupTemplate/conference_101719.tex" "conference_101719.pdf" "conference_101719" 1766181379.91301 0
+["pdflatex"] 1766182457.0031 "c:/Users/annem/Desktop/ASAA_Group6/report/GroupTemplate/conference_101719.tex" "conference_101719.pdf" "conference_101719" 1766182459.52369 0
   "ASAAGraph.png" 1766181204 54197 501b0b9eceb29c9122c73754c6c83562 ""
   "C:/Users/annem/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1766151482 187664 65fa417f6850b604c49bfafe76826e39 ""
   "C:/Users/annem/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1766077589 13333512 64e1b6aeb8e6869c8433e28606e46164 ""
@@ -214,11 +214,11 @@
   "FeatureModel.pdf" 1766181204 27462 dbf83948aaf4f80376116aa3fda27d96 ""
   "IEEEtran.cls" 1765467956 288304 5b2e4fa15b0f7eabb840ebf67df4c0f7 ""
   "StructuralDiagram.pdf" 1766181204 41621 1cddaea90c6f1a48ba6dbb7d32145c8e ""
-  "c:/Users/annem/Desktop/ASAA_Group6/report/GroupTemplate/conference_101719.tex" 1766181309 45220 413e43d9786a2806fa87525c6f07aeb8 ""
-  "conference_101719.aux" 1766181393 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
-  "conference_101719.bbl" 1766181401 0 d41d8cd98f00b204e9800998ecf8427e "bibtex conference_101719"
-  "conference_101719.out" 0 -1 0 "pdflatex"
-  "conference_101719.tex" 1766181309 45220 413e43d9786a2806fa87525c6f07aeb8 ""
+  "c:/Users/annem/Desktop/ASAA_Group6/report/GroupTemplate/conference_101719.tex" 1766182458 45221 09baea50c7a49851c113f71658fef9a5 ""
+  "conference_101719.aux" 1766182458 11010 22e3f7c6fae5d2455cdfbc20b924da53 "pdflatex"
+  "conference_101719.bbl" 1766182459 4973 ef0c4c31001de4fb8bb86a44bdad6db9 "bibtex conference_101719"
+  "conference_101719.out" 1766182458 5706 18e56248b103eb85b06e68d344a2f5e3 "pdflatex"
+  "conference_101719.tex" 1766182458 45221 09baea50c7a49851c113f71658fef9a5 ""
   "customerUppaal.png" 1766181204 24426 d02038cea41b2e2b1e401cea8efe11ec ""
   "quality attribute diagram 2.drawio.png" 1766181204 30073 ce44b5dbac64bc51cfe9401fe9256506 ""
   "quality attribute scenario.drawio.png" 1766181204 31450 84473a16a6a936ca0f32cb0718bc88bf ""

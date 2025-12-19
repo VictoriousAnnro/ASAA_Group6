@@ -561,12 +561,14 @@ The results gathered from the experiment show that the system does indeed satisf
 It should however be noted, that the hypothesis of our system fulfilling this requirement has not been formally rejected/validated, as we have not calculated the p-value. 
 
 Another thing worthy of note, is the rather generous time constraint for requirement RQ6. 10 seconds to process a rather simple customer order is a long time, and in the real world, customers would likely have thought something went wrong if the system was processing for that long. 
+
+In addition  the current experiment was done under controlled environment using docker. This setup ensures repeatability but it does not capture variability due to communication delays, shared resource contention, or distributed deployment conditions. Thus, the measured results reflect architectural performance under constrained and stable execution conditions rather than under adverse operational scenarios.
 %anything else that could be better abt this project?
 
 
 \subsection{Future work}
 \label{sec:future_work}
-Though this study covers the design, evaluation and implementation of a core event sequence, the system is still rather simple. In the I4.0 domain, systems are categorized as being complex, usually consisting of several more parts than this simple system, which results in a more complex design for communication between the parts. Future research could perform the same procedure as this study, but with a larger and more complex system, that employs several tactics and design patterns. The system from this study could be expanded to cover the whole chain from the customer website, to the production floor where the order is put into prodution. 
+Though this study covers the design, evaluation and implementation of a core event sequence, the system is still rather simple. In the I4.0 domain, systems are categorized as being complex, usually consisting of several more parts than this simple system, which results in a more complex design for communication between the parts. Future research could perform the same procedure as this study, but with a larger and more complex system, that employs several tactics and design patterns. The system from this study could be expanded to cover the whole chain from the customer website, to the production floor where the order is put into production. The current UPPAAL models can be extended to represent multiple customers and schedulers. The models currently represent a single execution flow to manage state-space complexity; incorporating controlled concurrency would enable evaluation of performance under contention and higher load. Instead of random invariants in the future can assign appropriate invariants that can be tested in real time. 
 
 %Furthermore, future work could test out 
 
